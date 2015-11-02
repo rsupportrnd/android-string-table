@@ -27,14 +27,10 @@ public class Sheet2Strings {
 			int column = i++;
 			try {
 				String languageCode = nav.getCell(0, column);
-				if (isLanguageCode(languageCode) == false)
-				{
+				if (languageCode.contains("values") == false)
 					continue;
-				}
 				
-				String filename = Path.combine(pathRes.getPath(), "values-" + languageCode, "strings.xml");
-				if (languageCode.equals("en"))
-					filename = filename.replace("-en", "");
+				String filename = Path.combine(pathRes.getPath(), languageCode, "strings.xml");
 				
 				createStringsXml(filename, nav, column);
 			}
@@ -43,15 +39,6 @@ public class Sheet2Strings {
 				break;
 			}
 		}
-	}
-
-	private static boolean isLanguageCode(String code) {
-		return
-				code.equals("ko") ||
-				code.equals("en") ||
-				code.equals("cn") ||
-				code.equals("ja") ||
-				false;
 	}
 
 	private static void createStringsXml(String filename, SheetNavigator nav, int col) {
