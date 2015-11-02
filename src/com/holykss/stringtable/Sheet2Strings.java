@@ -58,14 +58,19 @@ public class Sheet2Strings {
 				if (id.isEmpty())
 					continue;
 
-				value = nav.getCell(row, col);
+				try {
+					value = nav.getCell(row, col);
+				} catch (NoSuchElementException e) {
+					value = "";
+				}
+
 				if (value.isEmpty())
 					value = getProperValue(nav, row, col);
 				
 			}
-			catch (Exception e)
+			catch (NoSuchElementException e)
 			{
-				break;
+				break; 
 			}
 			
 			String item;
@@ -136,10 +141,15 @@ public class Sheet2Strings {
 	private static String getProperValue(SheetNavigator nav, int row, int col) {
 		while (col-- > 0)
 		{
-			String cell = nav.getCell(row, col);
+			try {
+				String cell = nav.getCell(row, col);
+				
+				if (cell.isEmpty() == false)
+					return cell;
+			} catch (NoSuchElementException e) {
+				continue;
+			}
 			
-			if (cell.isEmpty() == false)
-				return cell;
 		}
 		throw new NullPointerException("It'll never happening");
 	}
