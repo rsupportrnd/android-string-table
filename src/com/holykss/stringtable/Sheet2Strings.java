@@ -141,7 +141,7 @@ public class Sheet2Strings {
 			if (cell.isEmpty() == false)
 				return cell;
 		}
-		throw new NullPointerException("�엳�쓣 �닔 �뾾�쓬.");
+		throw new NullPointerException("It'll never happening");
 	}
 
 	private static boolean isStringArray(String id) {
