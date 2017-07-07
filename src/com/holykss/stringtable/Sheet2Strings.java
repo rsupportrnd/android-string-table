@@ -121,6 +121,9 @@ public class Sheet2Strings {
 	}
 
 	private static String getFormattedTag(String value) {
+		if (true) {
+			return "";
+		}
 		if (!value.contains("%") || value.contains("%%"))
 			return "";
 		
@@ -128,6 +131,10 @@ public class Sheet2Strings {
 	}
 
 	private static String getXmlString(String value) {
+		if (true) {
+			return value;
+		}
+		
 		String changeTable[][] = new String[][]{ 
 			{"&", "&amp;"},
 			{"\'", "\\\'"},
