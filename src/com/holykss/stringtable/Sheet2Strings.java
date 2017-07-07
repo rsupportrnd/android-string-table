@@ -30,7 +30,7 @@ public class Sheet2Strings {
 				if (languageCode.contains("values") == false)
 					continue;
 				
-				String filename = Path.combine(pathRes.getPath(), languageCode, "strings.xml");
+				String filename = Path.combine(pathRes.getPath(), languageCode, "strings_generated.xml");
 				
 				createStringsXml(filename, nav, column);
 			}
@@ -55,8 +55,15 @@ public class Sheet2Strings {
 			
 			try {
 				id = nav.getCell(row, 0);
+				id = id.trim();
 				if (id.isEmpty())
 					continue;
+				
+				// 주석처리
+				if (id.startsWith("<!--")) {
+					sb.append("    " + id + "\n");
+					continue;
+				}
 
 				try {
 					value = nav.getCell(row, col);
@@ -82,9 +89,12 @@ public class Sheet2Strings {
 			}
 			else
 			{	
+				boolean isCdata = value.startsWith("<!");
 				String formattedTag = getFormattedTag(value);
 				
-				item = "\t<string " + formattedTag + "name=\"" + id + "\">" + getXmlString(value) + "</string>\n";
+				
+				item = "    <string " + formattedTag + "name=\"" + id + "\">" + 
+				(isCdata ? value : getXmlString(value)) + "</string>\n";
 			}
 			
 			sb.append(item);

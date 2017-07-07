@@ -20,7 +20,31 @@ public class TestStringTableGeneratorXml {
 		
 		String args[] = new String[]{fileSource.getCanonicalPath(), resRoot.getCanonicalPath()};
 		
+		String pathSource;
+		String pathRes;
+		
+		pathSource = getPathWithFile(fileSource);
+		pathRes = getPathWithFile(resRoot);
+
+		String args[] = new String[]{
+				pathSource, 
+				pathRes};
+		
 		StringTableGenerator.main(args);
+	}
+
+	private String getPathWithFile(File file) {
+		if (file.exists()) {
+			return file.getAbsolutePath();
+		} 
+		try {
+			return file.getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }
