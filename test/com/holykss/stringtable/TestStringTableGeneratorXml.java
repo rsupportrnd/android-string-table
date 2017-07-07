@@ -18,7 +18,6 @@ public class TestStringTableGeneratorXml {
 		File fileSource = new File("./sample/StringTable.xlsx");
 		File resRoot = new File("./sample/res/");
 		
-		String args[] = new String[]{fileSource.getCanonicalPath(), resRoot.getCanonicalPath()};
 		
 		String pathSource;
 		String pathRes;
