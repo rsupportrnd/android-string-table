@@ -89,12 +89,8 @@ public class Sheet2Strings {
 			}
 			else
 			{	
-				boolean isCdata = value.startsWith("<!");
-				String formattedTag = getFormattedTag(value);
-				
-				
-				item = "    <string " + formattedTag + "name=\"" + id + "\">" + 
-				(isCdata ? value : getXmlString(value)) + "</string>\n";
+				item = "    <string name=\"" + id + "\">" + 
+						getValue(value) + "</string>\n";
 			}
 			
 			sb.append(item);
@@ -119,41 +115,63 @@ public class Sheet2Strings {
 			e.printStackTrace();
 		}
 	}
-
-	private static String getFormattedTag(String value) {
-		if (true) {
-			return "";
+	
+	private static String getValue(String valueRaw) {
+		if (needCoveredWithCdata(valueRaw)) {
+			return "<![CDATA[" + valueRaw + "]]>";
 		}
-		if (!value.contains("%") || value.contains("%%"))
-			return "";
 		
-		return "formatted=\"false\" ";
+		return valueRaw;
 	}
 
-	private static String getXmlString(String value) {
-		if (true) {
-			return value;
+	private static boolean needCoveredWithCdata(String value) {
+		if (value.startsWith("<![CDATA")) {
+			return false;
 		}
 		
-		String changeTable[][] = new String[][]{ 
-			{"&", "&amp;"},
-			{"\'", "\\\'"},
-			{"...", "&#8230;"},
-			{"\n", "\\n"},
-			
-		};
-		
-		String result = new String(value);
-		
-		for (String[] set:changeTable)
-		{
-			if (result.contains(set[0]))
-			{
-				result = result.replace(set[0], set[1]);
-			}
+		if (value.startsWith("<")) {
+			return true;
 		}
-		return result;
+		
+//		if (value.contains("%") ||
+//				value.contains("%%") ||
+//				value.contains("<") ||
+//				value.contains(">") ||
+//				value.contains("&") ||
+//				value.contains("\'") ||
+//				value.contains("...") ||
+//				value.contains("\n") ||
+//				false
+//				)
+//			return true;
+		
+		return false;
 	}
+
+//	private static String getXmlString(String value) {
+//		if (true) {
+//			return value;
+//		}
+//		
+//		String changeTable[][] = new String[][]{ 
+//			{"&", "&amp;"},
+//			{"\'", "\\\'"},
+//			{"...", "&#8230;"},
+//			{"\n", "\\n"},
+//			
+//		};
+//		
+//		String result = new String(value);
+//		
+//		for (String[] set:changeTable)
+//		{
+//			if (result.contains(set[0]))
+//			{
+//				result = result.replace(set[0], set[1]);
+//			}
+//		}
+//		return result;
+//	}
 
 	private static String getProperValue(SheetNavigator nav, int row, int col) {
 		while (col-- > 0)
@@ -188,7 +206,7 @@ public class Sheet2Strings {
 		
 		for (String item : items)
 		{
-			sb.append("\t\t<item>" + getXmlString(item) + "</item>\n");
+			sb.append("\t\t<item>" + getValue(item) + "</item>\n");
 		}
 		sb.append("\t</string-array>\n");
 		
