@@ -2,12 +2,18 @@ package com.holykss.stringtable;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.NoSuchElementException;
 
 import org.apache.poi.ss.usermodel.Sheet;
+import org.jdom2.Comment;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import com.holykss.stringtable.xls.SheetNavigator;
 
@@ -42,11 +48,15 @@ public class Sheet2Strings {
 	}
 
 	private static void createStringsXml(String filename, SheetNavigator nav, int col) {
-		StringBuilder sb = new StringBuilder();
+		Document doc = new Document();
+		Element resources = new Element("resources");
+		doc.addContent(resources);
 		
-		sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-		sb.append("<resources>\n");
-		sb.append("\n");
+//		StringBuilder sb = new StringBuilder();
+//		
+//		sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+//		sb.append("<resources>\n");
+//		sb.append("\n");
 		
 		for (int row=1; true; row++)
 		{
@@ -60,8 +70,17 @@ public class Sheet2Strings {
 					continue;
 				
 				// 주석처리
-				if (id.startsWith("<!--")) {
-					sb.append("    " + id + "\n");
+				if (id.startsWith("<") ||
+						id.startsWith("/") ||
+						id.startsWith("#") ||
+						false
+						) {
+					if (id.startsWith("<!--")) {
+						id = id.replace("<!--", "").replaceAll("-->", "");
+					}
+					Comment comment = new Comment(id);
+					resources.addContent(comment);
+
 					continue;
 				}
 
@@ -80,54 +99,60 @@ public class Sheet2Strings {
 				break; 
 			}
 			
-			String item;
-			
-			if (isStringArray(id))
-			{
-				sb.append("\n");
-				item = getStringArrayItem(id, value);
+			if (id.contains("[]")) {
+				Element stringArray = getStringArrayItem(id, value);
+				resources.addContent(stringArray);
+			} else {	
+				Element string = new Element("string");
+				string.setAttribute("name", id);
+				if (isNotFormatted(value)) {
+					string.setAttribute("formatted", "false");
+				}
+				string.setText(getText(value));
+				resources.addContent(string);
+//				
+//				item = "    <string formatted=\"false\" name=\"" + id + "\">" + 
+//						getValue(value) + "</string>\n";
 			}
-			else
-			{	
-				item = "    <string formatted=\"false\" name=\"" + id + "\">" + 
-						getValue(value) + "</string>\n";
-			}
-			
-			sb.append(item);
 		}
 
-		sb.append("\n");
-		sb.append("\n");
-		sb.append("</resources>");
-		
-		File file = new File(filename);
-		
-		if (file.getParentFile().isDirectory() == false)
-			file.getParentFile().mkdirs();
-		else if (file.exists())
-			file.delete();
-
 		try {
-			Writer fwriter = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
-			fwriter.write(sb.toString());
-			fwriter.close();
+			File file = new File(filename);
+			
+			if (file.getParentFile().isDirectory() == false)
+				file.getParentFile().mkdirs();
+			else if (file.exists())
+				file.delete();
+			
+			// 4. 파일에 출력
+			FileWriter writer = new FileWriter(filename);
+			new XMLOutputter(Format.getPrettyFormat()).output(doc, writer);
+			writer.close();
+			//출처: http://devhome.tistory.com/74 [미주엘의 개발이야기]
+	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private static String getValue(String valueRaw) {
+	private static String getText(String valueRaw) {
 		String value = valueRaw;
 		value = value.replace("\'", "\\'");
 		value = value.replace("\\\\\'", "\\'");
 		
-		if (needCoveredWithCdata(value)) {
-			return "<![CDATA[" + value + "]]>";
-		}
-		
+//		if (needCoveredWithCdata(value)) {
+//			return "<![CDATA[" + value + "]]>";
+//		}
+//		
 		return value;
 	}
 
+	private static boolean isNotFormatted(String value) {
+		return 
+			value.contains("\'") ||
+			value.contains("\n") ||
+			false;
+	}
 	private static boolean needCoveredWithCdata(String value) {
 		if (value.startsWith("<![CDATA")) {
 			return false;
@@ -193,14 +218,10 @@ public class Sheet2Strings {
 		throw new NullPointerException("It'll never happening");
 	}
 
-	private static boolean isStringArray(String id) {
-		return id.indexOf("[]") >= 0;
-	}
+	private static Element getStringArrayItem(String id, String value) {
+		Element stringArray = new Element("string-array");
+		stringArray.setAttribute("name", id.replace("[]", ""));
 
-	private static String getStringArrayItem(String id, String value) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("\t<string-array name=\"" + id.replace("[]", "") + "\">\n");
-		
 		String separator = "\n";
 		
 		if (value.contains("_x000a_"))
@@ -210,11 +231,15 @@ public class Sheet2Strings {
 		
 		for (String item : items)
 		{
-			sb.append("\t\t<item>" + getValue(item) + "</item>\n");
+			Element child = new Element("item");
+			if (isNotFormatted(item)) {
+				child.setAttribute("formatted", "false");
+			}
+			child.setText(getText(item));
+			stringArray.addContent(child);
 		}
-		sb.append("\t</string-array>\n");
-		
-		return sb.toString();
+
+		return stringArray;
 	}
 
 }

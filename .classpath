@@ -10,5 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/poi-3.10-FINAL-20140208/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="libs/jdom-2.0.6/jdom-2.0.6.jar" sourcepath="libs/jdom-2.0.6/jdom-2.0.6-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
