@@ -89,7 +89,7 @@ public class Sheet2Strings {
 			}
 			else
 			{	
-				item = "    <string name=\"" + id + "\">" + 
+				item = "    <string formatted=\"false\" name=\"" + id + "\">" + 
 						getValue(value) + "</string>\n";
 			}
 			
@@ -117,11 +117,15 @@ public class Sheet2Strings {
 	}
 	
 	private static String getValue(String valueRaw) {
-		if (needCoveredWithCdata(valueRaw)) {
-			return "<![CDATA[" + valueRaw + "]]>";
+		String value = valueRaw;
+		value = value.replace("\'", "\\'");
+		value = value.replace("\\\\\'", "\\'");
+		
+		if (needCoveredWithCdata(value)) {
+			return "<![CDATA[" + value + "]]>";
 		}
 		
-		return valueRaw;
+		return value;
 	}
 
 	private static boolean needCoveredWithCdata(String value) {
