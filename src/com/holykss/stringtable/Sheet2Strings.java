@@ -105,7 +105,7 @@ public class Sheet2Strings {
 			} else {	
 				Element string = new Element("string");
 				string.setAttribute("name", id);
-				if (isNotFormatted(value)) {
+				if (isNeedFormattedFalse(value)) {
 					string.setAttribute("formatted", "false");
 				}
 				string.setText(getText(value));
@@ -137,71 +137,20 @@ public class Sheet2Strings {
 	
 	private static String getText(String valueRaw) {
 		String value = valueRaw;
-		value = value.replace("\'", "\\'");
-		value = value.replace("\\\\\'", "\\'");
-		
-//		if (needCoveredWithCdata(value)) {
-//			return "<![CDATA[" + value + "]]>";
-//		}
-//		
+		value = value.replace("\'", "\\\'");
+		value = value.replace("\\\\\'", "\\\'");
+		value = value.replace("\"", "\\\"");
+		value = value.replace("\\\\\"", "\\\"");
+
 		return value;
 	}
 
-	private static boolean isNotFormatted(String value) {
+	private static boolean isNeedFormattedFalse(String value) {
 		return 
-			value.contains("\'") ||
-			value.contains("\n") ||
+			value.contains("%") ||
 			false;
 	}
-	private static boolean needCoveredWithCdata(String value) {
-		if (value.startsWith("<![CDATA")) {
-			return false;
-		}
-		
-		if (value.startsWith("<")) {
-			return true;
-		}
-		
-//		if (value.contains("%") ||
-//				value.contains("%%") ||
-//				value.contains("<") ||
-//				value.contains(">") ||
-//				value.contains("&") ||
-//				value.contains("\'") ||
-//				value.contains("...") ||
-//				value.contains("\n") ||
-//				false
-//				)
-//			return true;
-		
-		return false;
-	}
-
-//	private static String getXmlString(String value) {
-//		if (true) {
-//			return value;
-//		}
-//		
-//		String changeTable[][] = new String[][]{ 
-//			{"&", "&amp;"},
-//			{"\'", "\\\'"},
-//			{"...", "&#8230;"},
-//			{"\n", "\\n"},
-//			
-//		};
-//		
-//		String result = new String(value);
-//		
-//		for (String[] set:changeTable)
-//		{
-//			if (result.contains(set[0]))
-//			{
-//				result = result.replace(set[0], set[1]);
-//			}
-//		}
-//		return result;
-//	}
-
+	
 	private static String getProperValue(SheetNavigator nav, int row, int col) {
 		while (col-- > 0)
 		{
@@ -232,7 +181,7 @@ public class Sheet2Strings {
 		for (String item : items)
 		{
 			Element child = new Element("item");
-			if (isNotFormatted(item)) {
+			if (isNeedFormattedFalse(item)) {
 				child.setAttribute("formatted", "false");
 			}
 			child.setText(getText(item));
