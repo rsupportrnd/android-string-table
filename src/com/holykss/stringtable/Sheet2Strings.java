@@ -52,12 +52,6 @@ public class Sheet2Strings {
 		Element resources = new Element("resources");
 		doc.addContent(resources);
 		
-//		StringBuilder sb = new StringBuilder();
-//		
-//		sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-//		sb.append("<resources>\n");
-//		sb.append("\n");
-		
 		for (int row=1; true; row++)
 		{
 			String id;
@@ -125,8 +119,10 @@ public class Sheet2Strings {
 				file.delete();
 			
 			// 4. 파일에 출력
-			FileWriter writer = new FileWriter(filename);
-			new XMLOutputter(Format.getPrettyFormat()).output(doc, writer);
+			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(filename)), 
+					"UTF-8");
+			//FileWriter writer = new FileWriter(filename);
+			new XMLOutputter(Format.getPrettyFormat().setEncoding("UTF-8")).output(doc, writer);
 			writer.close();
 			//출처: http://devhome.tistory.com/74 [미주엘의 개발이야기]
 	
@@ -146,9 +142,31 @@ public class Sheet2Strings {
 	}
 
 	private static boolean isNeedFormattedFalse(String value) {
-		return 
-			value.contains("%") ||
-			false;
+		// % 가 아예 없거나,
+		// %% 를 명시적으로 쓴다면 false
+		if (value.contains("%%") || !value.contains("%")) {
+			return false;
+		}
+
+		//%1 %d 등이면 아니다.
+		if (
+				value.contains("%1") ||
+				value.contains("%2") ||
+				value.contains("%3") ||
+				value.contains("%4") ||
+				value.contains("%5") ||
+				value.contains("%6") ||
+				value.contains("%7") ||
+				value.contains("%8") ||
+				value.contains("%9") ||
+				value.contains("%d") ||
+				value.contains("%s") ||
+				value.contains("%n") ||
+				value.contains("%f") ||
+				false
+				)
+			return false;
+		return true;
 	}
 	
 	private static String getProperValue(SheetNavigator nav, int row, int col) {
