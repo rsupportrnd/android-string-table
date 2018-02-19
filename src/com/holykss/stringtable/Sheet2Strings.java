@@ -72,7 +72,15 @@ public class Sheet2Strings {
 					if (id.startsWith("<!--")) {
 						id = id.replace("<!--", "").replaceAll("-->", "");
 					}
-					Comment comment = new Comment(id);
+					
+					String commentString = id;
+					String description = nav.getCell(row, 1);
+					
+					if (!description.isEmpty()) {
+						commentString = commentString + " / " + description;
+					}
+						
+					Comment comment = new Comment(commentString);
 					resources.addContent(comment);
 
 					continue;
