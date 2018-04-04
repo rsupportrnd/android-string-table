@@ -66,9 +66,7 @@ public class Sheet2Strings {
 				// 주석처리
 				if (id.startsWith("<") ||
 						id.startsWith("/") ||
-						id.startsWith("#") ||
-						false
-						) {
+						id.startsWith("#")) {
 					if (id.startsWith("<!--")) {
 						id = id.replace("<!--", "").replaceAll("-->", "");
 					}
@@ -77,7 +75,7 @@ public class Sheet2Strings {
 					String description = nav.getCell(row, 1);
 					
 					if (!description.isEmpty()) {
-						commentString = commentString + " / " + description;
+						commentString = commentString + " / " + description + " ";
 					}
 						
 					Comment comment = new Comment(commentString);
@@ -156,7 +154,11 @@ public class Sheet2Strings {
 			return false;
 		}
 
-		//%1 %d 등이면 아니다.
+		if (value.contains("%1$")) {
+			return true;
+		}
+		
+		//%1$ %d 등이면 아니다.
 		if (
 				value.contains("%1") ||
 				value.contains("%2") ||
