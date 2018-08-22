@@ -143,6 +143,7 @@ public class Sheet2Strings {
 		value = value.replace("\\\\\'", "\\\'");
 		value = value.replace("\"", "\\\"");
 		value = value.replace("\\\\\"", "\\\"");
+		value = value.replace("\n", "\\n");
 
 		return value;
 	}
