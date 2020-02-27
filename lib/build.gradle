@@ -1,0 +1,34 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+
+    compile 'org.apache.poi:poi:3.10-FINAL'
+    compile 'commons-codec:commons-codec:1.5'
+    compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
+    compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
+    compile 'org.apache.xmlbeans:xmlbeans:2.3.0'
+    compile 'stax:stax-api:1.0.1'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'xml-apis:xml-apis:1.0.b2'
+    compile 'org.jdom:jdom2:2.0.6'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'stringtable.StringTableGenerator'
+    }
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
