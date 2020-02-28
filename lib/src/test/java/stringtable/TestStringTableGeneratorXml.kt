@@ -3,10 +3,10 @@ package stringtable
 import org.junit.Test
 import java.io.File
 import java.io.IOException
+import java.security.InvalidParameterException
 
 class TestStringTableGeneratorXml {
     @Test
-    @Throws(Exception::class)
     fun test() {
         val fileSource = File("./src/test/java/stringtable/sample/StringTable.xlsx")
         val resRoot = File("./src/test/java/stringtable/sample/res/")
@@ -30,5 +30,11 @@ class TestStringTableGeneratorXml {
             e.printStackTrace()
         }
         return null
+    }
+
+    @Test(expected = InvalidParameterException::class)
+    fun singleParameterShouldThrowsInvalidParameterException() {
+        StringTableGenerator.main(arrayOf(""))
+
     }
 }
