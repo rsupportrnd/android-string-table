@@ -1,19 +1,6 @@
 package stringtable;
 
-import java.io.File;
-import java.io.IOException;
-
 public class Path {
-	public static String combine(File path, String childName) {
-		String pathString;
-		try {
-			pathString = path.getCanonicalPath();
-		} catch (IOException e) {
-			pathString = path.getPath();
-			e.printStackTrace();
-		}
-		return combine(pathString, childName);
-	}
 
 	public static String combine(String pathString, String childName) {
 		String pathDelimiter = getDelimiter(pathString + childName);

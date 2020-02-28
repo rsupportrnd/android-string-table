@@ -16,11 +16,6 @@ import java.util.NoSuchElementException;
 
 public class Sheet2Strings {
 
-	public static boolean isStringTable(Sheet sheet) {
-		SheetNavigator navigator = new SheetNavigator(sheet);
-		return navigator.getCell(0, 0).equals("string id");
-	}
-
 	public static void convert(Sheet sheet, File pathRes) {
 		SheetNavigator nav = new SheetNavigator(sheet);
 
@@ -143,54 +138,6 @@ public class Sheet2Strings {
 		value = value.replace("\n", "\\n");
 
 		return value;
-	}
-
-	private static boolean isNeedFormattedFalse(String value) {
-		// % 가 아예 없거나,
-		// %% 를 명시적으로 쓴다면 false
-		if (value.contains("%%") || !value.contains("%")) {
-			return false;
-		}
-
-		if (value.contains("%1$")) {
-			return true;
-		}
-
-		//%1$ %d 등이면 아니다.
-		if (
-				value.contains("%1") ||
-				value.contains("%2") ||
-				value.contains("%3") ||
-				value.contains("%4") ||
-				value.contains("%5") ||
-				value.contains("%6") ||
-				value.contains("%7") ||
-				value.contains("%8") ||
-				value.contains("%9") ||
-				value.contains("%d") ||
-				value.contains("%s") ||
-				value.contains("%n") ||
-				value.contains("%f") ||
-				false
-				)
-			return false;
-		return true;
-	}
-
-	private static String getProperValue(SheetNavigator nav, int row, int col) {
-		while (col-- > 0)
-		{
-			try {
-				String cell = nav.getCell(row, col);
-
-				if (cell.isEmpty() == false)
-					return cell;
-			} catch (NoSuchElementException e) {
-				continue;
-			}
-
-		}
-		throw new NullPointerException("It'll never happening");
 	}
 
 	private static Element getStringArrayItem(String id, String value) {

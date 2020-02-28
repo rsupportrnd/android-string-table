@@ -15,19 +15,8 @@ public class SheetNavigator {
 	{
 		this.sheet = masterSheet;
 	}
-	
-	public boolean hasContents(int row, int col)
-	{
-		try {
-			String cell = getCell(row, col);
-			return cell.isEmpty() == false;
-		} catch (NoSuchElementException e)
-		{
-			return false;
-		}
-	}
-	
-	
+
+
 	public String getCell(int row, int col) throws NoSuchElementException
 	{
 		Row rowData = sheet.getRow(row);
@@ -54,40 +43,6 @@ public class SheetNavigator {
 			return cell.getStringCellValue().replace("_x000a_", "\n");
 		}
 		return "";
-	}
-
-	public String getCell(int row, int col, String defaultString) {
-		try {
-			String result = getCell(row, col);
-			
-			if (result.isEmpty())
-				return defaultString;
-			
-			return result;
-			
-		} catch (Exception e) {
-			return defaultString;
-		}
-	}
-
-	public double getCellNumber(int row, int col, double defaultNumber) {
-		Row rowData = sheet.getRow(row);
-		
-		if (rowData==null)
-			return defaultNumber;
-		
-		Cell cell = rowData.getCell(col);
-
-		if (cell == null)
-			return defaultNumber;
-		
-		switch (cell.getCellType())
-		{
-		case XSSFCell.CELL_TYPE_NUMERIC:
-			return cell.getNumericCellValue();
-		}
-		
-		return defaultNumber;
 	}
 
 }
