@@ -23,7 +23,7 @@ public class Sheet2Strings {
 
 	public static void convert(Sheet sheet, File pathRes) {
 		SheetNavigator nav = new SheetNavigator(sheet);
-		
+
 		int i=1;
 		while (true)
 		{
@@ -32,9 +32,9 @@ public class Sheet2Strings {
 				String languageCode = nav.getCell(0, column);
 				if (languageCode.contains("values") == false)
 					continue;
-				
+
 				String filename = Path.combine(pathRes.getPath(), languageCode, "strings.xml");
-				
+
 				createStringsXml(filename, nav, column);
 			}
 			catch (NoSuchElementException e)
@@ -48,18 +48,22 @@ public class Sheet2Strings {
 		Document doc = new Document();
 		Element resources = new Element("resources");
 		doc.addContent(resources);
-		
+
+		resources.addContent(new Comment("generator link: https://github.com/jobtools/android-string-table"));
+		resources.addContent(new Comment("자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!"));
+		resources.addContent(new Comment("This file is auto generated. DO NOT EDIT THIS XML FILE!"));
+
 		for (int row=1; true; row++)
 		{
 			String id;
 			String value;
-			
+
 			try {
 				id = nav.getCell(row, 0);
 				id = id.trim();
 				if (id.isEmpty())
 					continue;
-				
+
 				// 주석처리
 				if (id.startsWith("<") ||
 						id.startsWith("/") ||
@@ -67,14 +71,14 @@ public class Sheet2Strings {
 					if (id.startsWith("<!--")) {
 						id = id.replace("<!--", "").replaceAll("-->", "");
 					}
-					
+
 					String commentString = id;
 					String description = nav.getCell(row, 1);
-					
+
 					if (!description.isEmpty()) {
 						commentString = commentString + " / " + description + " ";
 					}
-						
+
 					Comment comment = new Comment(commentString);
 					resources.addContent(comment);
 
@@ -87,53 +91,49 @@ public class Sheet2Strings {
 					value = "";
 				}
 
-				if (value.isEmpty())
-					value = getProperValue(nav, row, col);
-				
+				if (value.isEmpty()){
+					continue;
+				}
+
+
 			}
 			catch (NoSuchElementException e)
 			{
-				break; 
+				break;
 			}
-			
+
 			if (id.contains("[]")) {
 				Element stringArray = getStringArrayItem(id, value);
 				resources.addContent(stringArray);
-			} else {	
+			} else {
 				Element string = new Element("string");
 				string.setAttribute("name", id);
-				if (isNeedFormattedFalse(value)) {
-					string.setAttribute("formatted", "false");
-				}
 				string.setText(getText(value));
 				resources.addContent(string);
-//				
-//				item = "    <string formatted=\"false\" name=\"" + id + "\">" + 
-//						getValue(value) + "</string>\n";
 			}
 		}
 
 		try {
 			File file = new File(filename);
-			
+
 			if (file.getParentFile().isDirectory() == false)
 				file.getParentFile().mkdirs();
 			else if (file.exists())
 				file.delete();
-			
+
 			// 4. 파일에 출력
-			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(filename)), 
+			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(filename)),
 					"UTF-8");
 			//FileWriter writer = new FileWriter(filename);
-			new XMLOutputter(Format.getPrettyFormat().setEncoding("UTF-8")).output(doc, writer);
+			new XMLOutputter(Format.getPrettyFormat().setIndent("    ").setEncoding("UTF-8")).output(doc, writer);
 			writer.close();
 			//출처: http://devhome.tistory.com/74 [미주엘의 개발이야기]
-	
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static String getText(String valueRaw) {
 		String value = valueRaw;
 		value = value.replace("\'", "\\\'");
@@ -155,7 +155,7 @@ public class Sheet2Strings {
 		if (value.contains("%1$")) {
 			return true;
 		}
-		
+
 		//%1$ %d 등이면 아니다.
 		if (
 				value.contains("%1") ||
@@ -176,19 +176,19 @@ public class Sheet2Strings {
 			return false;
 		return true;
 	}
-	
+
 	private static String getProperValue(SheetNavigator nav, int row, int col) {
 		while (col-- > 0)
 		{
 			try {
 				String cell = nav.getCell(row, col);
-				
+
 				if (cell.isEmpty() == false)
 					return cell;
 			} catch (NoSuchElementException e) {
 				continue;
 			}
-			
+
 		}
 		throw new NullPointerException("It'll never happening");
 	}
@@ -198,18 +198,15 @@ public class Sheet2Strings {
 		stringArray.setAttribute("name", id.replace("[]", ""));
 
 		String separator = "\n";
-		
+
 		if (value.contains("_x000a_"))
 			separator = "_x000a_";
-		
+
 		String []items = value.split(separator);
-		
+
 		for (String item : items)
 		{
 			Element child = new Element("item");
-			if (isNeedFormattedFalse(item)) {
-				child.setAttribute("formatted", "false");
-			}
 			child.setText(getText(item));
 			stringArray.addContent(child);
 		}
