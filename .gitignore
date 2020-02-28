@@ -1,3 +1,10 @@
 .idea/workspace.xml
 .DS_Store
 out/
+/build
+/lib/build
+/lib/src/test/java/stringtable/sample/res
+.idea
+.gradle
+*.iml
+local.properties
