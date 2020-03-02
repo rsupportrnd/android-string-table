@@ -1,0 +1,57 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+
+    implementation 'com.google.api-client:google-api-client:1.30.4'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.30.4'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
+
+buildscript {
+    ext.kotlin_version = '1.3.61'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+task stringResourceDownload(group: 'download', type: JavaExec) {
+    // Google Drive Credentals file 을 다운받아서 해당 파일을 설정해줘야한다.
+    // https://developers.google.com/drive/api/v3/quickstart/java
+    def googleDriveCredentials = './credentials.json'
+
+    // Google SpreadSheet Field id 를 설정해워야한다.
+    // https://docs.google.com/spreadsheets/d/{fieldId}/edit#gid=1955937470
+    def googleSpreadSheedFieldId = "spread sheet field id"
+
+    main = 'com.jeff.download.FileDownloader'
+    classpath = sourceSets.main.runtimeClasspath
+    args = [googleDriveCredentials, googleSpreadSheedFieldId]
+}

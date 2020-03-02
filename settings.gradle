@@ -1,2 +1,3 @@
 rootProject.name = 'android-string-table'
 include ':lib'
+include ':download'
