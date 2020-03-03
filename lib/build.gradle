@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -16,6 +17,7 @@ dependencies {
     compile 'dom4j:dom4j:1.6.1'
     compile 'xml-apis:xml-apis:1.0.b2'
     compile 'org.jdom:jdom2:2.0.6'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 jar {
@@ -32,3 +34,25 @@ jar {
 
 sourceCompatibility = "8"
 targetCompatibility = "8"
+buildscript {
+    ext.kotlin_version = '1.3.61'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

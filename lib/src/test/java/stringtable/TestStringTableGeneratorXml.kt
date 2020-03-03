@@ -10,10 +10,8 @@ class TestStringTableGeneratorXml {
     fun test() {
         val fileSource = File("./src/test/java/stringtable/sample/StringTable.xlsx")
         val resRoot = File("./src/test/java/stringtable/sample/res/")
-        val pathSource: String?
-        val pathRes: String?
-        pathSource = getPathWithFile(fileSource)
-        pathRes = getPathWithFile(resRoot)
+        val pathSource = getPathWithFile(fileSource)
+        val pathRes = getPathWithFile(resRoot)
         val args = arrayOf(
                 pathSource,
                 pathRes)
@@ -26,8 +24,7 @@ class TestStringTableGeneratorXml {
         }
         try {
             return file.canonicalPath
-        } catch (e: IOException) { // TODO Auto-generated catch block
-            e.printStackTrace()
+        } catch (e: IOException) {
         }
         return null
     }
