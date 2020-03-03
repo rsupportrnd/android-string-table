@@ -28,7 +28,7 @@ public class Sheet2Strings {
 				if (languageCode.contains("values") == false)
 					continue;
 
-				String filename = Path.combine(pathRes.getPath(), languageCode, "strings.xml");
+				String filename = Path.combine(pathRes.getPath(), languageCode, "strings_generated.xml");
 
 				createStringsXml(filename, nav, column);
 			}
