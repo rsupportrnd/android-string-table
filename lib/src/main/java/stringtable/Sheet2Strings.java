@@ -44,7 +44,7 @@ public class Sheet2Strings {
 		Element resources = new Element("resources");
 		doc.addContent(resources);
 
-		resources.addContent(new Comment("generator link: https://github.com/jobtools/android-string-table"));
+		resources.addContent(new Comment("generator link: https://github.com/jobtools/android-string-table "));
 		resources.addContent(new Comment("자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!"));
 		resources.addContent(new Comment("This file is auto generated. DO NOT EDIT THIS XML FILE!"));
 
