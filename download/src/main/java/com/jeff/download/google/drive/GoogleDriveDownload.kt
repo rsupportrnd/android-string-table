@@ -15,13 +15,15 @@ import com.google.api.services.drive.DriveScopes
 import com.jeff.download.Downloadable
 import java.io.*
 
-class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String) : Downloadable {
+class GoogleDriveDownload(private val fileId: String) : Downloadable {
 
     companion object {
         private const val APPLICATION_NAME = "구글드라이브 File 다운로드"
         private val jsonFactory: JsonFactory = JacksonFactory.getDefaultInstance()
         private val scopes = listOf(DriveScopes.DRIVE)
         private const val TOKENS_DIRECTORY_PATH = "drive_all_tokens"
+        private const val CREDENTIALS_RESOURCE_PATH = "/credentials/credentials.json"
+
     }
 
     override fun execute(): File? {
@@ -32,14 +34,14 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
 
         val outputFilePath = service.files().get(fileId).execute().let { driveFile ->
             FileExtension.from(driveFile).let { fileExtension ->
-                val exprotFile = fileExtension.extension().let {
+                val exportFile = fileExtension.extension().let {
                     if (it.isNotEmpty()) driveFile.name + "." + it else driveFile.name
                 }
                 val outputDir = makeOutputDirectory()
-                FileOutputStream(File(outputDir + exprotFile)).use {
+                FileOutputStream(File(outputDir + exportFile)).use {
                     service.files().export(fileId, fileExtension.exportMimeType()).executeAndDownloadTo(it)
                 }
-                exprotFile
+                exportFile
             }
         }
         return File(outputFilePath)
@@ -63,11 +65,8 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
      */
     @Throws(IOException::class)
     private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential { // Load client secrets.
-//        val `in` = GoogleDriveDownload::class.java.getResourceAsStream(credentialsFilePath)
-//                ?: throw FileNotFoundException("Resource not found: $credentialsFilePath")
-
-        val `in` = FileInputStream(File(credentialsFilePath))
-
+        val `in`: InputStream = GoogleDriveDownload::class.java.getResourceAsStream(CREDENTIALS_RESOURCE_PATH)
+                ?: throw ClassNotFoundException("Resource not found: $CREDENTIALS_RESOURCE_PATH")
 
         val clientSecrets = GoogleClientSecrets.load(jsonFactory, InputStreamReader(`in`))
         // Build flow and trigger user authorization request.

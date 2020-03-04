@@ -5,10 +5,9 @@ import com.jeff.download.google.drive.GoogleDriveDownload;
 public class FileDownloader {
 
     public static void main(String[] args) {
-        if (args == null || args.length < 2) throw new RuntimeException("not found argument.");
-        String credentialsFile = args[0];
-        String fileId = args[1];
-        GoogleDriveDownload downloadable = new GoogleDriveDownload(credentialsFile, fileId);
+        if (args == null || args.length < 1) throw new RuntimeException("not found argument.");
+        String fileId = args[0];
+        GoogleDriveDownload downloadable = new GoogleDriveDownload(fileId);
         downloadable.execute();
     }
 }

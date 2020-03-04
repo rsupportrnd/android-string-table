@@ -8,8 +8,8 @@ interface Downloadable {
 
     companion object{
         @JvmStatic
-        fun from(credentialsFile: String, fileId: String): Downloadable {
-            return GoogleDriveDownload(credentialsFile, fileId)
+        fun from(fileId: String): Downloadable {
+            return GoogleDriveDownload(fileId)
         }
     }
 }

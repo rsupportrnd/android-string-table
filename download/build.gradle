@@ -43,9 +43,8 @@ compileTestKotlin {
 }
 
 task stringResourceDownload(group: 'download', type: JavaExec) {
-    // Google Drive Credentals file 을 다운받아서 해당 파일을 설정해줘야한다.
+    // Download to src/main/res/credentials
     // https://developers.google.com/drive/api/v3/quickstart/java
-    def googleDriveCredentials = './credentials.json'
 
     // Google SpreadSheet Field id 를 설정해워야한다.
     // https://docs.google.com/spreadsheets/d/{fieldId}/edit#gid=1955937470
@@ -53,5 +52,5 @@ task stringResourceDownload(group: 'download', type: JavaExec) {
 
     main = 'com.jeff.download.FileDownloader'
     classpath = sourceSets.main.runtimeClasspath
-    args = [googleDriveCredentials, googleSpreadSheedFieldId]
+    args = [googleSpreadSheedFieldId]
 }
