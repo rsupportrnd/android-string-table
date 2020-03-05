@@ -43,14 +43,23 @@ compileTestKotlin {
 }
 
 task stringResourceDownload(group: 'download', type: JavaExec) {
-    // Download to src/main/res/credentials
-    // https://developers.google.com/drive/api/v3/quickstart/java
-
     // Google SpreadSheet Field id 를 설정해워야한다.
     // https://docs.google.com/spreadsheets/d/{fieldId}/edit#gid=1955937470
-    def googleSpreadSheedFieldId = "spread sheet field id"
+    def googleSpreadSheetFieldId = "spread sheet field id"
 
     main = 'com.jeff.download.FileDownloader'
     classpath = sourceSets.main.runtimeClasspath
-    args = [googleSpreadSheedFieldId]
+    args = [googleSpreadSheetFieldId]
+
+}
+
+jar.doFirst {
+    def rootResources = sourceSets.main.resources.srcDirs.first()
+    def rootCredentials = "$rootResources/credentials/"
+    def fileCredentials = "credentials.json"
+    def pathCredentials = rootCredentials + fileCredentials
+
+    assert file(pathCredentials).exists(): """$fileCredentials not found at $rootCredentials
+Please download $fileCredentials from https://developers.google.com/drive/api/v3/quickstart/java 
+"""
 }
