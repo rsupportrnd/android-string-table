@@ -13,5 +13,5 @@ Generate strings_generated.xml from .xlsx file
 Download .xlsx from google spreadsheet
 
 # TODO
-- [ ] Warn empty cell on "values" column
+- [ ] Warn empty cell on "values" column - values 가 비어 있는데, 다른 곳에 값이 있을 경우
 - [ ] 권한 축소 - 읽기 권한만
