@@ -14,3 +14,4 @@ Download .xlsx from google spreadsheet
 
 # TODO
 [ ] Warn empty cell on "values" column
+[ ] 권한 축소 - 읽기 권한만
