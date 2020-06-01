@@ -30,7 +30,7 @@ public class Sheet2Strings {
 
 				String filename = Path.combine(pathRes.getPath(), languageCode, "strings_generated.xml");
 
-				createStringsXml(filename, nav, column);
+				createStringsXml(filename, nav, 0, column);
 			}
 			catch (NoSuchElementException e)
 			{
@@ -39,7 +39,7 @@ public class Sheet2Strings {
 		}
 	}
 
-	private static void createStringsXml(String filename, SheetNavigator nav, int col) {
+	private static void createStringsXml(String filename, SheetNavigator nav, Integer columnStringId, int col) {
 		Document doc = new Document();
 		Element resources = new Element("resources");
 		doc.addContent(resources);
@@ -54,7 +54,7 @@ public class Sheet2Strings {
 			String value;
 
 			try {
-				id = nav.getCell(row, 0);
+				id = nav.getCell(row, columnStringId);
 				id = id.trim();
 				if (id.isEmpty())
 					continue;
