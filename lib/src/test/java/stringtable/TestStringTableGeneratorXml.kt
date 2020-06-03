@@ -12,21 +12,17 @@ class TestStringTableGeneratorXml {
         val resRoot = File("./src/test/java/stringtable/sample/res/")
         val pathSource = getPathWithFile(fileSource)
         val pathRes = getPathWithFile(resRoot)
-        val args = arrayOf(
+        val args = listOf(
                 pathSource,
                 pathRes)
-        StringTableGenerator.main(args)
+        StringTableGenerator.main(args.toTypedArray())
     }
 
-    private fun getPathWithFile(file: File): String? {
+    private fun getPathWithFile(file: File): String {
         if (file.exists()) {
             return file.absolutePath
         }
-        try {
-            return file.canonicalPath
-        } catch (e: IOException) {
-        }
-        return null
+        return file.canonicalPath
     }
 
     @Test(expected = InvalidParameterException::class)
