@@ -11,23 +11,49 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
-import java.util.*
+import kotlin.NoSuchElementException
 
 object Sheet2Strings {
     fun convert(sheet: Sheet?, pathRes: File) {
         val nav = SheetNavigator(sheet)
+        val columnStringId = findColumnId(nav)
+
         var i = 1
         while (true) {
             val column = i++
             try {
                 val languageCode = nav.getCell(0, column)
-                if (languageCode.contains("values") == false) continue
+                if ("values" !in languageCode) continue
                 val filename = Path.combine(pathRes.path, languageCode, "strings_generated.xml")
-                createStringsXml(filename, nav, 0, column)
+                createStringsXml(filename, nav, columnStringId, column)
             } catch (e: NoSuchElementException) {
                 break
             }
         }
+    }
+
+    private fun findColumnId(nav: SheetNavigator): Int {
+        var result = 0
+        while (true) {
+            result++
+            try {
+                if (isIdColumn(nav.getCell(0, result).toLowerCase()))
+                    return result
+            } catch (e: NoSuchElementException) {
+                return 0
+            }
+        }
+    }
+
+    private fun isIdColumn(columnHeaderName: String): Boolean {
+        if (columnHeaderName.startsWith("id "))
+            return true
+        if (columnHeaderName.endsWith(" id"))
+            return true
+        if (columnHeaderName in listOf("id", "ids", "identification", "identifications"))
+            return true
+
+        return false
     }
 
     private fun createStringsXml(filename: String, nav: SheetNavigator, columnStringId: Int, col: Int) {
