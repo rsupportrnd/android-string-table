@@ -1,5 +1,6 @@
 package stringtable
 
+import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
@@ -18,18 +19,21 @@ object StringTableGenerator {
         println("\tres: " + args[1])
         val source = File(args[0])
         val pathRes = File(args[1])
-        var sheetIndex = 0
         val inputStream = FileInputStream(source)
         val workbook = XSSFWorkbook(inputStream)
-        if (args.size == 3) {
-            val findIndex = workbook.getSheetIndex(args[2])
-            if (findIndex >= 0) {
-                sheetIndex = findIndex
-            }
-        }
-        val sheet = workbook.getSheetAt(sheetIndex)
-        Sheet2Strings.convert(sheet, pathRes)
+        val targetSheetName = if (args.size > 2) args[2] else null
+
+        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes)
         println("Completed.")
         inputStream.close()
+    }
+
+    private fun getTargetSheet(targetSheetName: String?, workbook: XSSFWorkbook): XSSFSheet {
+        if (targetSheetName == null)
+            return workbook.getSheetAt(0)
+
+        return workbook.getSheet(targetSheetName).also { result ->
+            assert(result != null) { "Not found target sheet: $targetSheetName" }
+        }
     }
 }

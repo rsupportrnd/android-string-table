@@ -3,5 +3,38 @@
     <!--generator link: https://github.com/jobtools/android-string-table -->
     <!--자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!-->
     <!--This file is auto generated. DO NOT EDIT THIS XML FILE!-->
-    <!-- any comment here! -->
+    <string name="AndroidMPVP">アップデートを確認しています。</string>
+    <string name="AndroidMPVP">アップデートのご案内</string>
+    <string name="AndroidMPVP">アプリの新しいバージョンがあります。\nアップデートしますか？</string>
+    <string name="AndroidMPVP">アップデート</string>
+    <string name="AndroidMPVP">キャンセル</string>
+    <string name="AndroidMPVP">遠隔サポートをするためにはアプリをインストールする必要があります。\nインストールしますか？</string>
+    <string name="AndroidMPVP">インストール</string>
+    <string name="AndroidMPVP">ネットワーク接続</string>
+    <string name="AndroidMPVP">ネットワークに接続できません。\n接続状態を確認してから再度お試しください。</string>
+    <string name="AndroidMPVP">再試行</string>
+    <string name="AndroidMPVP">アプリ終了</string>
+    <string name="AndroidMPVP">アプリのアクセス権限のご案内</string>
+    <string name="AndroidMPVP">RemoteCall遠隔サポートをご利用するためにはアクセス権限を許可してください。</string>
+    <string name="AndroidMPVP">アクセス権限（必須）</string>
+    <string name="AndroidMPVP">他のアプリに重ねて表示されるアプリ</string>
+    <string name="AndroidMPVP">描画</string>
+    <string name="AndroidMPVP">アクセス権限（任意）</string>
+    <string name="AndroidMPVP">ファイル書き込み</string>
+    <string name="AndroidMPVP">ファイル送信</string>
+    <string name="AndroidMPVP">カメラ</string>
+    <string name="AndroidMPVP">現場サポート</string>
+    <string name="AndroidMPVP">マイク</string>
+    <string name="AndroidMPVP">音声チャット</string>
+    <string name="AndroidMPVP">任意のアクセス権限は該当の機能を使用する際に許可が必要です。許可しない場合でも他の機能はご利用いただけます。</string>
+    <string name="AndroidMPVP">アクセス権限変更方法：設定 &gt; RemoteCall</string>
+    <string name="AndroidMPVP">確認</string>
+    <string name="AndroidMPVP">約款</string>
+    <string name="AndroidMPVP">約款に同意（必須）</string>
+    <string name="AndroidMPVP">個人情報の取り扱いに同意（必須）</string>
+    <string name="AndroidMPVP">約款に同意します。</string>
+    <string name="AndroidMPVP">次へ</string>
+    <string name="AndroidMPVP">KNOXの使用に同意していないため、遠隔サポートを開始することができません。\nアプリを終了します。</string>
+    <string name="AndroidMPVP">SDKの使用に同意していないため、遠隔サポートを開始することができません。\nアプリを終了します。</string>
+    <string name="AndroidMPVP">個人情報保護方針</string>
 </resources>

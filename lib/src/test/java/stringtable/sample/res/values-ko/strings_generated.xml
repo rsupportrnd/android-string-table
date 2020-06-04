@@ -3,20 +3,38 @@
     <!--generator link: https://github.com/jobtools/android-string-table -->
     <!--자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!-->
     <!--This file is auto generated. DO NOT EDIT THIS XML FILE!-->
-    <!-- any comment here! -->
-    <string name="app_name">언어관리! 언어관리!</string>
-    <string name="string_id_13">스트링 013</string>
-    <string name="string_id_14">스트링 014</string>
-    <string name="string_id_15">스트링 015</string>
-    <string name="string_id_16">스트링 016</string>
-    <string name="string_id_17">스트링 017</string>
-    <string name="string_id_18">스트링 018</string>
-    <string name="string_id_19">스트링 019</string>
-    <string name="string_id_20">스트링 020</string>
-    <string name="string_id_21">스트링 021</string>
-    <string name="string_id_22">스트링 022</string>
-    <string name="string_id_23">스트링 023</string>
-    <string name="string_id_24">스트링 024</string>
-    <string name="string_id_25">스트링 025</string>
-    <string name="formatted">스트링 026 %s</string>
+    <string name="AndroidMPVP">업데이트 확인 중입니다</string>
+    <string name="AndroidMPVP">업데이트 안내</string>
+    <string name="AndroidMPVP">최신 업데이트가 있습니다.\n업데이트하시겠습니까?</string>
+    <string name="AndroidMPVP">업데이트</string>
+    <string name="AndroidMPVP">취소</string>
+    <string name="AndroidMPVP">원격 지원을 위해 추가 앱 설치가 필요합니다.\n설치하시겠습니까?</string>
+    <string name="AndroidMPVP">설치</string>
+    <string name="AndroidMPVP">네트워크 연결</string>
+    <string name="AndroidMPVP">네트워크에 접속할 수 없습니다.\n연결 상태 확인 후 다시 시도해 주세요.</string>
+    <string name="AndroidMPVP">재시도</string>
+    <string name="AndroidMPVP">앱 종료</string>
+    <string name="AndroidMPVP">앱 접근 권한 안내</string>
+    <string name="AndroidMPVP">RemoteCall 원격 지원 서비스 사용을 위해 권한을 허용해 주세요.</string>
+    <string name="AndroidMPVP">필수적 접근 권한</string>
+    <string name="AndroidMPVP">다른 앱 위에 표시되는 앱</string>
+    <string name="AndroidMPVP">그리기</string>
+    <string name="AndroidMPVP">선택적 접근 권한</string>
+    <string name="AndroidMPVP">파일 쓰기</string>
+    <string name="AndroidMPVP">파일 전송</string>
+    <string name="AndroidMPVP">카메라</string>
+    <string name="AndroidMPVP">영상 지원</string>
+    <string name="AndroidMPVP">마이크</string>
+    <string name="AndroidMPVP">음성 채팅</string>
+    <string name="AndroidMPVP">선택적 접근 권한은 해당 기능을 사용할 때 허용이 필요하며, 비허용시에도 해당 기능 외 서비스를 이용할 수 있습니다.</string>
+    <string name="AndroidMPVP">접근 권한 변경 방법: 설정 &gt; RemoteCall</string>
+    <string name="AndroidMPVP">확인</string>
+    <string name="AndroidMPVP">이용 약관</string>
+    <string name="AndroidMPVP">이용 약관 동의 (필수)</string>
+    <string name="AndroidMPVP">개인정보 수집 및 이용 동의 (필수)</string>
+    <string name="AndroidMPVP">약관에 모두 동의합니다.</string>
+    <string name="AndroidMPVP">다음</string>
+    <string name="AndroidMPVP">KNOX 사용에 동의하지 않아 원격지원을 시작할 수 없습니다.\n앱을 종료합니다.</string>
+    <string name="AndroidMPVP">SDK 사용에 동의하지 않아 원격지원을 시작할 수 없습니다.\n앱을 종료합니다.</string>
+    <string name="AndroidMPVP">개인정보 처리방침</string>
 </resources>
