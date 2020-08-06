@@ -8,3 +8,5 @@ out/
 .gradle
 *.iml
 local.properties
+download/drive_all_tokens
+download/output
