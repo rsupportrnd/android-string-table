@@ -3,38 +3,53 @@
     <!--generator link: https://github.com/jobtools/android-string-table -->
     <!--자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!-->
     <!--This file is auto generated. DO NOT EDIT THIS XML FILE!-->
-    <string name="AndroidMPVP">Checking for updates.</string>
-    <string name="AndroidMPVP">Update information</string>
-    <string name="AndroidMPVP">There is a new version of the app.\nDo you want to update now?</string>
-    <string name="AndroidMPVP">Update</string>
-    <string name="AndroidMPVP">Cancel</string>
-    <string name="AndroidMPVP">You need to install the app for remote support.\nDo you want to install it now?</string>
-    <string name="AndroidMPVP">Install</string>
-    <string name="AndroidMPVP">Network connection</string>
-    <string name="AndroidMPVP">There was problem connecting to the network.\nPlease, check the connection status and try again.</string>
-    <string name="AndroidMPVP">Retry</string>
-    <string name="AndroidMPVP">Close app</string>
-    <string name="AndroidMPVP">App access permissions</string>
-    <string name="AndroidMPVP">The following permissions are required to be granted to use RemoteCall service.</string>
-    <string name="AndroidMPVP">Access permission (required)</string>
-    <string name="AndroidMPVP">Displayed over other apps</string>
-    <string name="AndroidMPVP">Draw</string>
-    <string name="AndroidMPVP">Access permission (optional)</string>
-    <string name="AndroidMPVP">File write</string>
-    <string name="AndroidMPVP">File transfer</string>
-    <string name="AndroidMPVP">Camera</string>
-    <string name="AndroidMPVP">Video support</string>
-    <string name="AndroidMPVP">Microphone</string>
-    <string name="AndroidMPVP">Voice chat</string>
-    <string name="AndroidMPVP">Optional permissions are required when corresponding feature is used. Other options will still be accessible even if not allowed.</string>
-    <string name="AndroidMPVP">To change access permissions: Settings &gt; RemoteCall</string>
-    <string name="AndroidMPVP">Ok</string>
-    <string name="AndroidMPVP">Terms of Service</string>
-    <string name="AndroidMPVP">I agree to the terms and conditions (required)</string>
-    <string name="AndroidMPVP">I agree to the collection and use of personal information (required)</string>
-    <string name="AndroidMPVP">I agree to all terms.</string>
-    <string name="AndroidMPVP">Next</string>
-    <string name="AndroidMPVP">Remote support cannot be started as use of KNOX was not agreed.\nApp will be ended.</string>
-    <string name="AndroidMPVP">Remote support cannot be started as use of SDK was not agreed.\nApp will be ended.</string>
-    <string name="AndroidMPVP">Privacy Policy</string>
+    <!-- any comment here! -->
+    <string name="app_name">string manager! string manager!</string>
+    <string name="string_id_0">String 000</string>
+    <string name="string_id_1">String 001</string>
+    <string name="string_id_2">String 002</string>
+    <string name="string_id_3">String 003</string>
+    <string name="string_id_4">String 004</string>
+    <string name="string_id_5">String 005</string>
+    <string name="string_id_6">String 006</string>
+    <string name="string_id_7">String 007</string>
+    <string name="string_id_8">String 008</string>
+    <string name="string_id_9">String 009</string>
+    <string name="string_id_10">String 010</string>
+    <string name="string_id_11">String 011</string>
+    <string name="string_id_12">String 012</string>
+    <string-array name="string_array_01">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_02">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_03">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_04">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_05">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string name="string_id_13">String 013</string>
+    <string name="string_id_14">String 014</string>
+    <string name="string_id_15">String 015</string>
+    <string name="string_id_16">String 016</string>
+    <string name="string_id_17">String 017</string>
+    <string name="string_id_18">String 018</string>
+    <string name="string_id_19">String 019</string>
+    <string name="string_id_20">String 020</string>
+    <string name="string_id_21">String 021</string>
+    <string name="string_id_22">String 022</string>
+    <string name="string_id_23">String 023</string>
+    <string name="string_id_24">String 024</string>
+    <string name="string_id_25">String 025</string>
+    <string name="formatted">String 026 %s</string>
 </resources>
