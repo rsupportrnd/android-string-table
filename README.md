@@ -15,3 +15,8 @@ Download .xlsx from google spreadsheet
 # TODO
 - [ ] Warn empty cell on "values" column - values 가 비어 있는데, 다른 곳에 값이 있을 경우
 - [ ] 권한 축소 - 읽기 권한만
+
+- README.md 보강
+- [ ] credentials.json 생성 방법
+- [ ] 샘플 링크 추가
+- [ ] 플러그인 추가
