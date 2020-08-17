@@ -16,13 +16,13 @@ import kotlin.NoSuchElementException
 object Sheet2Strings {
     fun convert(sheet: Sheet?, pathRes: File) {
         val nav = SheetNavigator(sheet)
-        val columnStringId = findColumnId(nav)
+        val (rowStringId, columnStringId) = findColumnId(nav)
 
-        var i = 1
+        var column = columnStringId
         while (true) {
-            val column = i++
+            column++
             try {
-                val languageCode = nav.getCell(0, column)
+                val languageCode = nav.getCell(rowStringId, column)
                 if ("values" !in languageCode) continue
                 val filename = Path.combine(pathRes.path, languageCode, "strings_generated.xml")
                 createStringsXml(filename, nav, columnStringId, column)
@@ -32,15 +32,18 @@ object Sheet2Strings {
         }
     }
 
-    private fun findColumnId(nav: SheetNavigator): Int {
+    private fun findColumnId(nav: SheetNavigator): Pair<Int, Int> {
+        val rowIndex = 0
+
         var result = 0
+
         while (true) {
             result++
             try {
-                if (isIdColumn(nav.getCell(0, result).toLowerCase()))
-                    return result
+                if (isIdColumn(nav.getCell(rowIndex, result).toLowerCase()))
+                    return Pair(rowIndex, result)
             } catch (e: NoSuchElementException) {
-                return 0
+                return Pair(rowIndex, 0)
             }
         }
     }
