@@ -16,7 +16,7 @@ import kotlin.NoSuchElementException
 object Sheet2Strings {
     fun convert(sheet: Sheet?, pathRes: File) {
         val nav = SheetNavigator(sheet)
-        val (rowStringId, columnStringId) = findColumnId(nav)
+        val (columnStringId, rowStringId) = findIdCell(nav)
 
         var column = columnStringId
         while (true) {
@@ -25,26 +25,32 @@ object Sheet2Strings {
                 val languageCode = nav.getCell(rowStringId, column)
                 if ("values" !in languageCode) continue
                 val filename = Path.combine(pathRes.path, languageCode, "strings_generated.xml")
-                createStringsXml(filename, nav, columnStringId, column)
+                createStringsXml(filename, nav, columnStringId, rowStringId + 1, column)
             } catch (e: NoSuchElementException) {
                 break
             }
         }
     }
 
-    private fun findColumnId(nav: SheetNavigator): Pair<Int, Int> {
-        val rowIndex = 0
-
-        var result = 0
+    private fun findIdCell(nav: SheetNavigator): Pair<Int, Int> {
+        var columnIndex = 0
+        var rowIndex = 0
 
         while (true) {
-            result++
             try {
-                if (isIdColumn(nav.getCell(rowIndex, result).toLowerCase()))
-                    return Pair(rowIndex, result)
+                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase()))
+                    return Pair(columnIndex, rowIndex)
             } catch (e: NoSuchElementException) {
-                return Pair(rowIndex, 0)
+                try {
+                    nav.getCell(rowIndex + 1, 0)
+                    rowIndex++
+                    columnIndex = 0
+                    continue
+                } catch (e: NoSuchElementException) {
+                }
+                assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
             }
+            columnIndex++
         }
     }
 
@@ -59,14 +65,14 @@ object Sheet2Strings {
         return false
     }
 
-    private fun createStringsXml(filename: String, nav: SheetNavigator, columnStringId: Int, col: Int) {
+    private fun createStringsXml(filename: String, nav: SheetNavigator, columnStringId: Int, rowStringId: Int, col: Int) {
         val doc = Document()
         val resources = Element("resources")
         doc.addContent(resources)
         resources.addContent(Comment("generator link: https://github.com/jobtools/android-string-table "))
         resources.addContent(Comment("자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!"))
         resources.addContent(Comment("This file is auto generated. DO NOT EDIT THIS XML FILE!"))
-        var row = 1
+        var row = rowStringId
         while (true) {
             var id: String
             var value: String
@@ -86,11 +92,11 @@ object Sheet2Strings {
                         id = id.replace("<!--", "").replace("-->".toRegex(), "")
                     }
                     var commentString = id
-                    val description = nav.getCell(row, 1)
+                    val description = nav.getCell(row, columnStringId + 1)
                     if (!description.isEmpty()) {
                         commentString = "$commentString / $description "
                     }
-                    val comment = Comment(commentString)
+                    val comment = Comment(commentString.trim())
                     resources.addContent(comment)
                     row++
                     continue
