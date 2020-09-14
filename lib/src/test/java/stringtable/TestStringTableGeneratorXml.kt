@@ -43,4 +43,18 @@ class TestStringTableGeneratorXml {
         StringTableGenerator.main(args.toTypedArray())
     }
 
+    @Test
+    fun `strings`() {
+        val fileSource = File("./src/test/java/stringtable/sample/strings.xlsx")
+        val resRoot = File("./src/test/java/stringtable/sample/res-strings/")
+        val pathSource = getPathWithFile(fileSource)
+        val pathRes = getPathWithFile(resRoot)
+        val args = listOf(
+                pathSource,
+                pathRes,
+                "언어리소스_삼성글로벌 전체"
+        )
+        StringTableGenerator.main(args.toTypedArray())
+    }
+
 }
