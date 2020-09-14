@@ -111,7 +111,13 @@ object Sheet2Strings {
                     continue
                 }
             } catch (e: NoSuchElementException) {
-                break
+                if (row >= nav.sheet.lastRowNum) {
+                    break
+                } else {
+                    row++
+                    continue
+                }
+
             }
             if (id.contains("[]")) {
                 val stringArray = getStringArrayItem(id, value)
