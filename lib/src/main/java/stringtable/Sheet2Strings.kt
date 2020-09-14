@@ -119,14 +119,24 @@ object Sheet2Strings {
                 }
 
             }
-            if (id.contains("[]")) {
-                val stringArray = getStringArrayItem(id, value)
-                resources.addContent(stringArray)
-            } else {
-                val string = Element("string")
-                string.setAttribute("name", id)
-                string.text = getText(value)
-                resources.addContent(string)
+
+            when {
+                id.contains("[]") -> {
+                    val stringArray = getStringArrayItem(id, value)
+                    resources.addContent(stringArray)
+                }
+                id.endsWith(".append") -> {
+                    val previousId = id.dropLast(".append".length)
+                    val original = resources.children.first { it.getAttribute("name").value == previousId }
+
+                    original.text = original.text + getText(value)
+                }
+                else -> {
+                    val string = Element("string")
+                    string.setAttribute("name", id)
+                    string.text = getText(value)
+                    resources.addContent(string)
+                }
             }
             row++
         }
