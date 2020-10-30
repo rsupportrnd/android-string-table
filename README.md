@@ -15,3 +15,4 @@ Download .xlsx from google spreadsheet
 # TODO
 - [ ] Warn empty cell on "values" column - values 가 비어 있는데, 다른 곳에 값이 있을 경우
 - [ ] 권한 축소 - 읽기 권한만
+- [ ] 리소스 다시 생성 - strings_generated.xml 모두 제거하고 다시 생성하는 옵션 제공
