@@ -15,16 +15,13 @@ Download .xlsx from google spreadsheet
 ## [tool](tool/readme.md)
 Generate csv from string resource
 
-# 언어 리소스 태이블화 툴
-선택된 폴더들의 strings.xml를 하나의 strings.csv파일로 합칩니다.
+# 언어 리소스 테이블화 툴
+선택된 폴더 내부 strings.xml를 하나의 strings.csv파일로 합칩니다.
 
 [더보기 링크](tool/readme.md)
 
 ## 방법
-1. $ `cd [res 폴더]`
-2. to_csv.py의 `create_csv("values", "values-ko", ... ...)`에 병합할 언어 폴더 입력
-3. $ `python3 to_csv.py`
-4. strings.csv 확인
+1. $ `python3 to_csv.py input [resource path] output [output file]`
 
 
 # TODO
