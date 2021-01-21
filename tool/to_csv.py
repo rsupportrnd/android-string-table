@@ -61,7 +61,7 @@ def create_csv(folders: list, folders_path: str, output: str):
 def get_parameters():
     import sys
 
-    resource_path = ""
+    resource_path = "."
     output = "strings.csv"
     previous_arg = ""
     for arg in sys.argv:
