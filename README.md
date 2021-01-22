@@ -21,7 +21,7 @@ Generate csv from string resource
 [더보기 링크](tool/readme.md)
 
 ## 방법
-1. $ `python3 to_csv.py input [resource path] output [output file]`
+1. $ `python3 res_to_csv.py input [resource path] output [output file]`
 
 
 # TODO

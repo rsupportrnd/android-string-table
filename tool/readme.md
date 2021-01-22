@@ -27,6 +27,6 @@ res (입력된 폴더)
 
 ### 사용방법
 
-1. $ `python3 to_csv.py input [resource path] output [output file]`
+1. $ `python3 res_to_csv.py input [resource path] output [output file]`
 
 
