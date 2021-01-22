@@ -2,17 +2,20 @@
 
 ## to_csv.py
 
-선택된 폴더 내부의 strings.xml 들을 하나의 태이블로 합칩니다.
+선택된 폴더에서 values*/strings.xml 들을 하나의 태이블로 합칩니다.
 
 입력
 
 ```
-res
+res (입력된 폴더)
 |-values
 |--strings.xml
 |-values-en
 |--strings.xml
 |-values-ko
+|--strings.xml
+|--strings_generated.xml (조건에 의해 제외)
+|-value (조건에 의해 제외)
 |--strings.xml
 ```
 
@@ -24,17 +27,6 @@ res
 
 ### 사용방법
 
-1. `% cd [resource 디렉토리]`
-2. 현 디렉토리에 존재하는 대상 폴더를 아래 코드처럼 수정
-```python
-if __name__ == "__main__":
-    create_csv([
-        "values", "values-en",
-        "values-ko", "values-ja",
-        "values-it", ... ...
-    ])
-```
-3. `% python3 to_csv.py`
-4. `strings.csv` 파일 확인
+1. $ `python3 res_to_csv.py input [resource path] output [output file]`
 
 
