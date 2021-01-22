@@ -78,12 +78,9 @@ def find_values_folder(path: str):
     import os
     import sys
 
-    tmp = filter(lambda it: it.find("values") == 0, os.listdir(path))
-    tmp = map(lambda it: (it, os.listdir(f"{path}/{it}")), tmp)
-    tmp = map(lambda it: (it[0], filter(lambda x: x == "strings.xml", it[1])), tmp)
-    tmp = map(lambda it: (it[0], reduce(lambda x, y: f"{x}{y}", it[1], "")), tmp)
-    tmp = filter(lambda it: it[1] == "strings.xml", tmp)
-    return list(map(lambda it: it[0], tmp))
+    folders = filter(lambda it: it.find("values") == 0, os.listdir(path))
+    check_strings = lambda x: any(map(lambda child: child == "strings.xml", os.listdir(f"{path}/{x}")))
+    return list(filter(check_strings, folders))
     
 if __name__ == "__main__":
     resource_path, output = get_parameters()
