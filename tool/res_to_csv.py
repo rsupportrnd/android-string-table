@@ -10,7 +10,10 @@ def read_item(path: str):
     dom = ET.parse(path)
     root = dom.getroot()
     for item in root.findall("string"):
-        yield (item.attrib["name"], item.text)
+        if item.text == None:
+            yield (item.attrib["name"], "")
+        else:
+            yield (item.attrib["name"], item.text)
 
 
 def make_dict(folders: list, folders_path: str):
