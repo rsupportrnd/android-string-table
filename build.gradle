@@ -3,8 +3,8 @@ plugins {
     id 'java-gradle-plugin'
 }
 
-//group 'com.sbkim.plugin'
-//version '1.0.4'
+group 'com.rsupport'
+version 'v0.1-alpha'
 
 repositories {
     mavenCentral()
