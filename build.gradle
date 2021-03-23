@@ -3,9 +3,6 @@ plugins {
     id 'java-gradle-plugin'
 }
 
-group 'com.rsupport'
-version 'v0.1-alpha'
-
 repositories {
     mavenCentral()
 }
