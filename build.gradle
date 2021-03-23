@@ -32,11 +32,11 @@ dependencies {
     compile(localGroovy())
 }
 
-//gradlePlugin {
-//    plugins {
-//        showDatePlugin {
-//            id = 'show-date-plugin'
-//            implementationClass = 'com.sb.plugin.ShowDatePlugin'
-//        }
-//    }
-//}
+gradlePlugin {
+    plugins {
+        showDatePlugin {
+            id = 'rsupport-string-table'
+            implementationClass = 'com.rsupport.plugin.StringTablePlugin'
+        }
+    }
+}
