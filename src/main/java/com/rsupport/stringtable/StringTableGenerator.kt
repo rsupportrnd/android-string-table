@@ -10,7 +10,7 @@ object StringTableGenerator {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun main(args: Array<String?>) {
+    fun main(args: Array<String>) {
         if (args.size < 2) {
             throw InvalidParameterException("<source xlsx> <res path> <sheet name>")
         }

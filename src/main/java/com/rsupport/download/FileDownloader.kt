@@ -7,7 +7,7 @@ import java.lang.IllegalArgumentException
 object FileDownloader {
 
     @JvmStatic
-    fun main(args: Array<String?>) {
+    fun main(args: Array<String>) {
 
         if (args.size < 2) throw IllegalArgumentException("Not enough arguments.\n" +
                 "java -jar ${getRunningJarName()} <credentialsFile> <fileId> [output-filename]")
