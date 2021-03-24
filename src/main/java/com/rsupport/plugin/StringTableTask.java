@@ -14,7 +14,7 @@ public class StringTableTask extends DefaultTask {
     public String outputExcelFileName = "";
     public String outputResourcePath = "";
     public String inputSheetName = "";
-    public int indexRowNumber = 0;
+    public String indexRowNumber = "0";
 
     @TaskAction
     public void updateStringResource() throws Exception {

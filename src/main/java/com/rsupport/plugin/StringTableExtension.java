@@ -10,7 +10,7 @@ public class StringTableExtension {
     public Property<String> outputExcelFileName;
     public Property<String> outputResourcePath;
     public Property<String> inputSheetName;
-    public Property<Integer> indexRowNumber;
+    public Property<String> indexRowNumber;
 
     public StringTableExtension(final Project project) {
         this.googleDriveCredentialPath = project.getObjects().property(String.class);
@@ -18,7 +18,7 @@ public class StringTableExtension {
         this.outputExcelFileName = project.getObjects().property(String.class);
         this.outputResourcePath = project.getObjects().property(String.class);
         this.inputSheetName = project.getObjects().property(String.class);
-        this.indexRowNumber = project.getObjects().property(Integer.class);
+        this.indexRowNumber = project.getObjects().property(String.class);
     }
 
     public void setGoogleDriveCredentialPath(String googleDriveCredentialPath) {
@@ -41,7 +41,7 @@ public class StringTableExtension {
         this.inputSheetName.set(inputSheetName);
     }
 
-    public void setIndexRowNumber(int indexRowNumber) {
+    public void setIndexRowNumber(String indexRowNumber) {
         this.indexRowNumber.set(indexRowNumber);
     }
 }

@@ -10,6 +10,6 @@ public class StringTableTest {
     @Test
     public void sample() throws IOException {
         File excelFile = FileDownloader.download("./credentials.json", "1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8", "strings");
-        StringTableGenerator.generate(excelFile, "./output", "android", 1);
+        StringTableGenerator.generate(excelFile, "./output", "android", "1");
     }
 }
