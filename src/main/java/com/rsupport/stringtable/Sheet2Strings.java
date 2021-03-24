@@ -41,7 +41,6 @@ public class Sheet2Strings {
                 String fileName = Path.combine(pathRes.getPath(), languageCode, "strings_generated.xml");
                 createStringsXml(fileName, nav, columnStringId, column);
             } catch (NoSuchElementException e) {
-                e.printStackTrace();
                 break;
             }
         }
@@ -53,12 +52,14 @@ public class Sheet2Strings {
         while (true) {
             result++;
             try {
-                if (isIdColumn(nav.getCell(0, result).toLowerCase())) return result;
+                if (isIdColumn(nav.getCell(0, result).toLowerCase())) {
+                    return result;
+                }
             } catch (NoSuchElementException e) {
-                e.printStackTrace();
-                return 0;
+                break;
             }
         }
+        return 0;
     }
 
     private Boolean isIdColumn(String columnHeaderName) {
