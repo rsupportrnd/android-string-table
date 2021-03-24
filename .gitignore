@@ -10,3 +10,6 @@ out/
 local.properties
 download/drive_all_tokens
 download/output
+/output/
+/drive_all_tokens/
+/credentials.json

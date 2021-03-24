@@ -28,7 +28,7 @@ public class Sheet2Strings {
         return instance;
     }
 
-    public void convert(Sheet sheet, File pathRes) {
+    public void convert(Sheet sheet, File pathRes, int indexRowNum) {
         SheetNavigator nav = new SheetNavigator(sheet);
         int columnStringId = findColumnId(nav);
 
@@ -36,7 +36,7 @@ public class Sheet2Strings {
         while (true) {
             int column = i++;
             try {
-                String languageCode = nav.getCell(0, column);
+                String languageCode = nav.getCell(indexRowNum, column);
                 if (!languageCode.contains("values")) continue;
                 String fileName = Path.combine(pathRes.getPath(), languageCode, "strings_generated.xml");
                 createStringsXml(fileName, nav, columnStringId, column);
@@ -115,7 +115,6 @@ public class Sheet2Strings {
                 try {
                     value = nav.getCell(row, col);
                 } catch (NoSuchElementException e) {
-                    e.printStackTrace();
                     break;
                 }
                 if (value.isEmpty()) {
@@ -123,7 +122,6 @@ public class Sheet2Strings {
                     continue;
                 }
             } catch (NoSuchElementException e) {
-                e.printStackTrace();
                 break;
             }
 

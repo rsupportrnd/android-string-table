@@ -14,10 +14,11 @@ public class StringTableTask extends DefaultTask {
     public String outputExcelFileName = "";
     public String outputResourcePath = "";
     public String inputSheetName = "";
+    public int indexRowNumber = 0;
 
     @TaskAction
     public void updateStringResource() throws Exception {
         File excelFile = FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName);
-        StringTableGenerator.generate(excelFile, outputResourcePath, inputSheetName);
+        StringTableGenerator.generate(excelFile, outputResourcePath, inputSheetName, indexRowNumber);
     }
 }

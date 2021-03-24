@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class StringTableGenerator {
-    public static void generate(File source, String pathRes, String targetSheetName) throws IOException {
+    public static void generate(File source, String pathRes, String targetSheetName, int indexRowNum) throws IOException {
         System.out.println("Generate string tables.");
         System.out.println("\tsource: " + source.getPath());
         System.out.println("\tres: " + pathRes);
@@ -16,7 +16,7 @@ public class StringTableGenerator {
         FileInputStream inputStream = new FileInputStream(source);
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 
-        Sheet2Strings.getInstance().convert(getTargetSheet(targetSheetName, workbook), res);
+        Sheet2Strings.getInstance().convert(getTargetSheet(targetSheetName, workbook), res, indexRowNum);
         System.out.println("Completed.");
         inputStream.close();
     }
