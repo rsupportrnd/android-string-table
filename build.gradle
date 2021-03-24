@@ -14,8 +14,8 @@ plugins {
 
 apply plugin: 'com.github.johnrengelman.shadow'
 
-group 'com.rsupport.plugin'
-version '0.0.1.8'
+group 'com.rsupport'
+version '1.0.0.3'
 
 repositories {
     mavenCentral()
