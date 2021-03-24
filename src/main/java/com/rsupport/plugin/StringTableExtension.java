@@ -12,11 +12,11 @@ public class StringTableExtension {
     public Property<String> inputSheetName;
 
     public StringTableExtension(final Project project) {
-        this.googleDriveCredentialPath.set(project.getObjects().property(String.class));
-        this.spreadSheetFieldId.set(project.getObjects().property(String.class));
-        this.outputExcelFileName.set(project.getObjects().property(String.class));
-        this.outputResourcePath.set(project.getObjects().property(String.class));
-        this.inputSheetName.set(project.getObjects().property(String.class));
+        this.googleDriveCredentialPath = project.getObjects().property(String.class);
+        this.spreadSheetFieldId = project.getObjects().property(String.class);
+        this.outputExcelFileName = project.getObjects().property(String.class);
+        this.outputResourcePath = project.getObjects().property(String.class);
+        this.inputSheetName = project.getObjects().property(String.class);
     }
 
     public void setGoogleDriveCredentialPath(String googleDriveCredentialPath) {

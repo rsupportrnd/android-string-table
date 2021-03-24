@@ -9,11 +9,11 @@ import java.io.File;
 
 public class StringTableTask extends DefaultTask {
 
-    public String googleDriveCredentialPath;
-    public String spreadSheetFieldId;
-    public String outputExcelFileName;
-    public String outputResourcePath;
-    public String inputSheetName;
+    public String googleDriveCredentialPath = "";
+    public String spreadSheetFieldId = "";
+    public String outputExcelFileName = "";
+    public String outputResourcePath = "";
+    public String inputSheetName = "";
 
     @TaskAction
     public void updateStringResource() throws Exception {
