@@ -2,17 +2,12 @@ buildscript {
     repositories {
         jcenter()
     }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
-    }
 }
 
 plugins {
     id 'java'
     id 'java-gradle-plugin'
 }
-
-apply plugin: 'com.github.johnrengelman.shadow'
 
 group 'com.rsupport'
 version '1.0.0.4'
