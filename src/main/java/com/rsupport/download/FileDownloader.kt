@@ -16,7 +16,7 @@ object FileDownloader {
         val fileId = args[1]
         val filename = if (args.size > 2) args[2] else null
 
-        val downloadable = GoogleDriveDownload(credentialsFile, fileId, filename)
+        val downloadable = GoogleDriveDownload(credentialsFile!!, fileId!!, filename)
 
         downloadable.execute()
     }
