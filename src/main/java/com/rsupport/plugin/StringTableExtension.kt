@@ -19,8 +19,7 @@ class StringTableExtension(project: Project) {
     @JvmField
     var inputSheetName: Property<String> = project.objects.property(String::class.java)
 
-    @JvmField
-    var indexRowNumber: Property<String> = project.objects.property(String::class.java)
+
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
     }
@@ -41,8 +40,10 @@ class StringTableExtension(project: Project) {
         this.inputSheetName.set(inputSheetName)
     }
 
-    fun setIndexRowNumber(indexRowNumber: String?) {
-        this.indexRowNumber.set(indexRowNumber)
-    }
+    fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
+    fun getSpreadSheetFieldId(): String = spreadSheetFieldId.get()
+    fun getOutputExcelFileName(): String = outputExcelFileName.get()
+    fun getOutputResourcePath(): String = outputResourcePath.get()
+    fun getInputSheetName(): String = inputSheetName.get()
 
 }
