@@ -43,3 +43,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+apply plugin: 'rsupport-string-table'
+stringResourceConfig {
+/** https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434 */
+    googleDriveCredentialPath 'app/credentials.json'
+    spreadSheetFieldId '12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30'
+    outputExcelFileName 'strings'
+    outputResourcePath 'app/src/main/res'
+    inputSheetName 'Main'
+    indexRowNumber '0'
+}
