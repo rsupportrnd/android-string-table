@@ -111,16 +111,32 @@ object Sheet2Strings {
                     continue
                 }
             } catch (e: NoSuchElementException) {
-                break
+                if (row >= nav.sheet.lastRowNum) {
+                    break
+                } else {
+                    row++
+                    continue
+                }
+
             }
-            if (id.contains("[]")) {
-                val stringArray = getStringArrayItem(id, value)
-                resources.addContent(stringArray)
-            } else {
-                val string = Element("string")
-                string.setAttribute("name", id)
-                string.text = getText(value)
-                resources.addContent(string)
+
+            when {
+                id.contains("[]") -> {
+                    val stringArray = getStringArrayItem(id, value)
+                    resources.addContent(stringArray)
+                }
+                id.endsWith(".append") -> {
+                    val previousId = id.dropLast(".append".length)
+                    val original = resources.children.first { it.getAttribute("name").value == previousId }
+
+                    original.text = original.text + getText(value)
+                }
+                else -> {
+                    val string = Element("string")
+                    string.setAttribute("name", id)
+                    string.text = getText(value)
+                    resources.addContent(string)
+                }
             }
             row++
         }
