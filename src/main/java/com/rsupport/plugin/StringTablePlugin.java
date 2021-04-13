@@ -10,7 +10,7 @@ public class StringTablePlugin implements Plugin<Project> {
         StringTableExtension extension = project.getExtensions().create("stringResourceConfig", StringTableExtension.class, project);
         TaskProvider<StringTableTask> task = project.getTasks().register("updateStringResource", StringTableTask.class);
         project.afterEvaluate(target -> {
-            (task.get()).setGroup("stringResourceConfig");
+            (task.get()).setGroup("android");
             (task.get()).googleDriveCredentialPath = extension.googleDriveCredentialPath.get();
             (task.get()).outputExcelFileName = extension.outputExcelFileName.get();
             (task.get()).inputSheetName = extension.inputSheetName.get();
