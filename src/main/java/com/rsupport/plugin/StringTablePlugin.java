@@ -17,7 +17,6 @@ public class StringTablePlugin implements Plugin<Project> {
             (task.get()).inputSheetName = extension.inputSheetName.get();
             (task.get()).outputResourcePath = extension.outputResourcePath.get();
             (task.get()).spreadSheetFieldId = extension.spreadSheetFieldId.get();
-            (task.get()).indexRowNumber = extension.indexRowNumber.get();
         });
     }
 }
