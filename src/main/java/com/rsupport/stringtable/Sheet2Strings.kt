@@ -14,7 +14,7 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet?, pathRes: File) {
+    fun convert(sheet: Sheet, pathRes: File) {
         val nav = SheetNavigator(sheet)
         val (columnStringId, rowStringId) = findIdCell(nav)
 
