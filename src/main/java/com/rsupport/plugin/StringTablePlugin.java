@@ -13,6 +13,7 @@ public class StringTablePlugin implements Plugin<Project> {
             (task.get()).setGroup("android");
             (task.get()).googleDriveCredentialPath = extension.googleDriveCredentialPath.get();
             (task.get()).outputExcelFileName = extension.outputExcelFileName.get();
+            (task.get()).inputExcelFilePath = extension.inputExcelFilePath.get();
             (task.get()).inputSheetName = extension.inputSheetName.get();
             (task.get()).outputResourcePath = extension.outputResourcePath.get();
             (task.get()).spreadSheetFieldId = extension.spreadSheetFieldId.get();
