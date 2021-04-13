@@ -30,6 +30,11 @@ Generate csv from string resource
 - [ ] 권한 축소 - 읽기 권한만
 - [ ] 리소스 다시 생성 - strings_generated.xml 모두 제거하고 다시 생성하는 옵션 제공
 
+- README.md 보강
+- [ ] credentials.json 생성 방법
+- [ ] 샘플 링크 추가
+- [ ] 플러그인 추가
+
 ## How to apply this plugin to my project?
 - build.gradle(:project)
 ```c
@@ -66,3 +71,4 @@ stringResourceConfig {
 예를 들어, 해당 구글 시트의 주소가
 https://docs.google.com/spreadsheets/d/abcdef-123456789/edit#gid=12345
 이면 고유 id는 abcdef-123456789 이다.
+```

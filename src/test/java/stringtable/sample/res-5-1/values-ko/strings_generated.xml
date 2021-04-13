@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!--generator link: https://github.com/jobtools/android-string-table -->
+    <!--자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!-->
+    <!--This file is auto generated. DO NOT EDIT THIS XML FILE!-->
+    <!--any comment here!-->
+    <string name="app_name">언어관리! 언어관리!</string>
+    <string name="string_id_13">스트링 013</string>
+    <string name="string_id_14">스트링 014</string>
+    <string name="string_id_15">스트링 015</string>
+    <string name="string_id_16">스트링 016</string>
+    <string name="string_id_17">스트링 017</string>
+    <string name="string_id_18">스트링 018</string>
+    <string name="string_id_19">스트링 019</string>
+    <string name="string_id_20">스트링 020</string>
+    <string name="string_id_21">스트링 021</string>
+    <string name="string_id_22">스트링 022</string>
+    <string name="string_id_23">스트링 023</string>
+    <string name="string_id_24">스트링 024</string>
+    <string name="string_id_25">스트링 025</string>
+    <string name="formatted">스트링 026 %s</string>
+</resources>
