@@ -17,7 +17,8 @@ public class StringTableTask extends DefaultTask {
 
     @TaskAction
     public void updateStringResource() throws Exception {
-        File excelFile = FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName);
-        StringTableGenerator.generate(excelFile, outputResourcePath, inputSheetName);
+        FileDownloader.main(new String[]{googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName});
+        String outputFilePath = "./output/" + outputExcelFileName;
+        StringTableGenerator.main(new String[]{outputFilePath, outputResourcePath, inputSheetName});
     }
 }
