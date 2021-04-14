@@ -6,6 +6,7 @@ import org.gradle.api.provider.Property
 open class StringTableExtension(project: Project) {
 
     var googleDriveCredentialPath: Property<String> = project.objects.property(String::class.java)
+    var outputExcelFilePath: Property<String> = project.objects.property(String::class.java)
     var spreadSheetFieldId: Property<String> = project.objects.property(String::class.java)
     var outputExcelFileName: Property<String> = project.objects.property(String::class.java)
     var outputResourcePath: Property<String> = project.objects.property(String::class.java)
@@ -22,6 +23,10 @@ open class StringTableExtension(project: Project) {
 
     fun setOutputExcelFileName(outputExcelFileName: String) {
         this.outputExcelFileName.set(outputExcelFileName)
+    }
+
+    fun setOutputExcelFilePath(outputExcelFilePath: String) {
+        this.outputExcelFilePath.set(outputExcelFilePath)
     }
 
     fun setOutputResourcePath(outputResourcePath: String) {
@@ -41,6 +46,8 @@ open class StringTableExtension(project: Project) {
     fun getSpreadSheetFieldId(): String = spreadSheetFieldId.get()
 
     fun getOutputExcelFileName(): String = outputExcelFileName.get()
+
+    fun getOutputExcelFilePath(): String = outputExcelFilePath.get()
 
     fun getOutputResourcePath(): String = outputResourcePath.get()
 
