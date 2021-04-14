@@ -22,8 +22,9 @@ object StringTableGenerator {
         val inputStream = FileInputStream(source)
         val workbook = XSSFWorkbook(inputStream)
         val targetSheetName = if (args.size > 2) args[2] else null
+        val indexRowNum = args[2]
 
-        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes)
+        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes, indexRowNum.toInt())
         println("Completed.")
         inputStream.close()
     }

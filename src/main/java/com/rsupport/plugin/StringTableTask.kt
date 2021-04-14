@@ -18,6 +18,6 @@ open class StringTableTask : DefaultTask() {
     fun updateStringResource() {
         FileDownloader.main(arrayOf(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName))
         val outputFilePath = "./output/$outputExcelFileName"
-        StringTableGenerator.main(arrayOf(outputFilePath, outputResourcePath, inputSheetName))
+        StringTableGenerator.main(arrayOf(outputFilePath, outputResourcePath, inputSheetName, indexRowNumber.toString()))
     }
 }
