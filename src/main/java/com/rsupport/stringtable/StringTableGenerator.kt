@@ -9,12 +9,13 @@ import java.security.InvalidParameterException
 object StringTableGenerator {
 
     @Throws(Exception::class)
-    fun generate(source: File, resPath: String, targetSheetName: String, indexRowNum: Int) {
+    fun generate(source: String, resPath: String, targetSheetName: String, indexRowNum: Int) {
         println("Generate string tables.")
-        println("\tsource: " + source.path)
+        println("\tsource: $source")
         println("\tres: $resPath")
+        val sourceFile = File(source)
         val pathRes = File(resPath)
-        val inputStream = FileInputStream(source)
+        val inputStream = FileInputStream(sourceFile)
         val workbook = XSSFWorkbook(inputStream)
 
         Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes, indexRowNum)

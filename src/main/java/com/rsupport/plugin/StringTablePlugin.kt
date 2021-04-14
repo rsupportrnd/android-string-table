@@ -11,6 +11,7 @@ class StringTablePlugin : Plugin<Project> {
             task.get().group = "android"
             task.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
             task.get().outputExcelFileName = extension.outputExcelFileName.get()
+            task.get().outputExcelFilePath = extension.outputExcelFilePath.get()
             task.get().inputSheetName = extension.inputSheetName.get()
             task.get().outputResourcePath = extension.outputResourcePath.get()
             task.get().spreadSheetFieldId = extension.spreadSheetFieldId.get()
