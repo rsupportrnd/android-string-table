@@ -50,6 +50,7 @@ stringResourceConfig {
     googleDriveCredentialPath 'app/credentials.json'
     spreadSheetFieldId '12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30'
     outputExcelFileName 'strings'
+    outputExcelFilePath './output'
     outputResourcePath 'app/src/main/res'
     inputSheetName 'Main'
     indexRowNumber '0'
