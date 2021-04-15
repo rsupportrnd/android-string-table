@@ -1,8 +1,7 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'rsupport-string-table'
-}
+//plugins {
+//    id 'com.android.application'
+//    id 'kotlin-android'
+//}
 
 android {
     compileSdkVersion 30
@@ -32,6 +31,8 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+apply plugin: 'rsupport-string-table'
 
 dependencies {
 
