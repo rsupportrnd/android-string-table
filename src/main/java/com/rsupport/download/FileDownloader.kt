@@ -4,8 +4,8 @@ import com.rsupport.download.google.drive.GoogleDriveDownload
 import java.io.File
 
 object FileDownloader {
-    fun download(googleDriveCredentialPath: String, spreadSheetFieldId: String, outputExcelFileName: String, outputExcelFilePath: String): File? {
-        val downloadable = GoogleDriveDownload(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName, outputExcelFilePath)
+    fun download(googleDriveCredentialPath: String, spreadSheetFieldId: String, outputXlsxFilePath: String): File? {
+        val downloadable = GoogleDriveDownload(googleDriveCredentialPath, spreadSheetFieldId, outputXlsxFilePath)
         return downloadable.execute()
     }
 }

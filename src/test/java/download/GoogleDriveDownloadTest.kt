@@ -8,7 +8,7 @@ import java.io.File
 class GoogleDriveDownloadTest {
     @Test
     fun `sample`() {
-        FileDownloader.download("./credentials.json", "12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30", "sample", "./output")
+        FileDownloader.download("./credentials.json", "12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30", "./output/sample.xlsx")
         Assert.assertTrue(File("./output/sample.xlsx").exists())
     }
 }

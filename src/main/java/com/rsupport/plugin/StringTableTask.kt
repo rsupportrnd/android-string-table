@@ -9,8 +9,7 @@ import java.io.File
 open class StringTableTask : DefaultTask() {
     var googleDriveCredentialPath = ""
     var spreadSheetFieldId = ""
-    var outputExcelFilePath = ""
-    var outputExcelFileName = ""
+    var outputXlsxFilePath = ""
     var outputResourcePath = ""
     var inputSheetName = ""
     var indexRowNumber = 0
@@ -18,9 +17,9 @@ open class StringTableTask : DefaultTask() {
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
     fun updateStringResource() {
-        val source: File?= FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName, outputExcelFilePath)
+        val source: File?= FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputXlsxFilePath)
         if (source != null) {
-            StringTableGenerator.generate("$outputExcelFilePath/$outputExcelFileName.xlsx", outputResourcePath, inputSheetName, indexRowNumber)
+            StringTableGenerator.generate(outputXlsxFilePath, outputResourcePath, inputSheetName, indexRowNumber)
         }
     }
 }

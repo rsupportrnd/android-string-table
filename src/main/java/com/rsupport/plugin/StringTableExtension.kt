@@ -6,9 +6,8 @@ import org.gradle.api.provider.Property
 open class StringTableExtension(project: Project) {
 
     var googleDriveCredentialPath: Property<String> = project.objects.property(String::class.java)
-    var outputExcelFilePath: Property<String> = project.objects.property(String::class.java)
+    var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
     var spreadSheetFieldId: Property<String> = project.objects.property(String::class.java)
-    var outputExcelFileName: Property<String> = project.objects.property(String::class.java)
     var outputResourcePath: Property<String> = project.objects.property(String::class.java)
     var inputSheetName: Property<String> = project.objects.property(String::class.java)
     var indexRowNumber: Property<Int> = project.objects.property(Int::class.java)
@@ -21,12 +20,8 @@ open class StringTableExtension(project: Project) {
         this.spreadSheetFieldId.set(spreadSheetFieldId)
     }
 
-    fun setOutputExcelFileName(outputExcelFileName: String) {
-        this.outputExcelFileName.set(outputExcelFileName)
-    }
-
-    fun setOutputExcelFilePath(outputExcelFilePath: String) {
-        this.outputExcelFilePath.set(outputExcelFilePath)
+    fun setOutputXlsxFilePath(outputXlsxFilePath: String) {
+        this.outputXlsxFilePath.set(outputXlsxFilePath)
     }
 
     fun setOutputResourcePath(outputResourcePath: String) {
@@ -45,9 +40,7 @@ open class StringTableExtension(project: Project) {
 
     fun getSpreadSheetFieldId(): String = spreadSheetFieldId.get()
 
-    fun getOutputExcelFileName(): String = outputExcelFileName.get()
-
-    fun getOutputExcelFilePath(): String = outputExcelFilePath.get()
+    fun getOutputXlsxFilePath(): String = outputXlsxFilePath.get()
 
     fun getOutputResourcePath(): String = outputResourcePath.get()
 
