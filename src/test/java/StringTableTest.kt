@@ -27,9 +27,9 @@ class StringTableTest {
     @Test
     @kotlin.jvm.Throws(Exception::class)
     fun generateStringXml() {
-        val excelFile = download("./credentials.json", "1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8", "strings", "./output")
+        val excelFile = download("./credentials.json", "1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8", "./output/strings_sample.xlsx")
         if (excelFile != null) {
-            generate("./output/strings.xlsx", "./output", "android", 1)
+            generate("./output/strings_sample.xlsx", "./output", "android", 1)
         }
         Assert.assertTrue(File("./output/values/strings_generated.xml").exists())
     }

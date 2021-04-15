@@ -15,7 +15,7 @@ import com.google.api.services.drive.DriveScopes
 import com.rsupport.download.Downloadable
 import java.io.*
 
-class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String, private val filename: String?, private val filePath: String) : Downloadable {
+class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String, private val filePath: String) : Downloadable {
 
     companion object {
         private const val APPLICATION_NAME = "구글드라이브 File 다운로드"
@@ -33,7 +33,7 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
         val outputFilePath = service.files().get(fileId).execute().let { driveFile ->
             FileExtension.from(driveFile).let { fileExtension ->
                 val exportFile = fileExtension.extension().let { extension ->
-                    val name = filename ?: driveFile.name
+                    val name = parsingXlsxFileName()
                     if (extension.isNotEmpty()) "$name.$extension" else name
                 }
                 val outputDir = makeOutputDirectory()
@@ -46,8 +46,19 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
         return File(outputFilePath)
     }
 
+    private fun parsingXlsxFileName(): String {
+        val dotIndex = filePath.lastIndexOf(".")
+        val fileNameIndex = filePath.lastIndexOf("/")
+        return filePath.substring(fileNameIndex, dotIndex)
+    }
+
+    private fun parsingXlsxFilePath(): String {
+        val fileNameIndex = filePath.lastIndexOf("/")
+        return filePath.substring(0, fileNameIndex)
+    }
+
     private fun makeOutputDirectory(): String {
-        val outputDir = filePath
+        val outputDir = parsingXlsxFilePath()
         File(outputDir).let {
             if (!it.exists()) {
                 it.mkdirs()
