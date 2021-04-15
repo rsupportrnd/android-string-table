@@ -1,2 +1,2 @@
 before_install:
-  - sh beforeJitpackBuild.sh
+  - sh scripts/beforeJitpackBuild.sh
