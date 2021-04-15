@@ -52,3 +52,7 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
+
+configurations {
+    compile.exclude module: 'example'
+}
