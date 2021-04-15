@@ -1,1 +1,1 @@
-rm -r ../example/
+rm -r ./example/
