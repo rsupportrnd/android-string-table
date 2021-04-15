@@ -15,7 +15,7 @@ import com.google.api.services.drive.DriveScopes
 import com.rsupport.download.Downloadable
 import java.io.*
 
-class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String, private val filename: String?) : Downloadable {
+class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String, private val filename: String?, private val filePath: String) : Downloadable {
 
     companion object {
         private const val APPLICATION_NAME = "구글드라이브 File 다운로드"
@@ -32,22 +32,22 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
 
         val outputFilePath = service.files().get(fileId).execute().let { driveFile ->
             FileExtension.from(driveFile).let { fileExtension ->
-                val exprotFile = fileExtension.extension().let { extension ->
+                val exportFile = fileExtension.extension().let { extension ->
                     val name = filename ?: driveFile.name
                     if (extension.isNotEmpty()) "$name.$extension" else name
                 }
                 val outputDir = makeOutputDirectory()
-                FileOutputStream(File(outputDir + exprotFile)).use {
+                FileOutputStream(File("$outputDir/$exportFile")).use {
                     service.files().export(fileId, fileExtension.exportMimeType()).executeAndDownloadTo(it)
                 }
-                exprotFile
+                exportFile
             }
         }
         return File(outputFilePath)
     }
 
     private fun makeOutputDirectory(): String {
-        val outputDir = "./output/"
+        val outputDir = filePath
         File(outputDir).let {
             if (!it.exists()) {
                 it.mkdirs()
