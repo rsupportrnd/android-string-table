@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'rsupport-string-table'
 }
 
 android {
@@ -44,7 +45,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
-apply plugin: 'rsupport-string-table'
 stringResourceConfig {
 /** https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434 */
     googleDriveCredentialPath 'app/credentials.json'
