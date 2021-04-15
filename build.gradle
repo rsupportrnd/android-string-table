@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.rsupport'
-version '1.0.3.0'
+version '1.0.3.1'
 
 repositories {
     mavenCentral()
@@ -50,5 +50,15 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+
+jar {
+    sourceSets {
+        main {
+            java {
+                exclude 'example/*'
+            }
+        }
     }
 }
