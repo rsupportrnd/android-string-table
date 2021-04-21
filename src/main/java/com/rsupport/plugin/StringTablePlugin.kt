@@ -12,7 +12,7 @@ class StringTablePlugin : Plugin<Project> {
             task.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
             task.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
             task.get().inputSheetName = extension.inputSheetName.get()
-            task.get().outputResourcePath = extension.outputResourcePath.get()
+            task.get().androidResourcePath = extension.androidResourcePath.get()
             task.get().spreadSheetFieldId = extension.spreadSheetFieldId.get()
             task.get().indexRowNumber = extension.indexRowNumber.get()
         }
