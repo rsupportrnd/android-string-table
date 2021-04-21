@@ -24,8 +24,8 @@ open class StringTableExtension(project: Project) {
         this.outputXlsxFilePath.set(outputXlsxFilePath)
     }
 
-    fun setOutputResourcePath(outputResourcePath: String) {
-        this.androidResourcePath.set(outputResourcePath)
+    fun setAndroidResourcePath(androidResourcePath: String) {
+        this.androidResourcePath.set(androidResourcePath)
     }
 
     fun setInputSheetName(inputSheetName: String) {
@@ -42,7 +42,7 @@ open class StringTableExtension(project: Project) {
 
     fun getOutputXlsxFilePath(): String = outputXlsxFilePath.get()
 
-    fun getOutputResourcePath(): String = androidResourcePath.get()
+    fun getAndroidResourcePath(): String = androidResourcePath.get()
 
     fun getInputSheetName(): String = inputSheetName.get()
 
