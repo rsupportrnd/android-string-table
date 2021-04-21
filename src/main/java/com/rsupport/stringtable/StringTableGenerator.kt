@@ -4,32 +4,26 @@ import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
-import java.security.InvalidParameterException
 
 object StringTableGenerator {
 
     @Throws(Exception::class)
-    @JvmStatic
-    fun main(args: Array<String>) {
-        if (args.size < 2) {
-            throw InvalidParameterException("<source xlsx> <res path> <sheet name>")
-        }
+    fun generate(source: String, resPath: String, targetSheetName: String?, indexRowNum: Int) {
         println("Generate string tables.")
-        println("\tsource: " + args[0])
-        println("\tres: " + args[1])
-        val source = File(args[0])
-        val pathRes = File(args[1])
-        val inputStream = FileInputStream(source)
+        println("\tsource: $source")
+        println("\tres: $resPath")
+        val sourceFile = File(source)
+        val pathRes = File(resPath)
+        val inputStream = FileInputStream(sourceFile)
         val workbook = XSSFWorkbook(inputStream)
-        val targetSheetName = if (args.size > 2) args[2] else null
 
-        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes)
+        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes, indexRowNum)
         println("Completed.")
         inputStream.close()
     }
 
     private fun getTargetSheet(targetSheetName: String?, workbook: XSSFWorkbook): XSSFSheet {
-        if (targetSheetName == null)
+        if (targetSheetName.isNullOrEmpty())
             return workbook.getSheetAt(0)
 
         return workbook.getSheet(targetSheetName).also { result ->

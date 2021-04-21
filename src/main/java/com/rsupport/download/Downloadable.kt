@@ -9,10 +9,10 @@ interface Downloadable {
     companion object {
         @JvmStatic
         fun from(credentialsFile: String, fileId: String) =
-                from(credentialsFile, fileId, null)
+                from(credentialsFile, fileId, "")
 
-        fun from(credentialsFile: String, fileId: String, filename: String?): Downloadable {
-            return GoogleDriveDownload(credentialsFile, fileId, filename)
+        fun from(credentialsFile: String, fileId: String, filePath: String): Downloadable {
+            return GoogleDriveDownload(credentialsFile, fileId, filePath)
         }
     }
 }

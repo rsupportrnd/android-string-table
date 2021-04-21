@@ -14,9 +14,9 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet?, pathRes: File) {
+    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int) {
         val nav = SheetNavigator(sheet)
-        val (columnStringId, rowStringId) = findIdCell(nav)
+        val (columnStringId, rowStringId) = findIdCell(nav, indexRowNum)
 
         var column = columnStringId
         while (true) {
@@ -32,9 +32,9 @@ object Sheet2Strings {
         }
     }
 
-    private fun findIdCell(nav: SheetNavigator): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int): Pair<Int, Int> {
         var columnIndex = 0
-        var rowIndex = 0
+        var rowIndex = indexRowNum
 
         while (true) {
             try {
