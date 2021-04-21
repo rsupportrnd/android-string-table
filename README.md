@@ -45,7 +45,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.github.ssk0dev:android-string-table:1.0.3.9'
+        classpath 'com.github.ssk0dev:android-string-table:1.0.3.10'
     }
 }
 ```

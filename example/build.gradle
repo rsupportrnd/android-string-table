@@ -12,7 +12,7 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.github.seul-bi-keem:android-string-table:1.0.3.9'
+        classpath 'com.github.ssk0dev:android-string-table:1.0.3.10'
     }
 }
 

@@ -3,7 +3,7 @@
     <!--generator link: https://github.com/jobtools/android-string-table -->
     <!--자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!-->
     <!--This file is auto generated. DO NOT EDIT THIS XML FILE!-->
-    <!-- any comment here! -->
+    <!--any comment here!-->
     <string name="app_name">string manager! string manager!</string>
     <string name="string_id_0">String 000</string>
     <string name="string_id_1">String 001</string>
@@ -18,21 +18,26 @@
     <string name="string_id_10">String 010</string>
     <string name="string_id_11">String 011</string>
     <string name="string_id_12">String 012</string>
-    <String-array name="string_array_01">
-        <item>스트링[0] \n스트링[1]</item>
-    </String-array>
-    <String-array name="string_array_02">
-        <item>스트링[0] \n스트링[1]</item>
-    </String-array>
-    <String-array name="string_array_03">
-        <item>스트링[0] \n스트링[1]</item>
-    </String-array>
-    <String-array name="string_array_04">
-        <item>스트링[0] \n스트링[1]</item>
-    </String-array>
-    <String-array name="string_array_05">
-        <item>스트링[0] \n스트링[1]</item>
-    </String-array>
+    <string-array name="string_array_01">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_02">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_03">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_04">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
+    <string-array name="string_array_05">
+        <item>스트링[0]</item>
+        <item>스트링[1]</item>
+    </string-array>
     <string name="string_id_13">String 013</string>
     <string name="string_id_14">String 014</string>
     <string name="string_id_15">String 015</string>
