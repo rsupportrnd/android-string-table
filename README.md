@@ -45,7 +45,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.github.seul-bi-keem:android-string-table:1.0.0.6'
+        classpath 'com.github.seul-bi-keem:android-string-table:1.0.3.9'
     }
 }
 ```
@@ -58,7 +58,7 @@ stringResourceConfig {
     googleDriveCredentialPath 'credentials.json 파일의 경로'
     spreadSheetFieldId '해당 구글 시트 고유 id'
     outputExcelFileName '생성될 엑셀 파일의 이름'
-    outputResourcePath '생성될 xml파일의 경로'
+    androidResourcePath '생성될 xml파일의 경로'
     inputSheetName 'sheet 이름'
     indexRowNumber '인덱스 행이 몇번째 행인지 (0부터 시작)'
 }
