@@ -4,12 +4,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
-import java.security.InvalidParameterException
 
 object StringTableGenerator {
 
     @Throws(Exception::class)
-    fun generate(source: String, resPath: String, targetSheetName: String, indexRowNum: Int) {
+    fun generate(source: String, resPath: String, targetSheetName: String?, indexRowNum: Int) {
         println("Generate string tables.")
         println("\tsource: $source")
         println("\tres: $resPath")
@@ -24,7 +23,7 @@ object StringTableGenerator {
     }
 
     private fun getTargetSheet(targetSheetName: String?, workbook: XSSFWorkbook): XSSFSheet {
-        if (targetSheetName == null)
+        if (targetSheetName.isNullOrEmpty())
             return workbook.getSheetAt(0)
 
         return workbook.getSheet(targetSheetName).also { result ->
