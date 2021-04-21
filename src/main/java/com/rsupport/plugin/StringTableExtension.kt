@@ -8,7 +8,7 @@ open class StringTableExtension(project: Project) {
     var googleDriveCredentialPath: Property<String> = project.objects.property(String::class.java)
     var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
     var spreadSheetFieldId: Property<String> = project.objects.property(String::class.java)
-    var outputResourcePath: Property<String> = project.objects.property(String::class.java)
+    var androidResourcePath: Property<String> = project.objects.property(String::class.java)
     var inputSheetName: Property<String> = project.objects.property(String::class.java)
     var indexRowNumber: Property<Int> = project.objects.property(Int::class.java)
 
@@ -25,7 +25,7 @@ open class StringTableExtension(project: Project) {
     }
 
     fun setOutputResourcePath(outputResourcePath: String) {
-        this.outputResourcePath.set(outputResourcePath)
+        this.androidResourcePath.set(outputResourcePath)
     }
 
     fun setInputSheetName(inputSheetName: String) {
@@ -42,7 +42,7 @@ open class StringTableExtension(project: Project) {
 
     fun getOutputXlsxFilePath(): String = outputXlsxFilePath.get()
 
-    fun getOutputResourcePath(): String = outputResourcePath.get()
+    fun getOutputResourcePath(): String = androidResourcePath.get()
 
     fun getInputSheetName(): String = inputSheetName.get()
 

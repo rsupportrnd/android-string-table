@@ -10,7 +10,7 @@ open class StringTableTask : DefaultTask() {
     var googleDriveCredentialPath = ""
     var spreadSheetFieldId = ""
     var outputXlsxFilePath = ""
-    var outputResourcePath = ""
+    var androidResourcePath = ""
     var inputSheetName = ""
     var indexRowNumber = 0
 
@@ -19,7 +19,7 @@ open class StringTableTask : DefaultTask() {
     fun updateStringResource() {
         val source: File?= FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputXlsxFilePath)
         if (source != null) {
-            StringTableGenerator.generate(outputXlsxFilePath, outputResourcePath, inputSheetName, indexRowNumber)
+            StringTableGenerator.generate(outputXlsxFilePath, androidResourcePath, inputSheetName, indexRowNumber)
         }
     }
 }
