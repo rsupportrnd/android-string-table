@@ -16,8 +16,9 @@ open class StringTableTask : DefaultTask() {
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
     fun updateStringResource() {
-        FileDownloader.main(arrayOf(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName))
-        val outputFilePath = "./output/$outputExcelFileName"
-        StringTableGenerator.main(arrayOf(outputFilePath, outputResourcePath, inputSheetName, indexRowNumber.toString()))
+        val source = FileDownloader.download(googleDriveCredentialPath, spreadSheetFieldId, outputExcelFileName)
+        if (source != null) {
+            StringTableGenerator.generate(source, outputResourcePath, inputSheetName, indexRowNumber)
+        }
     }
 }
