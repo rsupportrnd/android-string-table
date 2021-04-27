@@ -12,21 +12,20 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.client.util.store.FileDataStoreFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
+import com.rsupport.GoogleCredentials
 import com.rsupport.download.Downloadable
 import java.io.*
 
-class GoogleDriveDownload(private val credentialsFilePath: String, private val fileId: String, private val filePath: String) : Downloadable {
+class GoogleDriveDownload(private val credential: Credential, private val fileId: String, private val filePath: String) : Downloadable {
 
     companion object {
         private const val APPLICATION_NAME = "구글드라이브 File 다운로드"
         private val jsonFactory: JsonFactory = JacksonFactory.getDefaultInstance()
-        private val scopes = listOf(DriveScopes.DRIVE)
-        private const val TOKENS_DIRECTORY_PATH = "drive_all_tokens"
     }
 
-    override fun execute(): File? {
+    override fun execute(): File {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
-        val service = Drive.Builder(httpTransport, jsonFactory, getCredentials(httpTransport))
+        val service = Drive.Builder(httpTransport, jsonFactory, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build()
 
@@ -66,30 +65,4 @@ class GoogleDriveDownload(private val credentialsFilePath: String, private val f
         }
         return outputDir
     }
-
-    /**
-     * Creates an authorized Credential object.
-     * @param HTTP_TRANSPORT The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
-    @Throws(IOException::class)
-    private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential { // Load client secrets.
-//        val `in` = GoogleDriveDownload::class.java.getResourceAsStream(credentialsFilePath)
-//                ?: throw FileNotFoundException("Resource not found: $credentialsFilePath")
-
-        val `in` = FileInputStream(File(credentialsFilePath))
-
-
-        val clientSecrets = GoogleClientSecrets.load(jsonFactory, InputStreamReader(`in`))
-        // Build flow and trigger user authorization request.
-        val flow = GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, jsonFactory, clientSecrets, scopes)
-                .setDataStoreFactory(FileDataStoreFactory(File(TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
-                .build()
-        val receiver = LocalServerReceiver.Builder().setPort(8888).build()
-        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
-    }
-
 }
