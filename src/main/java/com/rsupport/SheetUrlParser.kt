@@ -5,7 +5,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.sheets.v4.Sheets
 
-class ParsingSheetURL(private val credential: Credential, sheetURL: String) {
+class SheetUrlParser(private val credential: Credential, sheetURL: String) {
 
     companion object {
         private const val APPLICATION_NAME = "Google Sheets Title Parser"
