@@ -1,4 +1,4 @@
-package com.rsupport
+package com.rsupport.google.sheet
 
 import com.google.api.client.auth.oauth2.Credential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport

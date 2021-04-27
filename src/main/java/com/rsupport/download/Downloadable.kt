@@ -1,7 +1,7 @@
 package com.rsupport.download
 
 import com.google.api.client.auth.oauth2.Credential
-import com.rsupport.download.google.drive.GoogleDriveDownload
+import com.rsupport.google.drive.GoogleDriveDownload
 import java.io.File
 
 interface Downloadable {

@@ -1,5 +1,5 @@
-import com.rsupport.GoogleCredentials
-import com.rsupport.SheetUrlParser
+import com.rsupport.google.GoogleCredentials
+import com.rsupport.google.sheet.SheetUrlParser
 import org.junit.Assert
 import org.junit.Test
 import java.io.IOException

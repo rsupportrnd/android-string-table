@@ -1,7 +1,7 @@
 package com.rsupport.plugin
 
-import com.rsupport.GoogleCredentials
-import com.rsupport.SheetUrlParser
+import com.rsupport.google.GoogleCredentials
+import com.rsupport.google.sheet.SheetUrlParser
 import com.rsupport.download.FileDownloader
 import com.rsupport.stringtable.StringTableGenerator
 import org.gradle.api.DefaultTask

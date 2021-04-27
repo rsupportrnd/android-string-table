@@ -1,6 +1,6 @@
 package download
 
-import com.rsupport.GoogleCredentials
+import com.rsupport.google.GoogleCredentials
 import com.rsupport.download.FileDownloader
 import org.junit.Assert
 import org.junit.Test
