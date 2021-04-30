@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.rsupport'
-version '1.0.3.9'
+version '1.0.4.0'
 
 repositories {
     mavenCentral()
@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.30.4'
     implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev581-1.25.0'
     compile(gradleApi())
     compile(localGroovy())
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

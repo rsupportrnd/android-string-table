@@ -56,17 +56,15 @@ apply plugin: 'rsupport-string-table'
 
 stringResourceConfig {
     googleDriveCredentialPath 'credentials.json 파일의 경로'
-    spreadSheetFieldId '해당 구글 시트 고유 id'
     outputExcelFileName '생성될 엑셀 파일의 이름'
     androidResourcePath '생성될 xml파일의 경로'
-    inputSheetName 'sheet 이름'
     indexRowNumber '인덱스 행이 몇번째 행인지 (0부터 시작)'
+    targetSheetUrl '구글 스프레드 시트 URL'
 }
 ```
 
-- 구글 시트 고유 id ?
+- 구글 스프레드 시트 URL 작성법?
 ```c
-예를 들어, 해당 구글 시트의 주소가
 https://docs.google.com/spreadsheets/d/abcdef-123456789/edit#gid=12345
-이면 고유 id는 abcdef-123456789 이다.
+위와 같은 형식으로 작성한다.
 ```
