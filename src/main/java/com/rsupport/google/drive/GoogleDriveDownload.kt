@@ -15,26 +15,31 @@ class GoogleDriveDownload(private val credential: Credential, private val fileId
         private val jsonFactory: JsonFactory = JacksonFactory.getDefaultInstance()
     }
 
-    override fun execute(): File {
+    override fun execute(): File? {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val service = Drive.Builder(httpTransport, jsonFactory, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build()
 
-        val outputFilePath = service.files().get(fileId).execute().let { driveFile ->
-            FileExtension.from(driveFile).let { fileExtension ->
-                val exportFile = fileExtension.extension().let { extension ->
-                    val name = parsingXlsxFileName()
-                    if (extension.isNotEmpty()) "$name.$extension" else name
+        if(fileId.isNotEmpty()) {
+            val outputFilePath = service.files().get(fileId).execute().let { driveFile ->
+                FileExtension.from(driveFile).let { fileExtension ->
+                    val exportFile = fileExtension.extension().let { extension ->
+                        val name = parsingXlsxFileName()
+                        if (extension.isNotEmpty()) "$name.$extension" else name
+                    }
+                    val outputDir = makeOutputDirectory()
+                    FileOutputStream(File("$outputDir/$exportFile")).use {
+                        service.files().export(fileId, fileExtension.exportMimeType()).executeAndDownloadTo(it)
+                    }
+                    exportFile
                 }
-                val outputDir = makeOutputDirectory()
-                FileOutputStream(File("$outputDir/$exportFile")).use {
-                    service.files().export(fileId, fileExtension.exportMimeType()).executeAndDownloadTo(it)
-                }
-                exportFile
             }
+
+            return File(outputFilePath)
         }
-        return File(outputFilePath)
+
+        return null
     }
 
     private fun parsingXlsxFileName(): String {

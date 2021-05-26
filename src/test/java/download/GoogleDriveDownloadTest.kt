@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 
 class GoogleDriveDownloadTest {
-    private val credentialFilePath = "example/app/i18n/credentials.json"
+    private val credentialFilePath = "credentials.json"
     @Test
     fun `sample`() {
         val credential = GoogleCredentials.createCredentials(credentialFilePath)
