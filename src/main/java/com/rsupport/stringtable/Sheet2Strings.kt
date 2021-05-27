@@ -41,7 +41,7 @@ object Sheet2Strings {
 
     private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        var rowIndex = if(indexRowNum == null) {
+        val rowIndex = if(indexRowNum == null) {
             0
         } else {
             indexRowNum - 1
@@ -54,16 +54,10 @@ object Sheet2Strings {
                 if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase()))
                     return Pair(columnIndex, rowIndex)
             } catch (e: NoSuchElementException) {
-                try {
-                    nav.getCell(rowIndex + 1, 0)
-                    rowIndex++
-                    columnIndex = 0
-                    continue
-                } catch (e: NoSuchElementException) {
-                }
-                assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
+                columnIndex++
+                continue
             }
-            columnIndex++
+            assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
         }
     }
 
@@ -155,7 +149,7 @@ object Sheet2Strings {
         }
         try {
             val file = File(filename)
-            if (!file.parentFile.isDirectory) file.parentFile.mkdirs() else if (file.exists()) file.delete()
+            if (file.parentFile.isDirectory == false) file.parentFile.mkdirs() else if (file.exists()) file.delete()
 
             // 4. 파일에 출력
             val writer = OutputStreamWriter(FileOutputStream(File(filename)),
