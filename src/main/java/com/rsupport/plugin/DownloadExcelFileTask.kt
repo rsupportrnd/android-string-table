@@ -6,7 +6,7 @@ import com.rsupport.google.sheet.SheetUrlParser
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-class DownloadExcelFileTask : DefaultTask() {
+open class DownloadExcelFileTask : DefaultTask() {
 
     var googleDriveCredentialPath = ""
     var targetSheetUrl = ""
