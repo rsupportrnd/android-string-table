@@ -51,13 +51,20 @@ object Sheet2Strings {
 
         while (true) {
             try {
-                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase()))
+                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase())) {
                     return Pair(columnIndex, rowIndex)
+                } else {
+                    columnIndex++
+                }
             } catch (e: NoSuchElementException) {
-                columnIndex++
-                continue
+                try {
+                    columnIndex++
+                    nav.getCell(rowIndex, columnIndex)
+                    continue
+                } catch (e: NoSuchElementException) {
+                }
+                assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
             }
-            assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
         }
     }
 

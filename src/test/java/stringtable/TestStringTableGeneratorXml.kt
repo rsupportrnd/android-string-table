@@ -17,6 +17,15 @@ class TestStringTableGeneratorXml {
     }
 
     @Test
+    fun `test-5-1`() {
+        val fileSource = "./src/test/java/stringtable/sample/string-table-starting-5-1.xlsx"
+        val resRoot = "./src/test/java/stringtable/sample/res-5-1/"
+
+        StringTableGenerator.generate(fileSource, resRoot, "", 5, null)
+        Assert.assertTrue(File("./src/test/java/stringtable/sample/res-5-1/values/strings_generated.xml").exists())
+    }
+
+    @Test
     fun `생성할 xml파일 이름이 string_test 일 때`() {
         val fileSource = "./src/test/java/stringtable/sample/string-table-starting-5-1.xlsx"
         val resRoot = "./src/test/java/stringtable/sample/res-5-1/"

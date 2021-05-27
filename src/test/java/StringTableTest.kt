@@ -46,6 +46,23 @@ class StringTableTest {
         Assert.assertTrue(File("$androidResourcePath/values/strings_generated.xml").exists())
     }
 
+    @Test(expected = java.lang.AssertionError::class)
+    fun `index row number 가 잘못되었을 때 AssertionError 가 발생해야한다`() {
+        deleteOutput()
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        val sheetURLParser = SheetUrlParser(credential, sheetUrl)
+        val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
+        if(source != null) {
+            StringTableGenerator.generate(
+                outputXlsxFilePath,
+                androidResourcePath,
+                sheetURLParser.sheetName,
+                1,
+                null
+            )
+        }
+    }
+
     @Test(expected = IllegalStateException::class)
     fun generateStringXmlWhenSpreadSheetIdIsEmpty() {
         println("generateStringXmlWhenSpreadSheetIdIsEmpty")
