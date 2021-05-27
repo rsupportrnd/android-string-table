@@ -5,17 +5,16 @@ import org.gradle.api.Project
 
 class StringTablePlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        val extension = project.extensions.create("stringResourceConfig", StringTableExtension::class.java, project)
-        val task = project.tasks.register("updateStringResource", StringTableTask::class.java)
+        val extension = project.extensions.create("androidStringTable", StringTableExtension::class.java, project)
+        val task = project.tasks.register("generate", StringTableTask::class.java)
         project.afterEvaluate {
-            task.get().group = "android"
+            task.get().group = "androidStringTable"
             task.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
-            task.get().outputExcelFileName = extension.outputExcelFileName.get()
-            task.get().outputExcelFilePath = extension.outputExcelFilePath.get()
-            task.get().inputSheetName = extension.inputSheetName.get()
-            task.get().outputResourcePath = extension.outputResourcePath.get()
-            task.get().spreadSheetFieldId = extension.spreadSheetFieldId.get()
+            task.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
+            task.get().androidResourcePath = extension.androidResourcePath.get()
             task.get().indexRowNumber = extension.indexRowNumber.get()
+            task.get().targetSheetUrl = extension.targetSheetUrl.get()
+            task.get().outputXmlFileName = extension.outputXmlFileName.get()
         }
     }
 }

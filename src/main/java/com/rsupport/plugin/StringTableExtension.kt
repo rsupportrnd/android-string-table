@@ -6,52 +6,45 @@ import org.gradle.api.provider.Property
 open class StringTableExtension(project: Project) {
 
     var googleDriveCredentialPath: Property<String> = project.objects.property(String::class.java)
-    var outputExcelFilePath: Property<String> = project.objects.property(String::class.java)
-    var spreadSheetFieldId: Property<String> = project.objects.property(String::class.java)
-    var outputExcelFileName: Property<String> = project.objects.property(String::class.java)
-    var outputResourcePath: Property<String> = project.objects.property(String::class.java)
-    var inputSheetName: Property<String> = project.objects.property(String::class.java)
+    var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
+    var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
+    var androidResourcePath: Property<String> = project.objects.property(String::class.java)
     var indexRowNumber: Property<Int> = project.objects.property(Int::class.java)
+    var outputXmlFileName: Property<String> = project.objects.property(String::class.java)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
     }
 
-    fun setSpreadSheetFieldId(spreadSheetFieldId: String) {
-        this.spreadSheetFieldId.set(spreadSheetFieldId)
+    fun setTargetSheetUrl(targetSheetUrl: String) {
+        this.targetSheetUrl.set(targetSheetUrl)
     }
 
-    fun setOutputExcelFileName(outputExcelFileName: String) {
-        this.outputExcelFileName.set(outputExcelFileName)
+    fun setOutputXlsxFilePath(outputXlsxFilePath: String) {
+        this.outputXlsxFilePath.set(outputXlsxFilePath)
     }
 
-    fun setOutputExcelFilePath(outputExcelFilePath: String) {
-        this.outputExcelFilePath.set(outputExcelFilePath)
-    }
-
-    fun setOutputResourcePath(outputResourcePath: String) {
-        this.outputResourcePath.set(outputResourcePath)
-    }
-
-    fun setInputSheetName(inputSheetName: String) {
-        this.inputSheetName.set(inputSheetName)
+    fun setAndroidResourcePath(androidResourcePath: String) {
+        this.androidResourcePath.set(androidResourcePath)
     }
 
     fun setIndexRowNumber(indexRowNumber: Int) {
         this.indexRowNumber.set(indexRowNumber)
     }
 
+    fun setOutputXmlFileName(outputXmlFileName: String) {
+        this.outputXmlFileName.set(outputXmlFileName)
+    }
+
     fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
 
-    fun getSpreadSheetFieldId(): String = spreadSheetFieldId.get()
+    fun getTargetSheetUrl(): String = targetSheetUrl.get()
 
-    fun getOutputExcelFileName(): String = outputExcelFileName.get()
+    fun getOutputXlsxFilePath(): String = outputXlsxFilePath.get()
 
-    fun getOutputExcelFilePath(): String = outputExcelFilePath.get()
-
-    fun getOutputResourcePath(): String = outputResourcePath.get()
-
-    fun getInputSheetName(): String = inputSheetName.get()
+    fun getAndroidResourcePath(): String = androidResourcePath.get()
 
     fun getIndexRowNumber(): Int = indexRowNumber.get()
+
+    fun getOutputXmlFileName(): String = outputXmlFileName.get()
 }

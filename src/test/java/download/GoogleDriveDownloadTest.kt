@@ -1,20 +1,17 @@
-//package download
-//
-//import com.rsupport.download.FileDownloader
-//import org.junit.Test
-//import java.lang.IllegalArgumentException
-//
-//class GoogleDriveDownloadTest {
-//
-//    @Test(expected = IllegalArgumentException::class)
-//    fun `argument 부족`() {
-//
-//        FileDownloader.main(arrayOf("xxx"))
-//    }
-//
-//    @Test
-//    fun `sample`() {
-//        FileDownloader.main(arrayOf("./credentials.json", "12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30", "sample"))
-//    }
-//
-//}
+package download
+
+import com.rsupport.google.GoogleCredentials
+import com.rsupport.download.FileDownloader
+import org.junit.Assert
+import org.junit.Test
+import java.io.File
+
+class GoogleDriveDownloadTest {
+    private val credentialFilePath = "credentials.json"
+    @Test
+    fun `sample`() {
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        FileDownloader.download(credential, "12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30", "./output/sample.xlsx")
+        Assert.assertTrue(File("./output/sample.xlsx").exists())
+    }
+}

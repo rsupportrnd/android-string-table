@@ -1,10 +1,9 @@
 package com.rsupport.stringtable
 
 object Path {
-    fun combine(pathString: String, childName: String): String {
+    private fun combine(pathString: String, childName: String): String {
         val pathDelimiter = getDelimiter(pathString + childName)
-        var result = pathString
-        result = if (pathString.endsWith(pathDelimiter)) pathString else pathString + pathDelimiter
+        var result: String = if (pathString.endsWith(pathDelimiter)) pathString else pathString + pathDelimiter
         result = if (childName.startsWith(pathDelimiter)) result + childName.substring(1) else result + childName
         return result
     }

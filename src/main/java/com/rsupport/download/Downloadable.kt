@@ -1,6 +1,7 @@
 package com.rsupport.download
 
-import com.rsupport.download.google.drive.GoogleDriveDownload
+import com.google.api.client.auth.oauth2.Credential
+import com.rsupport.google.drive.GoogleDriveDownload
 import java.io.File
 
 interface Downloadable {
@@ -8,11 +9,11 @@ interface Downloadable {
 
     companion object {
         @JvmStatic
-        fun from(credentialsFile: String, fileId: String) =
-                from(credentialsFile, fileId, null)
+        fun from(credential: Credential, fileId: String) =
+                from(credential, fileId, "")
 
-        fun from(credentialsFile: String, fileId: String, filename: String?): Downloadable {
-            return GoogleDriveDownload(credentialsFile, fileId, filename)
+        private fun from(credentials : Credential, fileId: String, filePath: String): Downloadable {
+            return GoogleDriveDownload(credentials, fileId, filePath)
         }
     }
 }

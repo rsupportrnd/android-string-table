@@ -1,36 +1,89 @@
-import com.rsupport.download.FileDownloader.download
-import com.rsupport.stringtable.StringTableGenerator.generate
-import java.io.IOException
-import org.junit.Assert
+import com.rsupport.download.FileDownloader
+import com.rsupport.google.GoogleCredentials
+import com.rsupport.google.sheet.SheetUrlParser
+import com.rsupport.stringtable.StringTableGenerator
 import org.junit.Test
 import java.io.File
-import java.lang.Exception
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.Comparator
+import java.util.*
 
 class StringTableTest {
-    @Test
-    @kotlin.jvm.Throws(IOException::class)
-    fun deleteOutput() {
+
+    private val credentialFilePath = "credentials.json"
+    private val sheetUrl =
+        "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/edit#gid=1256465417"
+    private val outputXlsxFilePath = "./output/strings_sample.xlsx"
+    private val androidResourcePath = "./output"
+    private val indexRowNumber = 1
+
+    private fun deleteOutput() {
         val path = "./output"
         val deleteFolder = File(path)
         if (deleteFolder.exists()) {
             Files.walk(deleteFolder.toPath())
-                    .sorted(Comparator.reverseOrder())
-                    .map { obj: Path -> obj.toFile() }
-                    .forEach { obj: File -> obj.delete() }
+                .sorted(Comparator.reverseOrder())
+                .map { obj: Path -> obj.toFile() }
+                .forEach { obj: File -> obj.delete() }
         }
-        Assert.assertFalse(deleteFolder.exists())
     }
 
     @Test
     @kotlin.jvm.Throws(Exception::class)
     fun generateStringXml() {
-        val excelFile = download("./credentials.json", "1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8", "strings")
-        if (excelFile != null) {
-            generate("./output/strings.xlsx", "./output", "android", 1)
+        deleteOutput()
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        val sheetURLParser = SheetUrlParser(credential, sheetUrl)
+        val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
+        if(source != null) {
+            StringTableGenerator.generate(
+                outputXlsxFilePath,
+                androidResourcePath,
+                sheetURLParser.sheetName,
+                indexRowNumber,
+                null
+            )
         }
-        Assert.assertTrue(File("./output/values/strings_generated.xml").exists())
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun generateStringXmlWhenSpreadSheetIdIsEmpty() {
+        println("generateStringXmlWhenSpreadSheetIdIsEmpty")
+        deleteOutput()
+        val sheetUrlSpreadSheetIdEmpty = "https://docs.google.com/spreadsheets/edit#gid=1256465417"
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        val sheetURLParser = SheetUrlParser(credential, sheetUrlSpreadSheetIdEmpty)
+        val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
+        if(source != null) {
+            StringTableGenerator.generate(
+                outputXlsxFilePath,
+                androidResourcePath,
+                sheetURLParser.sheetName,
+                indexRowNumber,
+                null
+            )
+        }
+    }
+
+    @Test(expected = AssertionError::class)
+    fun generateStringXmlWhenSheetIdIsEmpty() {
+        println("generateStringXmlWhenSheetIdIsEmpty")
+        deleteOutput()
+        val sheetUrlSpreadSheetIdEmpty =
+            "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/"
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        val sheetURLParser = SheetUrlParser(credential, sheetUrlSpreadSheetIdEmpty)
+        val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
+        if(source != null) {
+            StringTableGenerator.generate(
+                outputXlsxFilePath,
+                androidResourcePath,
+                sheetURLParser.sheetName,
+                indexRowNumber,
+                null
+            )
+        } else {
+            throw NullPointerException("Cannot generate spread sheet file.")
+        }
     }
 }

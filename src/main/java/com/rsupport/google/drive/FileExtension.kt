@@ -1,4 +1,4 @@
-package com.rsupport.download.google.drive
+package com.rsupport.google.drive
 
 import com.google.api.services.drive.model.File
 

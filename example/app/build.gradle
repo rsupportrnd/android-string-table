@@ -47,10 +47,10 @@ dependencies {
 apply plugin: 'rsupport-string-table'
 stringResourceConfig {
 /** https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434 */
-    googleDriveCredentialPath 'app/credentials.json'
+    googleDriveCredentialPath 'app/i18n/credentials.json'
     spreadSheetFieldId '12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30'
-    outputExcelFileName 'strings'
-    outputResourcePath 'app/src/main/res'
+    outputXlsxFilePath 'app/i18n/languages.xlsx'
+    androidResourcePath 'app/src/main/res'
     inputSheetName 'Main'
-    indexRowNumber '0'
+    indexRowNumber 0
 }
