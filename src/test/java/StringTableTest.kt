@@ -2,6 +2,7 @@ import com.rsupport.download.FileDownloader
 import com.rsupport.google.GoogleCredentials
 import com.rsupport.google.sheet.SheetUrlParser
 import com.rsupport.stringtable.StringTableGenerator
+import org.junit.Assert
 import org.junit.Test
 import java.io.File
 import java.nio.file.Files
@@ -15,7 +16,6 @@ class StringTableTest {
         "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/edit#gid=1256465417"
     private val outputXlsxFilePath = "./output/strings_sample.xlsx"
     private val androidResourcePath = "./output"
-    private val indexRowNumber = 1
 
     private fun deleteOutput() {
         val path = "./output"
@@ -29,7 +29,6 @@ class StringTableTest {
     }
 
     @Test
-    @kotlin.jvm.Throws(Exception::class)
     fun generateStringXml() {
         deleteOutput()
         val credential = GoogleCredentials.createCredentials(credentialFilePath)
@@ -40,10 +39,11 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber,
+                2,
                 null
             )
         }
+        Assert.assertTrue(File("$androidResourcePath/values/strings_generated.xml").exists())
     }
 
     @Test(expected = IllegalStateException::class)
@@ -59,7 +59,7 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber,
+                1,
                 null
             )
         }
@@ -79,7 +79,7 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber,
+                1,
                 null
             )
         } else {

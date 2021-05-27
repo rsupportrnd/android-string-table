@@ -47,6 +47,8 @@ object Sheet2Strings {
             indexRowNum - 1
         }
 
+        if(rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
+
         while (true) {
             try {
                 if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase()))
@@ -153,7 +155,7 @@ object Sheet2Strings {
         }
         try {
             val file = File(filename)
-            if (file.parentFile.isDirectory == false) file.parentFile.mkdirs() else if (file.exists()) file.delete()
+            if (!file.parentFile.isDirectory) file.parentFile.mkdirs() else if (file.exists()) file.delete()
 
             // 4. 파일에 출력
             val writer = OutputStreamWriter(FileOutputStream(File(filename)),
