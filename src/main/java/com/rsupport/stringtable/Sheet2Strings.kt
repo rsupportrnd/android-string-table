@@ -41,7 +41,11 @@ object Sheet2Strings {
 
     private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        var rowIndex = indexRowNum ?: 0
+        var rowIndex = if(indexRowNum == null) {
+            0
+        } else {
+            indexRowNum - 1
+        }
 
         while (true) {
             try {
