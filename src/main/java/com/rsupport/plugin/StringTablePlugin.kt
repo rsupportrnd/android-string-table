@@ -6,15 +6,25 @@ import org.gradle.api.Project
 class StringTablePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val extension = project.extensions.create("androidStringTable", StringTableExtension::class.java, project)
-        val task = project.tasks.register("generate", StringTableTask::class.java)
+
+        val downloadExcelFileTask = project.tasks.register("downloadSpreadSheet", DownloadExcelFileTask::class.java)
         project.afterEvaluate {
-            task.get().group = "androidStringTable"
-            task.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
-            task.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
-            task.get().androidResourcePath = extension.androidResourcePath.get()
-            task.get().indexRowNumber = extension.indexRowNumber.get()
-            task.get().targetSheetUrl = extension.targetSheetUrl.get()
-            task.get().outputXmlFileName = extension.outputXmlFileName.get()
+            downloadExcelFileTask.get().group = "androidStringTable"
+            downloadExcelFileTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
+            downloadExcelFileTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
+            downloadExcelFileTask.get().targetSheetUrl = extension.targetSheetUrl.get()
         }
+
+        val generateXmlTask = project.tasks.register("createStringsXmlFile", StringTableTask::class.java)
+        project.afterEvaluate {
+            generateXmlTask.get().group = "androidStringTable"
+            generateXmlTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
+            generateXmlTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
+            generateXmlTask.get().androidResourcePath = extension.androidResourcePath.get()
+            generateXmlTask.get().indexRowNumber = extension.indexRowNumber.get()
+            generateXmlTask.get().targetSheetUrl = extension.targetSheetUrl.get()
+            generateXmlTask.get().outputXmlFileName = extension.outputXmlFileName.get()
+        }
+
     }
 }
