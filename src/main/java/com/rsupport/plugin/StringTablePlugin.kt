@@ -14,6 +14,7 @@ class StringTablePlugin : Plugin<Project> {
             task.get().androidResourcePath = extension.androidResourcePath.get()
             task.get().indexRowNumber = extension.indexRowNumber.get()
             task.get().targetSheetUrl = extension.targetSheetUrl.get()
+            task.get().outputXmlFileName = extension.outputXmlFileName.get()
         }
     }
 }

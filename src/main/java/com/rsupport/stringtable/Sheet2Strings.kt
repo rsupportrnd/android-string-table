@@ -14,17 +14,24 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int) {
+    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int?, outputXmlFileName: String?) {
         val nav = SheetNavigator(sheet)
         val (columnStringId, rowStringId) = findIdCell(nav, indexRowNum)
 
         var column = columnStringId
+
+        val xmlFileName = if(outputXmlFileName.isNullOrEmpty()) {
+            "strings_generated.xml"
+        } else {
+            "$outputXmlFileName.xml"
+        }
+
         while (true) {
             column++
             try {
                 val languageCode = nav.getCell(rowStringId, column)
                 if ("values" !in languageCode) continue
-                val filename = Path.combine(pathRes.path, languageCode, "strings_generated.xml")
+                val filename = Path.combine(pathRes.path, languageCode, xmlFileName)
                 createStringsXml(filename, nav, columnStringId, rowStringId + 1, column)
             } catch (e: NoSuchElementException) {
                 break
@@ -32,9 +39,9 @@ object Sheet2Strings {
         }
     }
 
-    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        var rowIndex = indexRowNum
+        var rowIndex = indexRowNum ?: 0
 
         while (true) {
             try {

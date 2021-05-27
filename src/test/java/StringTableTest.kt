@@ -40,7 +40,8 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber
+                indexRowNumber,
+                null
             )
         }
     }
@@ -58,7 +59,8 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber
+                indexRowNumber,
+                null
             )
         }
     }
@@ -77,7 +79,8 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                indexRowNumber
+                indexRowNumber,
+                null
             )
         } else {
             throw NullPointerException("Cannot generate spread sheet file.")

@@ -10,6 +10,7 @@ open class StringTableExtension(project: Project) {
     var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
     var indexRowNumber: Property<Int> = project.objects.property(Int::class.java)
+    var outputXmlFileName: Property<String> = project.objects.property(String::class.java)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
@@ -31,6 +32,10 @@ open class StringTableExtension(project: Project) {
         this.indexRowNumber.set(indexRowNumber)
     }
 
+    fun setOutputXmlFileName(outputXmlFileName: String) {
+        this.outputXmlFileName.set(outputXmlFileName)
+    }
+
     fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
 
     fun getTargetSheetUrl(): String = targetSheetUrl.get()
@@ -40,4 +45,6 @@ open class StringTableExtension(project: Project) {
     fun getAndroidResourcePath(): String = androidResourcePath.get()
 
     fun getIndexRowNumber(): Int = indexRowNumber.get()
+
+    fun getOutputXmlFileName(): String = outputXmlFileName.get()
 }

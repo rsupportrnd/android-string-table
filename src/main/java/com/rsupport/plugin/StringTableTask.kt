@@ -13,7 +13,8 @@ open class StringTableTask : DefaultTask() {
     var targetSheetUrl = ""
     var outputXlsxFilePath = ""
     var androidResourcePath = ""
-    var indexRowNumber = 0
+    var indexRowNumber : Int? = null
+    var outputXmlFileName : String? = null
 
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
@@ -25,7 +26,8 @@ open class StringTableTask : DefaultTask() {
             outputXlsxFilePath,
             androidResourcePath,
             sheetURLParser.sheetName,
-            indexRowNumber
+            indexRowNumber,
+            outputXmlFileName
         )
     }
 }
