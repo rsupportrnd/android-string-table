@@ -40,9 +40,8 @@ class SheetUrlParser(private val credential: Credential, sheetURL: String) {
 
         try {
             val sheetsList = service.spreadsheets()[spreadSheetId].execute().sheets
-            return sheetsList.map { sheet -> sheet.properties }
-                .find { properties -> properties.sheetId == sheetId }?.title.toString()
 
+            return sheetsList.first { sheet -> sheet.properties.sheetId == sheetId }.properties.title.toString()
         } catch (e: GoogleJsonResponseException) {
             e.printStackTrace()
         }
