@@ -2,6 +2,7 @@ package com.rsupport.plugin
 
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
+import javax.annotation.Nullable
 
 open class StringTableExtension(project: Project) {
 
@@ -9,7 +10,8 @@ open class StringTableExtension(project: Project) {
     var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
     var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
-    var indexRowNumber: Property<Int> = project.objects.property(Int::class.java)
+    var indexRowNumber: Property<Int>? = project.objects.property(Int::class.java)
+    var outputXmlFileName: Property<String>? = project.objects.property(String::class.java)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
@@ -27,8 +29,12 @@ open class StringTableExtension(project: Project) {
         this.androidResourcePath.set(androidResourcePath)
     }
 
-    fun setIndexRowNumber(indexRowNumber: Int) {
-        this.indexRowNumber.set(indexRowNumber)
+    fun setIndexRowNumber(indexRowNumber: Int?) {
+        this.indexRowNumber?.set(indexRowNumber)
+    }
+
+    fun setOutputXmlFileName(outputXmlFileName: String?) {
+        this.outputXmlFileName?.set(outputXmlFileName)
     }
 
     fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
@@ -39,5 +45,7 @@ open class StringTableExtension(project: Project) {
 
     fun getAndroidResourcePath(): String = androidResourcePath.get()
 
-    fun getIndexRowNumber(): Int = indexRowNumber.get()
+    fun getIndexRowNumber(): Int? = indexRowNumber?.get()
+
+    fun getOutputXmlFileName(): String? = outputXmlFileName?.get()
 }

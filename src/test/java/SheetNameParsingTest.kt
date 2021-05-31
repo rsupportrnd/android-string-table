@@ -7,17 +7,23 @@ import java.security.GeneralSecurityException
 
 class SheetNameParsingTest {
 
-    private val credentialFilePath = "example/app/i18n/credentials.json"
+    private val credentialFilePath = "credentials.json"
     private val sheetUrl =
-        "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/edit#gid=1256465417"
+        "https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=1886234656"
 
     @Test
-    @kotlin.jvm.Throws(IOException::class, GeneralSecurityException::class)
     fun getSheetNameFromSheetUrl() {
         val credential = GoogleCredentials.createCredentials(credentialFilePath)
         val sheetName = SheetUrlParser(credential, sheetUrl).sheetName
         println("sheetName : $sheetName")
-        Assert.assertEquals("android", sheetName)
+        Assert.assertEquals("sample sheet2", sheetName)
     }
 
+    @Test
+    fun getSpreadSheetIdFromSheetUrl() {
+        val credential = GoogleCredentials.createCredentials(credentialFilePath)
+        val spreadSheetId = SheetUrlParser(credential, sheetUrl).spreadSheetId
+        println("spreadSheetId : $spreadSheetId")
+        Assert.assertEquals("1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM", spreadSheetId)
+    }
 }

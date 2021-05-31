@@ -12,7 +12,7 @@ interface Downloadable {
         fun from(credential: Credential, fileId: String) =
                 from(credential, fileId, "")
 
-        fun from(credentials : Credential, fileId: String, filePath: String): Downloadable {
+        private fun from(credentials : Credential, fileId: String, filePath: String): Downloadable {
             return GoogleDriveDownload(credentials, fileId, filePath)
         }
     }

@@ -14,17 +14,24 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int) {
+    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int?, outputXmlFileName: String?) {
         val nav = SheetNavigator(sheet)
         val (columnStringId, rowStringId) = findIdCell(nav, indexRowNum)
 
         var column = columnStringId
+
+        val xmlFileName = if(outputXmlFileName.isNullOrEmpty()) {
+            "strings_generated.xml"
+        } else {
+            "$outputXmlFileName.xml"
+        }
+
         while (true) {
             column++
             try {
                 val languageCode = nav.getCell(rowStringId, column)
                 if ("values" !in languageCode) continue
-                val filename = Path.combine(pathRes.path, languageCode, "strings_generated.xml")
+                val filename = Path.combine(pathRes.path, languageCode, xmlFileName)
                 createStringsXml(filename, nav, columnStringId, rowStringId + 1, column)
             } catch (e: NoSuchElementException) {
                 break
@@ -32,25 +39,32 @@ object Sheet2Strings {
         }
     }
 
-    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        var rowIndex = indexRowNum
+        val rowIndex = if(indexRowNum == null) {
+            0
+        } else {
+            indexRowNum - 1
+        }
+
+        if(rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
 
         while (true) {
             try {
-                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase()))
+                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase())) {
                     return Pair(columnIndex, rowIndex)
+                } else {
+                    columnIndex++
+                }
             } catch (e: NoSuchElementException) {
                 try {
-                    nav.getCell(rowIndex + 1, 0)
-                    rowIndex++
-                    columnIndex = 0
+                    columnIndex++
+                    nav.getCell(rowIndex, columnIndex)
                     continue
                 } catch (e: NoSuchElementException) {
                 }
                 assert(false) { "ID Column not found. usually include ['id', 'identification', ...]" }
             }
-            columnIndex++
         }
     }
 

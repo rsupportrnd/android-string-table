@@ -22,12 +22,17 @@ object GoogleCredentials {
     private val HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
 
     fun createCredentials(credentialFilePath: String): Credential {
+        if(credentialFilePath.isEmpty()) throw IllegalStateException("Credential File Path is Empty.")
         val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, InputStreamReader(FileInputStream(credentialFilePath)))
         val flow = GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
             .setDataStoreFactory(FileDataStoreFactory(File(TOKENS_DIRECTORY_PATH)))
             .setAccessType("offline")
             .build()
         val receiver = LocalServerReceiver.Builder().setPort(8888).build()
-        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+        val credential = AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+        if(credential != null) {
+            return credential
+        }
+        throw IllegalStateException("Can not create credential file. Check the path or file again.")
     }
 }
