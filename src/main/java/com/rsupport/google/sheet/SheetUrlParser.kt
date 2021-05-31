@@ -27,27 +27,25 @@ class SheetUrlParser(private val credential: Credential, sheetURL: String) {
     }
 
     private fun parsingSheetName(): String {
-        var sheetName = ""
-        if(spreadSheetId.isNotEmpty() && sheetId != null) {
-            val service = Sheets.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(),
-                JacksonFactory.getDefaultInstance(),
-                credential
-            )
-                .setApplicationName(APPLICATION_NAME)
-                .build()
+        if (spreadSheetId.isEmpty()) return ""
+        if (sheetId == null) return ""
 
-            try {
-                val sheetsList = service.spreadsheets()[spreadSheetId].execute().sheets
+        val service = Sheets.Builder(
+            GoogleNetHttpTransport.newTrustedTransport(),
+            JacksonFactory.getDefaultInstance(),
+            credential
+        )
+            .setApplicationName(APPLICATION_NAME)
+            .build()
 
-                sheetName = sheetsList.map { sheet -> sheet.properties }
-                    .find { properties -> properties.sheetId == sheetId }?.title.toString()
+        try {
+            val sheetsList = service.spreadsheets()[spreadSheetId].execute().sheets
+            return sheetsList.map { sheet -> sheet.properties }
+                .find { properties -> properties.sheetId == sheetId }?.title.toString()
 
-            } catch (e: GoogleJsonResponseException) {
-                e.printStackTrace()
-            }
+        } catch (e: GoogleJsonResponseException) {
+            e.printStackTrace()
         }
-        println("sheetName : $sheetName")
-        return sheetName
+        return ""
     }
 }
