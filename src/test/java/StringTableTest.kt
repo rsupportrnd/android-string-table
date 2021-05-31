@@ -13,7 +13,7 @@ class StringTableTest {
 
     private val credentialFilePath = "credentials.json"
     private val sheetUrl =
-        "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/edit#gid=1256465417"
+        "https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=1886234656"
     private val outputXlsxFilePath = "./output/strings_sample.xlsx"
     private val androidResourcePath = "./output"
 
@@ -39,7 +39,7 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                2,
+                1,
                 null
             )
         }
@@ -57,7 +57,7 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                1,
+                2,
                 null
             )
         }
@@ -67,7 +67,7 @@ class StringTableTest {
     fun generateStringXmlWhenSpreadSheetIdIsEmpty() {
         println("generateStringXmlWhenSpreadSheetIdIsEmpty")
         deleteOutput()
-        val sheetUrlSpreadSheetIdEmpty = "https://docs.google.com/spreadsheets/edit#gid=1256465417"
+        val sheetUrlSpreadSheetIdEmpty = "https://docs.google.com/spreadsheets/edit#gid=1886234656"
         val credential = GoogleCredentials.createCredentials(credentialFilePath)
         val sheetURLParser = SheetUrlParser(credential, sheetUrlSpreadSheetIdEmpty)
         val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
@@ -79,28 +79,6 @@ class StringTableTest {
                 1,
                 null
             )
-        }
-    }
-
-    @Test(expected = AssertionError::class)
-    fun generateStringXmlWhenSheetIdIsEmpty() {
-        println("generateStringXmlWhenSheetIdIsEmpty")
-        deleteOutput()
-        val sheetUrlSpreadSheetIdEmpty =
-            "https://docs.google.com/spreadsheets/d/1CTLokrhbVB8Th1l09Bv17QOwlQ-L1yvrcQNg6WB9FZ8/"
-        val credential = GoogleCredentials.createCredentials(credentialFilePath)
-        val sheetURLParser = SheetUrlParser(credential, sheetUrlSpreadSheetIdEmpty)
-        val source = FileDownloader.download(credential, sheetURLParser.spreadSheetId, outputXlsxFilePath)
-        if(source != null) {
-            StringTableGenerator.generate(
-                outputXlsxFilePath,
-                androidResourcePath,
-                sheetURLParser.sheetName,
-                1,
-                null
-            )
-        } else {
-            throw NullPointerException("Cannot generate spread sheet file.")
         }
     }
 }
