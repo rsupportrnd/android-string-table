@@ -69,7 +69,8 @@ androidStringTable {
    ![screenshot5](readme/screenshot_5.png)
 
 **7. 프로젝트의 목적에 맞게 동의화면 구성**
-   ![screenshot6](readme/screenshot_6.png)
+    ![screenshot6](readme/screenshot_6.png)
+
 
 **8. "OAuth 클라이언트 ID" 생성 다시 시작**
    ![screenshot7](readme/screenshot_7.png)
