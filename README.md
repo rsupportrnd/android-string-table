@@ -73,7 +73,7 @@ androidStringTable {
 
 
 **8. "OAuth 클라이언트 ID" 생성 다시 시작**
-   ![screenshot7](readme/screenshot_7.png)
+    ![screenshot7](readme/screenshot_7.png)
 
 **9. 어플리케이션 유형을 "데스크톱 앱"으로 설정. 이름을 설정 후 "만들기" 버튼 클릭**
    ![screenshot8](readme/screenshot_8.png)
