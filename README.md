@@ -1,22 +1,22 @@
 # android-string-table
 
-## 💡소개
+## 💡 소개
 ***
->구글 스프레드 시트에 작성한 내용을 안드로이드 스튜디오에서 사용 가능한 문자열 리소스 파일(.xml)로 변환한다.
+구글 스프레드 시트에 작성한 내용을 안드로이드 스튜디오에서 사용 가능한 문자열 리소스 파일(.xml)로 변환한다.
 
-## 💡Package별 기능 상세
+## 💡 Package별 기능 상세
 ***
 ### com.rsupport.download
->구글 시트를 엑설 파일(.xlsx)로 다운로드 한다.
+구글 시트를 엑설 파일(.xlsx)로 다운로드 한다.
 
 ### com.rsupport.google
->구글 api 관련 패키지
+구글 api 관련 패키지
 
 ### com.ruspport.stringtable
->다운로드 한 엑셀 파일을 이용하여 문자열 리소스 파일을 생성한다.
+다운로드 한 엑셀 파일을 이용하여 문자열 리소스 파일을 생성한다.
 
 ### com.rsupport.plugin
->플러그인 관련 패키지
+플러그인 관련 패키지
 
 ## 💡플러그인 적용 방법
 ***
@@ -28,10 +28,8 @@ buildscript {
             jcenter()  
             maven { url 'https://jitpack.io' }  
         }  
-        dependencies {  
-            classpath 'com.android.tools.build:gradle:4.1.3'  
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"  
-            classpath 'com.github.ssk0dev:android-string-table:recent_version'
+        dependencies {
+            classpath 'com.github.ssk0dev:android-string-table:1.0.4.2'
       }  
     }
 ````
@@ -49,7 +47,7 @@ androidStringTable {
 }
 ````
 
-## 💡Credential 파일 다운로드 방법
+## 💡 Credential 파일 다운로드 방법
 ***
 **1. 구글 클라우드 콘솔(https://console.cloud.google.com/) 접속 후 로그인**
 
@@ -90,7 +88,7 @@ androidStringTable {
     
 ![screenshot9](readme/screenshot_9.png)
     
-## 💡플러그인 적용시 생성되는 task
+## 💡 플러그인 적용시 생성되는 task
 ***
 ![screenshot10](readme/screenshot_10.png)
 - **downloadSheetAndGenerateXmls**
@@ -103,16 +101,16 @@ androidStringTable {
 
   문자열 리소스 파일(.xml)을 생성한다.
 
-## 💡플러그인 적용 가능한 스프레드 시트 작성 방법
+## 💡 플러그인 적용 가능한 스프레드 시트 작성 방법
 ***
 ➰예제 스프레드 시트 : https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0
 
 ![screenshot11](readme/screenshot_11.png)
-1. 인덱스 행을 표시하기 위해 "id" 혹은 "identification"을 포함한 문자열을 입력한.
-2. values를 포함하지 않은 열은 파싱되지 않고 넘어간다.
-3. "values-국가, 언어 코드"로 해당 열의 국가와 언어를 표기한다.
-4. 국가와 언어 코드가 표기되지 않은 단순 "values" 열은 기본 문자열 파일로 변환된다.다
+1. 인덱스 행을 표시하기 위해 "id" 혹은 "identification"을 포함한 문자열을 입력한다.
+2. 인덱스 행의 셀 내부 문자열에 "values"를 포함하지 않은 열은 파싱되지 않고 넘어간다.
+3. 안드로이드 스튜디오에서 국가와 언어 별로 string.xml 파일이 담긴 values 폴더를 명명하는 법칙과 동일하게 "values-국가, 언어 코드"로 해당 열의 국가와 언어를 표기한다.
+4. 국가와 언어 코드가 표기되지 않은 단순 "values" 열은 기본 문자열 파일로 변환된다.
 
-## 💡스프레드 시트 URL
+## 💡 스프레드 시트 URL
 ***
->공유 기능으로 링크 복사를 하는 것이 아니고 주소창에 있는 주소를 직접 복사해서 붙여넣는다.
+공유 기능으로 링크 복사를 하는 것이 아니고 주소창에 있는 주소를 직접 복사해서 붙여넣는다.
