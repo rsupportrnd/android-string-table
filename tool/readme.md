@@ -1,10 +1,14 @@
 # tool
 
-## to_csv.py
+## res_to_csv.py
 
-선택된 폴더에서 values*/strings.xml 들을 하나의 태이블로 합칩니다.
+선택된 폴더에서 선택된 동일 이름 xml파일들을 하나로 합칩니다.
 
-입력
+### 예
+
+path = ./res
+
+target = strings.xml
 
 ```
 res (입력된 폴더)
@@ -27,6 +31,14 @@ res (입력된 폴더)
 
 ### 사용방법
 
-1. $ `python3 res_to_csv.py input [resource path] output [output file]`
+1. $ `python3 res_to_csv.py input [resource path, 기본값 '.'] output [output file, 기본값 'strings.csv'] target [target xml, 기본값 'strings.xml']`
 
+## merge.py
 
+선택된 폴더에서 모든 `values*/strings.xml`, `values*/strings_generated.xml`을 하나로 합칩니다.
+
+동일 아이디가 있는 경우 strings_generated.xml을 선택합니다.
+
+### 사용방법
+
+$ `python3 merge.py input [resource path, 기본값 '.'] output [output file, 기본값 'merged_strings.csv']`
