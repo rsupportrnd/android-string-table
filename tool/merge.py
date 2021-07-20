@@ -75,7 +75,7 @@ def merge_dict(folders1: list, folders2: list, folders_path: str, target1: str, 
 
 def create_csv(folders1: list, folders2: list, folders_path: str, output: str, target1: str, target2: str):
     with open(output, "w") as csv_file:
-        csvWriter = csv.writer(csv_file)
+        csv_writer = csv.writer(csv_file)
         
         elements = merge_dict(folders1, folders2, folders_path, target1, target2)
 
@@ -84,7 +84,7 @@ def create_csv(folders1: list, folders2: list, folders_path: str, output: str, t
             check_sum += len(cols)
             if check_sum % len(cols) != 0:
                 raise "should be same column size between previous and current"
-            csvWriter.writerow(cols)
+            csv_writer.writerow(cols)
 
 
 if __name__ == "__main__":

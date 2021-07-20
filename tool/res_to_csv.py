@@ -2,6 +2,7 @@ from types import GeneratorType
 from typing import Generator
 import xml.etree.ElementTree as ET
 from functools import reduce
+import csv
 
 
 def read_item(path: str):
@@ -66,7 +67,8 @@ def read_row(value_dict: dict):
 
 
 def create_csv(folders: list, folders_path: str, output: str, target: str):
-    with open(output, "w") as csv:
+    with open(output, "w") as csv_file:
+        csv_writer = csv.writer(csv_file)
         elements = make_dict(folders, folders_path, target)
 
         check_sum = 0
@@ -75,10 +77,7 @@ def create_csv(folders: list, folders_path: str, output: str, target: str):
             if check_sum % len(cols) != 0:
                 raise "should be same column size between previous and current"
 
-            replaced_row = map(lambda x: str.replace(x, "\n", "\\n"), cols)
-            quotation_row = map(lambda x: f"\"{x}\"", replaced_row)
-            str_row = reduce(lambda x, y: f"{x},{y}", quotation_row) + "\n"
-            csv.write(str_row)
+            csv_writer.writerow(cols)
 
 
 def get_parameters():
