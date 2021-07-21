@@ -1,25 +1,12 @@
-# import os, sys
-# sys.path.append(os.path.dirname(__file__))
-
-"""
-# 설명
-
-기존 리소스 (strings.xml)과 (strings_generated.xml)을 merge합니다.
-
-strings_generated.xml에 (strings.xml - strings_generated.xml)를 더합니다.
-
-"""
-import csv
 from types import GeneratorType
-import res_to_csv as res
-from functools import reduce
-import sys
 
 
 def get_parameters():
+    import sys
 
     resource_path = "."
-    output = "merged_strings.csv"
+    output = "strings.xlsx"
+    targets = []
     previous_arg = ""
     for arg in sys.argv:
         print(arg)
@@ -27,70 +14,89 @@ def get_parameters():
             resource_path = arg
         elif previous_arg == "output":
             output = arg
+        elif previous_arg == "target":
+            targets.append(arg)
         previous_arg = arg
-    return (resource_path, output)
 
-def read_csv_format(folders: list, folders_path: str, target="strings.xml"):
+    if len(targets) == 0:
+        targets = ["strings.xml"]
 
+    return (resource_path, output, targets)
+
+
+def find_folders(path: str, target: str):
+    """"""
+    import os
+    import sys
+
+    for folder in filter(lambda it: it.find("values") == 0, os.listdir(path)):
+        for sub_file in os.listdir(f"{path}/{folder}"):
+            if sub_file == target:
+                yield folder
+
+
+def read_item(path: str):
+    """
+    ## return
+    (name, value)
+    """
+    import xml.etree.ElementTree as ET
     
-    elements = res.make_dict(folders, folders_path, target)
+    dom = ET.parse(path)
+    root = dom.getroot()
+    for item in root.findall("string"):
+        if item.text == None:
+            yield (item.attrib["name"], "")
+        else:
+            yield (item.attrib["name"], item.text.replace('\\"', '"').replace("\\'", "'"))
 
-    check_sum = 0
-    for cols in res.read_row(elements):
-        check_sum += len(cols)
-        if check_sum % len(cols) != 0:
-            raise "should be same column size between previous and current"
 
-        replaced_row = map(lambda x: str.replace(x, "\n", "\\n"), cols)
-        quotation_row = map(lambda x: f"\"{x}\"", replaced_row)
-        str_row = reduce(lambda x, y: f"{x},{y}", quotation_row) + "\n"
-        yield str_row
+def make_dict(folders_path: str, folders_target_set: list):
+    """
+    ## input
+    ["values-en", "values-ko"], "c:\\Users"
 
-def merge_dict(folders1: list, folders2: list, folders_path: str, target1: str, target2: str):
-    if type(folders1) is GeneratorType:
-        folders1 = list(folders1)
-    if type(folders2) is GeneratorType:
-        folders2 = list(folders2)
-
-    sum_folders = sorted(set(folders1 + folders2))
-
+    ## output
+    {name : {lang : value}}"""
     retval = {}
+    for (folders, target) in folders_target_set:
+        if type(folders) is GeneratorType:
+            folders = list(folders)
 
-    for lang1 in folders1:
-        for (name, value) in res.read_item(f"{folders_path}/{lang1}/{target1}"):
-            columns = dict(zip(sum_folders, [""] * len(sum_folders)))
-            columns.update({lang1: value})
-            retval.update({name: columns})
-
-    for lang2 in folders2:
-        for (name, value) in res.read_item(f"{folders_path}/{lang2}/{target2}"):
-            columns = retval.get(name,retval.get(name, dict(zip(sum_folders, [""] * len(sum_folders)))))
-            columns.update({lang2: value})
-            retval.update({name: columns})
-
+        for lang in folders:
+            for (name, value) in read_item(f"{folders_path}/{lang}/{target}"):
+                columns = retval.get(name, dict(
+                    zip(folders, [""] * len(folders))))
+                columns.update({lang: value})
+                retval.update({name: columns})
     return retval
-        
 
+def merge(resource_path: str, output: str, targets: list):
+    print(f"모든 {resource_path}/values*/target을 {output}으로 병합힙니다.")
+    try:
+        import pandas
+    except Exception as e:
+        print(e)
+        print("===================")
+        print("pandas가 설치 되어 있지 않습니다. 'pip install pandas' or 'pip3 install pandas'")
 
+    folders_target_set = map(lambda target: (find_folders(resource_path, target), target), targets)
+    data = make_dict(resource_path, folders_target_set)
+    dataFrame = pandas.DataFrame(data).T
 
-def create_csv(folders1: list, folders2: list, folders_path: str, output: str, target1: str, target2: str):
-    with open(output, "w") as csv_file:
-        csv_writer = csv.writer(csv_file)
-        
-        elements = merge_dict(folders1, folders2, folders_path, target1, target2)
+    # 컬럼으로 정렬
+    dataFrame = dataFrame[sorted(dataFrame.columns)]
 
-        check_sum = 0
-        for cols in res.read_row(elements):
-            check_sum += len(cols)
-            if check_sum % len(cols) != 0:
-                raise "should be same column size between previous and current"
-            csv_writer.writerow(cols)
+    dataFrame.to_excel(output)
+    print("done")
 
 
 if __name__ == "__main__":
-    resource_path, output = get_parameters()
-
-    original_folders = res.find_folders(resource_path, "strings.xml")
-    generated_folders = res.find_folders(resource_path, "strings_generated.xml")
-
-    create_csv(original_folders, generated_folders, resource_path, output, "strings.xml", "strings_generated.xml")
+    print("====== android string table tools ========")
+    print("# how to use?")
+    print("     $'python merge.py input [android res path] output [output xml path] target [like strings.xml, strings_generated.xml]'")
+    print("     $`python merge.py input 'src/test/java/stringtable/sample/res' target strings.xml output merged_strings.xlsx'")
+    print("     $`python merge.py input 'src/test/java/stringtable/sample/res' target strings.xml target strings_generated.xml output merged_strings.xlsx'")
+    resource_path, output, targets = get_parameters()
+    
+    merge(resource_path, output, targets)
