@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/ssk0dev/android-string-table.svg)](https://jitpack.io/#ssk0dev/android-string-table)
 # android-string-table
 
 ## 💡 소개
