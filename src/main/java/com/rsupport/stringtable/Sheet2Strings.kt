@@ -170,15 +170,7 @@ object Sheet2Strings {
         }
     }
 
-    private fun getText(valueRaw: String): String {
-        var value = valueRaw
-        value = value.replace("\'", "\\\'")
-        value = value.replace("\\\\\'", "\\\'")
-        value = value.replace("\"", "\\\"")
-        value = value.replace("\\\\\"", "\\\"")
-        value = value.replace("\n", "\\n")
-        return value
-    }
+    private fun getText(valueRaw: String): String = valueRaw
 
     private fun getStringArrayItem(id: String, value: String): Element {
         val stringArray = Element("string-array")
