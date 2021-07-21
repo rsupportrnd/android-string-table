@@ -9,7 +9,6 @@ def get_parameters():
     targets = []
     previous_arg = ""
     for arg in sys.argv:
-        print(arg)
         if previous_arg == "input":
             resource_path = arg
         elif previous_arg == "output":
