@@ -81,7 +81,7 @@ androidStringTable {
 The MIT License (MIT)
 =====================
 
-Copyright © 2011 RSUPPORT
+Copyright © 2021 RSUPPORT
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
