@@ -26,15 +26,15 @@ class StringTablePlugin : Plugin<Project> {
             generateXmlTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
         }
 
-        val downloadAndGenerateTask = project.tasks.register("downloadSheetAndGenerateXmls", StringTableTask::class.java)
+        val updateResourceTask = project.tasks.register("updateResource", StringTableTask::class.java)
         project.afterEvaluate {
-            downloadAndGenerateTask.get().group = "androidStringTable"
-            downloadAndGenerateTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
-            downloadAndGenerateTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
-            downloadAndGenerateTask.get().androidResourcePath = extension.androidResourcePath.get()
-            downloadAndGenerateTask.get().indexRowNumber = extension.indexRowNumber?.get()
-            downloadAndGenerateTask.get().targetSheetUrl = extension.targetSheetUrl.get()
-            downloadAndGenerateTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
+            updateResourceTask.get().group = "androidStringTable"
+            updateResourceTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
+            updateResourceTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
+            updateResourceTask.get().androidResourcePath = extension.androidResourcePath.get()
+            updateResourceTask.get().indexRowNumber = extension.indexRowNumber?.get()
+            updateResourceTask.get().targetSheetUrl = extension.targetSheetUrl.get()
+            updateResourceTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
         }
 
     }
