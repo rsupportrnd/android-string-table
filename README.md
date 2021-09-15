@@ -54,7 +54,7 @@ androidStringTable {
 ## 💡 플러그인 적용시 생성되는 task
 ***
 ![screenshot10](screenshots/screenshot_10.png)
-- **downloadSheetAndGenerateXmls**
+- **updateResource**
   
   스프레드 시트를 다운로드하고 문자열 리소스 파일(.xml)을 생성한다.
 - **downloadSpreadsheet**
