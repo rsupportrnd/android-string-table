@@ -1,17 +1,55 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-    }
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.0-M2'
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
+group 'com.rsupport'
+version '1.0.4.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+    compile 'org.apache.poi:poi:3.10-FINAL'
+    compile 'commons-codec:commons-codec:1.5'
+    compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
+    compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
+    compile 'org.apache.xmlbeans:xmlbeans:2.3.0'
+    compile 'stax:stax-api:1.0.1'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'xml-apis:xml-apis:1.0.b2'
+    compile 'org.jdom:jdom2:2.0.6'
+    implementation 'com.google.api-client:google-api-client:1.30.4'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.30.4'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev581-1.25.0'
+    compile(gradleApi())
+    compile(localGroovy())
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+gradlePlugin {
+    plugins {
+        stringTablePlugin {
+            id = 'android-string-table'
+            implementationClass = 'com.rsupport.plugin.StringTablePlugin'
+        }
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }

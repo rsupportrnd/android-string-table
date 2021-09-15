@@ -10,4 +10,6 @@ out/
 local.properties
 download/drive_all_tokens
 download/output
-lib/src/test/java/stringtable/sample
+/output/
+/drive_all_tokens/
+/credentials.json

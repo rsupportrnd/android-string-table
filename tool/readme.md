@@ -1,32 +1,19 @@
 # tool
 
-## to_csv.py
+## merge.py
 
-선택된 폴더에서 values*/strings.xml 들을 하나의 태이블로 합칩니다.
+선택된 폴더에서 선택된 동일 이름 xml파일들을 하나로 합칩니다.
 
-입력
+### res 폴더 내 모든 strings.xml을 합치는 경우
 
-```
-res (입력된 폴더)
-|-values
-|--strings.xml
-|-values-en
-|--strings.xml
-|-values-ko
-|--strings.xml
-|--strings_generated.xml (조건에 의해 제외)
-|-value (조건에 의해 제외)
-|--strings.xml
-```
+`python merge.py input [res path]` or `python merge.py input [res path] target "strings.xml" output "merged_strings.xlsx"`
 
-결과물
+### res 폴더 내 모든 strings.xml strings_generated.xml을 합치는 경우
 
-| id | values | values-en | values-ko |
-| - | - | - | - |
-| app_title | __app | __app | __앱 |
+#### 중복 id 시, strings_generated.xml을 우선
 
-### 사용방법
+`python merge.py input [res path] target "strings.xml" target "strings_generated.xml" output "merged_strings.xlsx"`
 
-1. $ `python3 res_to_csv.py input [resource path] output [output file]`
+#### 중복 id 시 strings.xml을 우선
 
-
+`python merge.py input [res path] target "strings_generated.xml" target "strings.xml" output "merged_strings.xlsx"`
