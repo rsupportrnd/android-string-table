@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/ssk0dev/android-string-table.svg)](https://jitpack.io/#ssk0dev/android-string-table)
+[![](https://jitpack.io/v/rsupportrnd/android-string-table.svg)](https://jitpack.io/#rsupportrnd/android-string-table)
 # android-string-table
 
 ## 💡 소개
@@ -30,7 +30,7 @@ buildscript {
             maven { url 'https://jitpack.io' }  
         }  
         dependencies {
-            classpath 'com.github.ssk0dev:android-string-table:1.0.4.2'
+            classpath 'com.github.rsupportrnd:android-string-table:1.0.4.2'
       }  
     }
 ````
