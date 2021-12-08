@@ -39,12 +39,12 @@ buildscript {
 apply plugin: 'android-string-table'
     
 androidStringTable {  
-  googleDriveCredentialPath '구글 credential 파일의 경로'
-  outputXlsxFilePath '스프레드 시트가 다운로드 될 경로와 파일의 이름 지정 (파일 확장자는 .xlsx로 고정)'
-  androidResourcePath '안드로이드 리소스 폴더 경로'  
-  indexRowNumber 인덱스 행 번호
-  targetSheetUrl '변환할 스프레드 시트의 url'  
-  outputXmlFileName '생성될 xml 파일의 이름 지정'  
+    googleDriveCredentialPath "${project.rootDir}/strings/credentials.json"
+    outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
+    androidResourcePath "${project.rootDir}/app/src/main/res"
+    indexRowNumber 1
+    targetSheetUrl 'https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0' // full url of sheet included tab gid
+    outputXmlFileName 'strings_generated'
 }
 ````
 
