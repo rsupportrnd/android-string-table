@@ -12,8 +12,9 @@ open class GenerateXmlTask : DefaultTask() {
     var targetSheetUrl = ""
     var outputXlsxFilePath = ""
     var androidResourcePath = ""
-    var rowPositionColumnHeader : Int? = null
-    var outputXmlFileName : String? = null
+    var rowPositionColumnHeader: Int? = null
+    var outputXmlFileName: String? = null
+    var doNotConvertNewLine: Boolean? = null
 
     @TaskAction
     fun generateXml() {
@@ -24,7 +25,8 @@ open class GenerateXmlTask : DefaultTask() {
             androidResourcePath,
             sheetURLParser.sheetName,
             rowPositionColumnHeader,
-            outputXmlFileName
+            outputXmlFileName,
+            doNotConvertNewLine = doNotConvertNewLine ?: false,
         )
     }
 }

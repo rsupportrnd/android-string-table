@@ -30,7 +30,7 @@ buildscript {
             maven { url 'https://jitpack.io' }  
         }  
         dependencies {
-            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.2'
+            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.3'
       }  
     }
 ````
@@ -40,13 +40,17 @@ apply plugin: 'android-string-table'
     
 androidStringTable {  
     googleDriveCredentialPath "${project.rootDir}/strings/credentials.json"
-    outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
 
-    rowPositionColumnHeader 1
-    androidResourcePath "${project.rootDir}/app/src/main/res"
-    indexRowNumber 1
     targetSheetUrl 'https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0' // full url of sheet included tab gid
+
+    outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
+    rowPositionColumnHeader 1
+    doNotConvertNewLine false
+
+    androidResourcePath "${project.rootDir}/app/src/main/res"
     outputXmlFileName 'strings_generated'
+
+
 }
 ````
 
