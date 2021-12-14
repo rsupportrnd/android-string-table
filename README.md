@@ -45,7 +45,7 @@ androidStringTable {
 
     outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
     rowPositionColumnHeader 1
-    doNotConvertNewLine true
+    doNotConvertNewLine false
 
     androidResourcePath "${project.rootDir}/app/src/main/res"
     outputXmlFileName 'strings_generated'
