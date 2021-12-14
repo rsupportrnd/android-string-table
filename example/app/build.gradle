@@ -44,13 +44,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
-apply plugin: 'rsupport-string-table'
-stringResourceConfig {
-/** https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434 */
+apply plugin: 'android-string-table'
+androidStringTable {
     googleDriveCredentialPath "${project.rootDir}/app/i18n/credentials.json"
-    spreadSheetFieldId '12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30'
+
+    // https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434
+    targetSheetUrl "https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434"
     outputXlsxFilePath "${project.rootDir}/app/i18n/languages.xlsx"
+
+    indexRowNumber 1
     androidResourcePath "${project.rootDir}/app/src/main/res"
-    inputSheetName 'Main'
-    indexRowNumber 0
+    outputXmlFileName 'strings_generated'
 }
