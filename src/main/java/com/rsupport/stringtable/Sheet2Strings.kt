@@ -14,9 +14,9 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int?, outputXmlFileName: String?) {
+    fun convert(sheet: Sheet, pathRes: File, rowPositionColumnHeader: Int?, outputXmlFileName: String?) {
         val nav = SheetNavigator(sheet)
-        val (columnStringId, rowStringId) = findIdCell(nav, indexRowNum)
+        val (columnStringId, rowStringId) = findIdCell(nav, rowPositionColumnHeader)
 
         var column = columnStringId
 
@@ -39,12 +39,12 @@ object Sheet2Strings {
         }
     }
 
-    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        val rowIndex = if(indexRowNum == null) {
+        val rowIndex = if(rowPositionColumnHeader == null) {
             0
         } else {
-            indexRowNum - 1
+            rowPositionColumnHeader - 1
         }
 
         if(rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")

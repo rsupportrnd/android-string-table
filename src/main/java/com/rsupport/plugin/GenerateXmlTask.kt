@@ -12,7 +12,7 @@ open class GenerateXmlTask : DefaultTask() {
     var targetSheetUrl = ""
     var outputXlsxFilePath = ""
     var androidResourcePath = ""
-    var indexRowNumber : Int? = null
+    var rowPositionColumnHeader : Int? = null
     var outputXmlFileName : String? = null
 
     @TaskAction
@@ -23,7 +23,7 @@ open class GenerateXmlTask : DefaultTask() {
             outputXlsxFilePath,
             androidResourcePath,
             sheetURLParser.sheetName,
-            indexRowNumber,
+            rowPositionColumnHeader,
             outputXmlFileName
         )
     }

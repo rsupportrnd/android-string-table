@@ -8,7 +8,7 @@ import java.io.FileInputStream
 object StringTableGenerator {
 
     @Throws(Exception::class)
-    fun generate(source: String, resPath: String, targetSheetName: String?, indexRowNum: Int?, xmlFileName: String?) {
+    fun generate(source: String, resPath: String, targetSheetName: String?, rowPositionColumnHeader: Int?, xmlFileName: String?) {
         println("Generate string tables.")
         println("\tsource: $source")
         println("\tres: $resPath")
@@ -16,7 +16,7 @@ object StringTableGenerator {
         val pathRes = File(resPath)
         val inputStream = FileInputStream(sourceFile)
         val workbook = XSSFWorkbook(inputStream)
-        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes, indexRowNum, xmlFileName)
+        Sheet2Strings.convert(getTargetSheet(targetSheetName, workbook), pathRes, rowPositionColumnHeader, xmlFileName)
         println("Completed.")
         inputStream.close()
     }
