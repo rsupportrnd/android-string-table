@@ -14,9 +14,15 @@ import java.io.OutputStreamWriter
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
-    fun convert(sheet: Sheet, pathRes: File, indexRowNum: Int?, outputXmlFileName: String?) {
+    fun convert(
+        sheet: Sheet,
+        pathRes: File,
+        rowPositionColumnHeader: Int?,
+        outputXmlFileName: String?,
+        doNotConvertNewLine: Boolean
+    ) {
         val nav = SheetNavigator(sheet)
-        val (columnStringId, rowStringId) = findIdCell(nav, indexRowNum)
+        val (columnStringId, rowStringId) = findIdCell(nav, rowPositionColumnHeader)
 
         var column = columnStringId
 
@@ -32,19 +38,26 @@ object Sheet2Strings {
                 val languageCode = nav.getCell(rowStringId, column)
                 if ("values" !in languageCode) continue
                 val filename = Path.combine(pathRes.path, languageCode, xmlFileName)
-                createStringsXml(filename, nav, columnStringId, rowStringId + 1, column)
+                createStringsXml(
+                    filename,
+                    nav,
+                    columnStringId,
+                    rowStringId + 1,
+                    column,
+                    doNotConvertNewLine = doNotConvertNewLine,
+                )
             } catch (e: NoSuchElementException) {
                 break
             }
         }
     }
 
-    private fun findIdCell(nav: SheetNavigator, indexRowNum: Int?): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        val rowIndex = if(indexRowNum == null) {
+        val rowIndex = if(rowPositionColumnHeader == null) {
             0
         } else {
-            indexRowNum - 1
+            rowPositionColumnHeader - 1
         }
 
         if(rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
@@ -79,7 +92,14 @@ object Sheet2Strings {
         return false
     }
 
-    private fun createStringsXml(filename: String, nav: SheetNavigator, columnStringId: Int, rowStringId: Int, col: Int) {
+    private fun createStringsXml(
+        filename: String,
+        nav: SheetNavigator,
+        columnStringId: Int,
+        rowStringId: Int,
+        col: Int,
+        doNotConvertNewLine: Boolean,
+    ) {
         val doc = Document()
         val resources = Element("resources")
         doc.addContent(resources)
@@ -136,19 +156,23 @@ object Sheet2Strings {
 
             when {
                 id.contains("[]") -> {
-                    val stringArray = getStringArrayItem(id, value)
+                    val stringArray = getStringArrayItem(
+                        id,
+                        value,
+                        doNotConvertNewLine = doNotConvertNewLine,
+                    )
                     resources.addContent(stringArray)
                 }
                 id.endsWith(".append") -> {
                     val previousId = id.dropLast(".append".length)
                     val original = resources.children.first { it.getAttribute("name").value == previousId }
 
-                    original.text = original.text + getText(value)
+                    original.text = original.text + getText(value, doNotConvertNewLine = doNotConvertNewLine)
                 }
                 else -> {
                     val string = Element("string")
                     string.setAttribute("name", id)
-                    string.text = getText(value)
+                    string.text = getText(value, doNotConvertNewLine = doNotConvertNewLine)
                     resources.addContent(string)
                 }
             }
@@ -170,17 +194,22 @@ object Sheet2Strings {
         }
     }
 
-    private fun getText(valueRaw: String): String {
+    private fun getText(valueRaw: String, doNotConvertNewLine: Boolean): String {
         var value = valueRaw
         value = value.replace("\'", "\\\'")
         value = value.replace("\\\\\'", "\\\'")
         value = value.replace("\"", "\\\"")
         value = value.replace("\\\\\"", "\\\"")
-        value = value.replace("\n", "\\n")
+        if (doNotConvertNewLine == false)
+            value = value.replace("\n", "\\n")
         return value
     }
 
-    private fun getStringArrayItem(id: String, value: String): Element {
+    private fun getStringArrayItem(
+        id: String,
+        value: String,
+        doNotConvertNewLine: Boolean,
+    ): Element {
         val stringArray = Element("string-array")
         stringArray.setAttribute("name", id.replace("[]", ""))
         var separator = "\n"
@@ -188,7 +217,7 @@ object Sheet2Strings {
         val items = value.split(separator.toRegex()).toTypedArray()
         for (item in items) {
             val child = Element("item")
-            child.text = getText(item)
+            child.text = getText(item, doNotConvertNewLine = doNotConvertNewLine)
             stringArray.addContent(child)
         }
         return stringArray

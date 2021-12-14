@@ -21,9 +21,10 @@ class StringTablePlugin : Plugin<Project> {
             generateXmlTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
             generateXmlTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
             generateXmlTask.get().androidResourcePath = extension.androidResourcePath.get()
-            generateXmlTask.get().indexRowNumber = extension.indexRowNumber?.get()
+            generateXmlTask.get().rowPositionColumnHeader = extension.rowPositionColumnHeader?.get()
             generateXmlTask.get().targetSheetUrl = extension.targetSheetUrl.get()
             generateXmlTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
+            generateXmlTask.get().doNotConvertNewLine = extension.doNotConvertNewLine?.get()
         }
 
         val updateResourceTask = project.tasks.register("updateResource", StringTableTask::class.java)
@@ -32,9 +33,10 @@ class StringTablePlugin : Plugin<Project> {
             updateResourceTask.get().googleDriveCredentialPath = extension.googleDriveCredentialPath.get()
             updateResourceTask.get().outputXlsxFilePath = extension.outputXlsxFilePath.get()
             updateResourceTask.get().androidResourcePath = extension.androidResourcePath.get()
-            updateResourceTask.get().indexRowNumber = extension.indexRowNumber?.get()
+            updateResourceTask.get().rowPositionColumnHeader = extension.rowPositionColumnHeader?.get()
             updateResourceTask.get().targetSheetUrl = extension.targetSheetUrl.get()
             updateResourceTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
+            updateResourceTask.get().doNotConvertNewLine = extension.doNotConvertNewLine?.get()
         }
 
     }
