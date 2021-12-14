@@ -30,7 +30,7 @@ buildscript {
             maven { url 'https://jitpack.io' }  
         }  
         dependencies {
-            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.2'
+            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.3'
       }  
     }
 ````
@@ -45,7 +45,7 @@ androidStringTable {
 
     outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
     rowPositionColumnHeader 1
-    doNotConvertNewLine true
+    doNotConvertNewLine false
 
     androidResourcePath "${project.rootDir}/app/src/main/res"
     outputXmlFileName 'strings_generated'
