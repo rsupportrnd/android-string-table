@@ -12,6 +12,7 @@ open class StringTableExtension(project: Project) {
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
     var rowPositionColumnHeader: Property<Int>? = project.objects.property(Int::class.java)
     var outputXmlFileName: Property<String>? = project.objects.property(String::class.java)
+    var doNotConvertNewLine: Property<Boolean>? = project.objects.property(Boolean::class.java)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
@@ -37,6 +38,10 @@ open class StringTableExtension(project: Project) {
         this.outputXmlFileName?.set(outputXmlFileName)
     }
 
+    fun setDoNotConvertNewLine(doNotConvertNewLine: Boolean?) {
+        this.doNotConvertNewLine?.set(doNotConvertNewLine)
+    }
+
     fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
 
     fun getTargetSheetUrl(): String = targetSheetUrl.get()
@@ -48,4 +53,6 @@ open class StringTableExtension(project: Project) {
     fun getrowPositionColumnHeader(): Int? = rowPositionColumnHeader?.get()
 
     fun getOutputXmlFileName(): String? = outputXmlFileName?.get()
+
+    fun getDoNotConvertNewLine(): Boolean? = doNotConvertNewLine?.get()
 }

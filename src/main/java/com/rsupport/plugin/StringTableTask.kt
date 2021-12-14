@@ -16,6 +16,7 @@ open class StringTableTask : DefaultTask() {
     var androidResourcePath = ""
     var rowPositionColumnHeader : Int? = null
     var outputXmlFileName : String? = null
+    var doNotConvertNewLine : Boolean? = null
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
     fun updateStringResource() {
@@ -27,7 +28,8 @@ open class StringTableTask : DefaultTask() {
             androidResourcePath,
             sheetURLParser.sheetName,
             rowPositionColumnHeader,
-            outputXmlFileName
+            outputXmlFileName,
+            doNotConvertNewLine = doNotConvertNewLine == true,
         )
     }
 }

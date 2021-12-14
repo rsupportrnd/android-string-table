@@ -24,6 +24,7 @@ class StringTablePlugin : Plugin<Project> {
             generateXmlTask.get().rowPositionColumnHeader = extension.rowPositionColumnHeader?.get()
             generateXmlTask.get().targetSheetUrl = extension.targetSheetUrl.get()
             generateXmlTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
+            generateXmlTask.get().doNotConvertNewLine = extension.doNotConvertNewLine?.get()
         }
 
         val updateResourceTask = project.tasks.register("updateResource", StringTableTask::class.java)
@@ -35,6 +36,7 @@ class StringTablePlugin : Plugin<Project> {
             updateResourceTask.get().rowPositionColumnHeader = extension.rowPositionColumnHeader?.get()
             updateResourceTask.get().targetSheetUrl = extension.targetSheetUrl.get()
             updateResourceTask.get().outputXmlFileName = extension.outputXmlFileName?.get()
+            updateResourceTask.get().doNotConvertNewLine = extension.doNotConvertNewLine?.get()
         }
 
     }
