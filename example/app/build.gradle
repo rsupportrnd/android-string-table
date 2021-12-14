@@ -51,8 +51,9 @@ androidStringTable {
     // https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434
     targetSheetUrl "https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434"
     outputXlsxFilePath "${project.rootDir}/app/i18n/languages.xlsx"
+    rowPositionColumnHeader 1
+    doNotConvertNewLine true
 
-    indexRowNumber 1
     androidResourcePath "${project.rootDir}/app/src/main/res"
     outputXmlFileName 'strings_generated'
 }

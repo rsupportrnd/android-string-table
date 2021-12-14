@@ -26,6 +26,11 @@
         <item>스트링[0]</item>
         <item>스트링[1]</item>
     </string-array>
+    <string name="string_includes_new_line">first line
+second line
+third line</string>
+    <string name="string_includes_hard_coded_new_line">first hard coded line\nsecond hard coded line\nthird hard coded line
+last line with sheet new line</string>
     <string-array name="string_array_03">
         <item>스트링[0]</item>
         <item>스트링[1]</item>
