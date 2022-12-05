@@ -19,7 +19,6 @@ dependencies {
     compile 'org.apache.poi:poi:5.2.2'
     compile 'commons-codec:commons-codec:1.5'
     compile 'org.apache.poi:poi-ooxml:5.2.2'
-    compile 'org.apache.poi:poi-ooxml-schemas:4.1.2'
     compile 'org.apache.xmlbeans:xmlbeans:2.3.0'
     compile 'stax:stax-api:1.0.1'
     compile 'dom4j:dom4j:1.6.1'
