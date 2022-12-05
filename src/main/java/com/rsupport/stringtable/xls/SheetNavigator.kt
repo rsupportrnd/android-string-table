@@ -1,8 +1,8 @@
 package com.rsupport.stringtable.xls
 
 import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Sheet
-import org.apache.poi.xssf.usermodel.XSSFCell
 import java.util.*
 
 class SheetNavigator(var sheet: Sheet) {
@@ -18,8 +18,8 @@ class SheetNavigator(var sheet: Sheet) {
     companion object {
         private fun getCellString(cell: Cell): String {
             when (cell.cellType) {
-                XSSFCell.CELL_TYPE_NUMERIC -> return "" + cell.numericCellValue
-                XSSFCell.CELL_TYPE_STRING -> return cell.stringCellValue.replace("_x000a_", "\n")
+                CellType.NUMERIC -> return "" + cell.numericCellValue
+                CellType.STRING -> return cell.stringCellValue.replace("_x000a_", "\n")
             }
             return ""
         }
