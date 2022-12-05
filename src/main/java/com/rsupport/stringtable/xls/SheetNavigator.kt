@@ -3,7 +3,6 @@ package com.rsupport.stringtable.xls
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Sheet
-import org.apache.poi.xssf.usermodel.XSSFCell
 import java.util.*
 
 class SheetNavigator(var sheet: Sheet) {
