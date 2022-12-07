@@ -12,7 +12,7 @@ import java.io.File
 open class StringTableTask : DefaultTask() {
 
     @Internal var googleDriveCredentialPath = ""
-    var targetSheetUrl = ""
+    @Internal var targetSheetUrl = ""
     @Internal var outputXlsxFilePath = ""
     @Internal var androidResourcePath = ""
     @Internal var rowPositionColumnHeader : Int? = null
