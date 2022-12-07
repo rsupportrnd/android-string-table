@@ -4,17 +4,18 @@ import com.rsupport.google.GoogleCredentials
 import com.rsupport.google.sheet.SheetUrlParser
 import com.rsupport.stringtable.StringTableGenerator
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 open class GenerateXmlTask : DefaultTask() {
 
-    var googleDriveCredentialPath = ""
-    var targetSheetUrl = ""
-    var outputXlsxFilePath = ""
-    var androidResourcePath = ""
-    var rowPositionColumnHeader: Int? = null
-    var outputXmlFileName: String? = null
-    var doNotConvertNewLine: Boolean? = null
+    @Internal var googleDriveCredentialPath = ""
+    @Internal var targetSheetUrl = ""
+    @Internal var outputXlsxFilePath = ""
+    @Internal var androidResourcePath = ""
+    @Internal var rowPositionColumnHeader: Int? = null
+    @Internal var outputXmlFileName: String? = null
+    @Internal var doNotConvertNewLine: Boolean? = null
 
     @TaskAction
     fun generateXml() {
