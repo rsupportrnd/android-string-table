@@ -14,7 +14,7 @@ object StringTableGenerator {
         targetSheetName: String?,
         rowPositionColumnHeader: Int?,
         xmlFileName: String?,
-        doNotConvertNewLine: Boolean,
+        doNotConvertNewLine: Boolean? = null,
     ) {
         println("Generate string tables.")
         println("\tsource: $source")
@@ -28,7 +28,7 @@ object StringTableGenerator {
             pathRes,
             rowPositionColumnHeader,
             xmlFileName,
-            doNotConvertNewLine = doNotConvertNewLine,
+            doNotConvertNewLine = doNotConvertNewLine ?: false,
         )
         println("Completed.")
         inputStream.close()
