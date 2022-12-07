@@ -5,18 +5,19 @@ import com.rsupport.google.GoogleCredentials
 import com.rsupport.google.sheet.SheetUrlParser
 import com.rsupport.stringtable.StringTableGenerator
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 open class StringTableTask : DefaultTask() {
 
-    var googleDriveCredentialPath = ""
+    @Internal var googleDriveCredentialPath = ""
     var targetSheetUrl = ""
-    var outputXlsxFilePath = ""
-    var androidResourcePath = ""
+    @Internal var outputXlsxFilePath = ""
+    @Internal var androidResourcePath = ""
     var rowPositionColumnHeader : Int? = null
-    var outputXmlFileName : String? = null
-    var doNotConvertNewLine : Boolean? = null
+    @Internal var outputXmlFileName : String? = null
+    @Internal var doNotConvertNewLine : Boolean? = null
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
     fun updateStringResource() {
