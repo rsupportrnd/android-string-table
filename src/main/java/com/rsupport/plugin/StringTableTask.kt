@@ -15,7 +15,7 @@ open class StringTableTask : DefaultTask() {
     var targetSheetUrl = ""
     @Internal var outputXlsxFilePath = ""
     @Internal var androidResourcePath = ""
-    var rowPositionColumnHeader : Int? = null
+    @Internal var rowPositionColumnHeader : Int? = null
     @Internal var outputXmlFileName : String? = null
     @Internal var doNotConvertNewLine : Boolean? = null
     @TaskAction
