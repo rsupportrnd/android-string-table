@@ -30,7 +30,7 @@ open class StringTableExtension(project: Project) {
         this.androidResourcePath.set(androidResourcePath)
     }
 
-    fun setrowPositionColumnHeader(rowPositionColumnHeader: Int?) {
+    fun setRowPositionColumnHeader(rowPositionColumnHeader: Int?) {
         this.rowPositionColumnHeader?.set(rowPositionColumnHeader)
     }
 
@@ -50,7 +50,7 @@ open class StringTableExtension(project: Project) {
 
     fun getAndroidResourcePath(): String = androidResourcePath.get()
 
-    fun getrowPositionColumnHeader(): Int? = rowPositionColumnHeader?.get()
+    fun getRowPositionColumnHeader(): Int? = rowPositionColumnHeader?.get()
 
     fun getOutputXmlFileName(): String? = outputXmlFileName?.get()
 
