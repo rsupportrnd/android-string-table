@@ -65,10 +65,10 @@ object Sheet2Strings {
         while (true) {
             column++
             try {
-                val languageCode = nav.getCell(rowStringId, column)
-                val resourceFolderName = createResourceFolderName(languageCode) ?: continue
+                val columnHeader = nav.getCell(rowStringId, column)
+                val resourceFolderName = createResourceFolderName(columnHeader) ?: continue
                 result.add(Pair(column, resourceFolderName))
-                if (languageCode == defaultLanguageForValues) {
+                if (defaultLanguageForValues.isNotBlank() && LanguageCode.getActualCode(columnHeader) == defaultLanguageForValues) {
                     result.add(Pair(column, "values"))
                 }
             } catch (e: NoSuchElementException) {
