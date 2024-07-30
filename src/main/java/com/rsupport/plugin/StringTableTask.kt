@@ -7,7 +7,6 @@ import com.rsupport.stringtable.StringTableGenerator
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
-import java.io.File
 
 open class StringTableTask : DefaultTask() {
 
@@ -15,6 +14,7 @@ open class StringTableTask : DefaultTask() {
     @Internal var targetSheetUrl = ""
     @Internal var outputXlsxFilePath = ""
     @Internal var androidResourcePath = ""
+    @Internal var defaultLanguageForValues = ""
     @Internal var rowPositionColumnHeader : Int? = null
     @Internal var outputXmlFileName : String? = null
     @Internal var doNotConvertNewLine : Boolean? = null
@@ -31,6 +31,7 @@ open class StringTableTask : DefaultTask() {
             rowPositionColumnHeader,
             outputXmlFileName,
             doNotConvertNewLine = doNotConvertNewLine == true,
+            defaultLanguageForValues,
         )
     }
 }

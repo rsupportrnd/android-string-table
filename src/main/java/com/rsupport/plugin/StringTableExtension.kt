@@ -10,6 +10,7 @@ open class StringTableExtension(project: Project) {
     var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
     var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
+    var defaultLanguageForValues: Property<String> = project.objects.property(String::class.java)
     var rowPositionColumnHeader: Property<Int>? = project.objects.property(Int::class.java)
     var outputXmlFileName: Property<String>? = project.objects.property(String::class.java)
     var doNotConvertNewLine: Property<Boolean>? = project.objects.property(Boolean::class.java)
@@ -28,6 +29,10 @@ open class StringTableExtension(project: Project) {
 
     fun setAndroidResourcePath(androidResourcePath: String) {
         this.androidResourcePath.set(androidResourcePath)
+    }
+
+    fun setDefaultLanguageForValues(defaultLanguageForValues: String) {
+        this.defaultLanguageForValues.set(defaultLanguageForValues)
     }
 
     fun setRowPositionColumnHeader(rowPositionColumnHeader: Int?) {
@@ -51,6 +56,8 @@ open class StringTableExtension(project: Project) {
     fun getAndroidResourcePath(): String = androidResourcePath.get()
 
     fun getRowPositionColumnHeader(): Int? = rowPositionColumnHeader?.get()
+
+    fun getDefaultLanguageForValues(): String = defaultLanguageForValues.get()
 
     fun getOutputXmlFileName(): String? = outputXmlFileName?.get()
 

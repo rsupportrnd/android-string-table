@@ -14,6 +14,7 @@ open class GenerateXmlTask : DefaultTask() {
     @Internal var outputXlsxFilePath = ""
     @Internal var androidResourcePath = ""
     @Internal var rowPositionColumnHeader: Int? = null
+    @Internal var defaultLanguageForValues = ""
     @Internal var outputXmlFileName: String? = null
     @Internal var doNotConvertNewLine: Boolean? = null
 
@@ -22,11 +23,12 @@ open class GenerateXmlTask : DefaultTask() {
         val credential = GoogleCredentials.createCredentials(googleDriveCredentialPath)
         val sheetURLParser = SheetUrlParser(credential, targetSheetUrl)
         StringTableGenerator.generate(
-            outputXlsxFilePath,
-            androidResourcePath,
-            sheetURLParser.sheetName,
-            rowPositionColumnHeader,
-            outputXmlFileName,
+            source = outputXlsxFilePath,
+            resPath = androidResourcePath,
+            targetSheetName = sheetURLParser.sheetName,
+            rowPositionColumnHeader = rowPositionColumnHeader,
+            defaultLanguageForValues = defaultLanguageForValues,
+            xmlFileName = outputXmlFileName,
             doNotConvertNewLine = doNotConvertNewLine ?: false,
         )
     }
