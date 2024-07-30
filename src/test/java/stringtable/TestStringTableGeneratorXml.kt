@@ -18,7 +18,7 @@ class TestStringTableGeneratorXml {
             "",
             1,
             null,
-            defaultLanguageForValues = defaultLanguageForValues
+            defaultLanguageForValues = "en"
         )
         Assert.assertTrue(File("./src/test/java/stringtable/sample/res/values/strings_generated.xml").exists())
     }
@@ -34,7 +34,7 @@ class TestStringTableGeneratorXml {
             "",
             5,
             null,
-            defaultLanguageForValues = defaultLanguageForValues
+            defaultLanguageForValues = "en"
         )
         Assert.assertTrue(File("./src/test/java/stringtable/sample/res-5-1/values/strings_generated.xml").exists())
     }
@@ -50,7 +50,7 @@ class TestStringTableGeneratorXml {
             "",
             5,
             "string_test",
-            defaultLanguageForValues = defaultLanguageForValues
+            defaultLanguageForValues = "en",
         )
         Assert.assertTrue(File("./src/test/java/stringtable/sample/res-5-1/values/string_test.xml").exists())
     }
@@ -66,7 +66,7 @@ class TestStringTableGeneratorXml {
             "언어리소스_삼성글로벌 전체",
             1,
             null,
-            defaultLanguageForValues = defaultLanguageForValues
+            defaultLanguageForValues = "en",
         )
     }
 

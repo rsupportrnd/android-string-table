@@ -41,7 +41,7 @@ class StringTableTest {
                 sheetURLParser.sheetName,
                 1,
                 null,
-                defaultLanguageForValues = defaultLanguageForValues
+                defaultLanguageForValues = "en"
             )
         }
         Assert.assertTrue(File("$androidResourcePath/values/strings_generated.xml").exists())
@@ -60,7 +60,7 @@ class StringTableTest {
                 sheetURLParser.sheetName,
                 2,
                 null,
-                defaultLanguageForValues = defaultLanguageForValues
+                defaultLanguageForValues = "en"
             )
         }
     }
@@ -80,7 +80,7 @@ class StringTableTest {
                 sheetURLParser.sheetName,
                 1,
                 null,
-                defaultLanguageForValues = defaultLanguageForValues
+                defaultLanguageForValues = "en"
             )
         }
     }
