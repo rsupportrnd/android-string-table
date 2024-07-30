@@ -11,6 +11,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
+import java.util.*
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
@@ -36,8 +37,8 @@ object Sheet2Strings {
             column++
             try {
                 val languageCode = nav.getCell(rowStringId, column)
-                if ("values" !in languageCode) continue
-                val filename = Path.combine(pathRes.path, languageCode, xmlFileName)
+                if (!isALanguageCode(languageCode)) continue
+                val filename = Path.combine(pathRes.path, "values-$languageCode", xmlFileName)
                 createStringsXml(
                     filename,
                     nav,
@@ -51,6 +52,11 @@ object Sheet2Strings {
             }
         }
     }
+
+    private fun isALanguageCode(languageCode: String): Boolean {
+        return LanguageCode.isValid(languageCode)
+    }
+
 
     private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int?): Pair<Int, Int> {
         var columnIndex = 0
