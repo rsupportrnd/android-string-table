@@ -15,6 +15,7 @@ object StringTableGenerator {
         rowPositionColumnHeader: Int?,
         xmlFileName: String?,
         doNotConvertNewLine: Boolean? = null,
+        defaultLanguageForValues: String,
     ) {
         println("Generate string tables.")
         println("\tsource: $source")
@@ -24,10 +25,11 @@ object StringTableGenerator {
         val inputStream = FileInputStream(sourceFile)
         val workbook = XSSFWorkbook(inputStream)
         Sheet2Strings.convert(
-            getTargetSheet(targetSheetName, workbook),
-            pathRes,
-            rowPositionColumnHeader,
-            xmlFileName,
+            sheet = getTargetSheet(targetSheetName, workbook),
+            pathRes = pathRes,
+            rowPositionColumnHeader = rowPositionColumnHeader,
+            defaultLanguageForValues = defaultLanguageForValues,
+            outputXmlFileName = xmlFileName,
             doNotConvertNewLine = doNotConvertNewLine ?: false,
         )
         println("Completed.")

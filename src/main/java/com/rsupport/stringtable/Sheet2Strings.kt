@@ -11,7 +11,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
-import java.util.*
 import kotlin.NoSuchElementException
 
 object Sheet2Strings {
@@ -19,6 +18,7 @@ object Sheet2Strings {
         sheet: Sheet,
         pathRes: File,
         rowPositionColumnHeader: Int?,
+        defaultLanguageForValues: String,
         outputXmlFileName: String?,
         doNotConvertNewLine: Boolean
     ) {
@@ -27,46 +27,80 @@ object Sheet2Strings {
 
         var column = columnStringId
 
-        val xmlFileName = if(outputXmlFileName.isNullOrEmpty()) {
+        val xmlFileName = if (outputXmlFileName.isNullOrEmpty()) {
             "strings_generated.xml"
         } else {
             "$outputXmlFileName.xml"
         }
 
+        val listOfColumn: List<Pair<Int, String>> = extractColumns(
+            nav = nav,
+            rowStringId = rowStringId,
+            columnStringId = columnStringId,
+            defaultLanguageForValues = defaultLanguageForValues
+        )
+
+        for ((col, resourceFolderName) in listOfColumn) {
+            val filename = Path.combine(pathRes.path, resourceFolderName, xmlFileName)
+            createStringsXml(
+                filename,
+                nav,
+                columnStringId,
+                rowStringId + 1,
+                col,
+                doNotConvertNewLine = doNotConvertNewLine,
+            )
+        }
+    }
+
+    private fun extractColumns(
+        nav: SheetNavigator,
+        rowStringId: Int,
+        columnStringId: Int,
+        defaultLanguageForValues: String
+    ): List<Pair<Int, String>> {
+        val result = mutableListOf<Pair<Int, String>>()
+
+        var column = columnStringId
         while (true) {
             column++
             try {
-                val languageCode = nav.getCell(rowStringId, column)
-                if (!isALanguageCode(languageCode)) continue
-                val filename = Path.combine(pathRes.path, "values-$languageCode", xmlFileName)
-                createStringsXml(
-                    filename,
-                    nav,
-                    columnStringId,
-                    rowStringId + 1,
-                    column,
-                    doNotConvertNewLine = doNotConvertNewLine,
-                )
+                val columnHeader = nav.getCell(rowStringId, column)
+                val resourceFolderName = createResourceFolderName(columnHeader) ?: continue
+                result.add(Pair(column, resourceFolderName))
+                if (defaultLanguageForValues.isNotBlank() && LanguageCode.getActualCode(columnHeader) == defaultLanguageForValues) {
+                    result.add(Pair(column, "values"))
+                }
             } catch (e: NoSuchElementException) {
                 break
             }
         }
+
+        return result
     }
 
-    private fun isALanguageCode(languageCode: String): Boolean {
-        return LanguageCode.isValid(languageCode)
+    private fun createResourceFolderName(languageCode: String): String? {
+        if (languageCode == "values") {
+            return "values"
+        }
+
+        if (LanguageCode.isValid(languageCode)) {
+            return "values-$languageCode"
+        }
+
+        return null
     }
 
 
     private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int?): Pair<Int, Int> {
         var columnIndex = 0
-        val rowIndex = if(rowPositionColumnHeader == null) {
+        val rowIndex = if (rowPositionColumnHeader == null) {
             0
         } else {
             rowPositionColumnHeader - 1
         }
 
-        if(rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
+        if (rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
 
         while (true) {
             try {
@@ -109,7 +143,7 @@ object Sheet2Strings {
         val doc = Document()
         val resources = Element("resources")
         doc.addContent(resources)
-        resources.addContent(Comment("generator link: https://github.com/jobtools/android-string-table "))
+        resources.addContent(Comment("generator link: https://github.com/rsupportrnd/android-string-table "))
         resources.addContent(Comment("자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!"))
         resources.addContent(Comment("This file is auto generated. DO NOT EDIT THIS XML FILE!"))
         var row = rowStringId
@@ -126,8 +160,9 @@ object Sheet2Strings {
 
                 // 주석처리
                 if (id.startsWith("<") ||
-                        id.startsWith("/") ||
-                        id.startsWith("#")) {
+                    id.startsWith("/") ||
+                    id.startsWith("#")
+                ) {
                     if (id.startsWith("<!--")) {
                         id = id.replace("<!--", "").replace("-->".toRegex(), "")
                     }
@@ -169,12 +204,14 @@ object Sheet2Strings {
                     )
                     resources.addContent(stringArray)
                 }
+
                 id.endsWith(".append") -> {
                     val previousId = id.dropLast(".append".length)
                     val original = resources.children.first { it.getAttribute("name").value == previousId }
 
                     original.text = original.text + getText(value, doNotConvertNewLine = doNotConvertNewLine)
                 }
+
                 else -> {
                     val string = Element("string")
                     string.setAttribute("name", id)
@@ -185,16 +222,20 @@ object Sheet2Strings {
             row++
         }
         try {
+            if (resources.children.count { it.name == "string" } == 0) {
+                return
+            }
             val file = File(filename)
             if (file.parentFile.isDirectory == false) file.parentFile.mkdirs() else if (file.exists()) file.delete()
 
             // 4. 파일에 출력
-            val writer = OutputStreamWriter(FileOutputStream(File(filename)),
-                    "UTF-8")
+            val writer = OutputStreamWriter(
+                FileOutputStream(File(filename)),
+                "UTF-8"
+            )
             //FileWriter writer = new FileWriter(filename);
             XMLOutputter(Format.getPrettyFormat().setIndent("    ").setEncoding("UTF-8")).output(doc, writer)
             writer.close()
-            //출처: http://devhome.tistory.com/74 [미주엘의 개발이야기]
         } catch (e: IOException) {
             e.printStackTrace()
         }
