@@ -53,6 +53,7 @@ androidStringTable {
     outputXlsxFilePath "${project.rootDir}/app/i18n/languages.xlsx"
     rowPositionColumnHeader 1
     doNotConvertNewLine false
+    defaultLanguageForValues "en"
 
     androidResourcePath "${project.rootDir}/app/src/main/res"
     outputXmlFileName 'strings_generated'

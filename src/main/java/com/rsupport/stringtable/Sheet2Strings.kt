@@ -143,7 +143,7 @@ object Sheet2Strings {
         val doc = Document()
         val resources = Element("resources")
         doc.addContent(resources)
-        resources.addContent(Comment("generator link: https://github.com/jobtools/android-string-table "))
+        resources.addContent(Comment("generator link: https://github.com/rsupportrnd/android-string-table "))
         resources.addContent(Comment("자동 생성된 파일입니다. 이 xml 파일을 직접 수정하지 마세요!"))
         resources.addContent(Comment("This file is auto generated. DO NOT EDIT THIS XML FILE!"))
         var row = rowStringId
@@ -222,6 +222,9 @@ object Sheet2Strings {
             row++
         }
         try {
+            if (resources.children.count { it.name == "string" } == 0) {
+                return
+            }
             val file = File(filename)
             if (file.parentFile.isDirectory == false) file.parentFile.mkdirs() else if (file.exists()) file.delete()
 
@@ -233,7 +236,6 @@ object Sheet2Strings {
             //FileWriter writer = new FileWriter(filename);
             XMLOutputter(Format.getPrettyFormat().setIndent("    ").setEncoding("UTF-8")).output(doc, writer)
             writer.close()
-            //출처: http://devhome.tistory.com/74 [미주엘의 개발이야기]
         } catch (e: IOException) {
             e.printStackTrace()
         }
