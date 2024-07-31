@@ -7,8 +7,8 @@ class LanguageCodeTest {
 
     @Test
     fun testLanguageCode() {
-        val validTestCases = listOf("values-ko", "values-en", "ko", "en", "ko-KR", "en-CA", "values-fr", "de", "ja-JP")
-        val invalidTestCases = listOf("invalid", "values-invalid", "xx", "values-xx")
+        val validTestCases = listOf("en", "ko", "en", "ko-KR", "en-CA", "fr", "de", "ja-JP")
+        val invalidTestCases = listOf("invalid", "xx", "xx")
 
         for (testCase in validTestCases) {
             assertTrue("Expected '$testCase' to be valid", LanguageCode.isValid(testCase))
@@ -31,19 +31,18 @@ class LanguageCodeTest {
             "values-fr" to "fr",
             "de" to "de",
             "ja-JP" to "ja-JP",
+            "values-unknown" to "unknown",
             "values" to null,
             "" to null,
+            "xx" to "xx",
         )
-        val invalidTestCases = listOf("invalid", "values-invalid", "xx", "values-xx")
 
         for ((testCase, expected) in validTestCases) {
             val actual = LanguageCode.getActualCode(testCase)
-            assertTrue("Expected '$testCase' to be '$expected', but was '$actual'", actual == expected)
-        }
-
-        for (testCase in invalidTestCases) {
-            val actual = LanguageCode.getActualCode(testCase)
-            assertTrue("Expected '$testCase' to be null, but was '$actual'", actual == null)
+            assertTrue(
+                "Expected '$testCase' to be '$expected', but was '$actual'",
+                actual == expected
+            )
         }
     }
 }

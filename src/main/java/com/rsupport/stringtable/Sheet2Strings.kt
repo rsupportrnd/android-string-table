@@ -69,9 +69,10 @@ object Sheet2Strings {
                 val columnHeader = nav.getCell(rowStringId, column)
                 val resourceFolderName = createResourceFolderName(columnHeader) ?: continue
                 result.add(Pair(column, resourceFolderName))
-                if (defaultLanguageForValues.isNotBlank() && LanguageCode.getActualCode(columnHeader) == defaultLanguageForValues) {
-                    result.add(Pair(column, "values"))
-                }
+
+                val emptyOrOne = valuesData(defaultLanguageForValues, columnHeader, column)
+                result.addAll(emptyOrOne)
+
             } catch (e: NoSuchElementException) {
                 break
             }
@@ -80,13 +81,24 @@ object Sheet2Strings {
         return result
     }
 
-    private fun createResourceFolderName(languageCode: String): String? {
-        if (languageCode == "values") {
-            return "values"
+    private fun valuesData(
+        defaultLanguageForValues: String,
+        columnHeader: String,
+        column: Int,
+    ): List<Pair<Int, String>> {
+        if (defaultLanguageForValues.isBlank()) return emptyList()
+        if (LanguageCode.getActualCode(columnHeader) != defaultLanguageForValues) return emptyList()
+
+        return listOf(Pair(column, "values"))
+    }
+
+    private fun createResourceFolderName(columnHeader: String): String? {
+        if (columnHeader.startsWith("values")) {
+            return columnHeader
         }
 
-        if (LanguageCode.isValid(languageCode)) {
-            return "values-$languageCode"
+        if (LanguageCode.isValid(columnHeader)) {
+            return "values-$columnHeader"
         }
 
         return null
