@@ -34,14 +34,15 @@ object Sheet2Strings {
             "$outputXmlFileName.xml"
         }
 
-        val listOfColumn: List<Pair<Int, String>> = extractColumns(
+        val languageMap: Map<String, Int> = extractColumns(
             nav = nav,
             rowStringId = rowStringId,
             columnStringId = columnStringId,
-            defaultLanguageForValues = defaultLanguageForValues
+            defaultLanguageCode = defaultLanguageForValues
         )
 
-        for ((col, resourceFolderName) in listOfColumn) {
+        languageMap.keys.forEach { resourceFolderName ->
+            val col = languageMap[resourceFolderName]!!
             val filename = Path.combine(pathRes.path, resourceFolderName, xmlFileName)
             createStringsXml(
                 filename,
@@ -58,21 +59,17 @@ object Sheet2Strings {
         nav: SheetNavigator,
         rowStringId: Int,
         columnStringId: Int,
-        defaultLanguageForValues: String
-    ): List<Pair<Int, String>> {
-        val result = mutableListOf<Pair<Int, String>>()
+        defaultLanguageCode: String
+    ): Map<String, Int> {
+        val result = HashMap<String, Int>()
 
         var column = columnStringId
         while (true) {
             column++
             try {
                 val columnHeader = nav.getCell(rowStringId, column)
-                val resourceFolderName = createResourceFolderName(columnHeader) ?: continue
-                result.add(Pair(column, resourceFolderName))
-
-                val emptyOrOne = valuesData(defaultLanguageForValues, columnHeader, column)
-                result.addAll(emptyOrOne)
-
+                val resourceFolderName = createResourceFolderName(columnHeader, defaultLanguageCode) ?: continue
+                result[resourceFolderName] = column
             } catch (e: NoSuchElementException) {
                 break
             }
@@ -81,23 +78,21 @@ object Sheet2Strings {
         return result
     }
 
-    private fun valuesData(
-        defaultLanguageForValues: String,
+    private fun createResourceFolderName(
         columnHeader: String,
-        column: Int,
-    ): List<Pair<Int, String>> {
-        if (defaultLanguageForValues.isBlank()) return emptyList()
-        if (LanguageCode.getActualCode(columnHeader) != defaultLanguageForValues) return emptyList()
-
-        return listOf(Pair(column, "values"))
-    }
-
-    private fun createResourceFolderName(columnHeader: String): String? {
+        defaultLanguage: String,
+    ): String? {
         if (columnHeader.startsWith("values")) {
+            if (defaultLanguage == LanguageCode.getActualCode(columnHeader)) {
+                return "values"
+            }
             return columnHeader
         }
 
         if (LanguageCode.isValid(columnHeader)) {
+            if (defaultLanguage == columnHeader) {
+                return "values"
+            }
             return "values-$columnHeader"
         }
 
