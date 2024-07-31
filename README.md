@@ -45,12 +45,11 @@ androidStringTable {
 
     outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
     rowPositionColumnHeader 1
+    defaultLanguageForValues "en" // values 로 지정됨
     doNotConvertNewLine false
 
-    androidResourcePath "${project.rootDir}/app/src/main/res"
+    androidResourcePath "src/main/res"
     outputXmlFileName 'strings_generated'
-
-
 }
 ````
 
@@ -87,7 +86,7 @@ androidStringTable {
 The MIT License (MIT)
 =====================
 
-Copyright © 2021 RSUPPORT
+Copyright © 2024 RSUPPORT
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
