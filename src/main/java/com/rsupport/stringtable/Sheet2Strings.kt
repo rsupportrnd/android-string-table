@@ -3,6 +3,7 @@ package com.rsupport.stringtable
 import com.rsupport.stringtable.xls.SheetNavigator
 import org.apache.poi.ss.usermodel.Sheet
 import org.jdom2.Comment
+import org.jdom2.Content
 import org.jdom2.Document
 import org.jdom2.Element
 import org.jdom2.output.Format
@@ -222,7 +223,7 @@ object Sheet2Strings {
             row++
         }
         try {
-            if (resources.children.count { it.name == "string" } == 0) {
+            if (resources.children.count { it.cType != Content.CType.Comment } == 0) {
                 return
             }
             val file = File(filename)
