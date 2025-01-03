@@ -21,6 +21,7 @@
 
 ## 💡플러그인 적용 방법
 ***
+### Groovy DSL
 ### Build.gradle(:project)
 ````groovy
 buildscript {  
@@ -30,7 +31,7 @@ buildscript {
             maven { url 'https://jitpack.io' }  
         }  
         dependencies {
-            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.3'
+            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.12'
       }  
     }
 ````
@@ -52,6 +53,63 @@ androidStringTable {
     outputXmlFileName 'strings_generated'
 }
 ````
+***
+### Kotlin DSL (Version catalog)
+
+### Build.gradle.kts(:project)
+````kotlin
+buildscript {
+  repositories {
+    maven("https://jitpack.io")
+  }
+  dependencies {
+    classpath(libs.rsupportrnd.android.string.table)
+  }
+}
+````
+
+### libs.versions.toml
+````toml
+[versions]
+androidStringTable = "1.0.5.12"
+
+[libraries]
+rsupportrnd-android-string-table = { group = "com.github.rsupportrnd", name = "android-string-table", version.ref = "androidStringTable" }
+
+[plugins]
+android-string-table = { id = "android-string-table" }
+````
+
+### Build.gradle.kts(:app)
+````kotlin
+plugins {
+  alias(libs.plugins.android.string.table)
+}
+
+androidStringTable {
+  googleDriveCredentialPath.value("${project.rootDir}/strings/credentials.json")
+  targetSheetUrl.value("https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0") // full url of sheet included tab gid
+  outputXlsxFilePath.value("${project.rootDir}/strings/archive.xlsx")
+  rowPositionColumnHeader?.value(1)
+  defaultLanguageForValues.value("en") // values 로 지정됨
+  doNotConvertNewLine?.value(false)
+  androidResourcePath.value("src/main/res")
+  outputXmlFileName?.value("strings_generated")
+}
+````
+
+### Setting.gradle.kts(:Project Settings)
+````kotlin
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+    maven("https://jitpack.io")
+  }
+}
+````
+
 
 ## 💡 Credential 파일 다운로드 방법
 [Guide to get google credential](guide-google-credential.md)
