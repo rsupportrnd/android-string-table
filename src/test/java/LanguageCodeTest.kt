@@ -7,7 +7,7 @@ class LanguageCodeTest {
 
     @Test
     fun testLanguageCode() {
-        val validTestCases = listOf("en", "ko", "en", "ko-KR", "en-CA", "fr", "de", "ja-JP")
+        val validTestCases = listOf("en", "ko", "en", "ko-KR", "en-CA", "fr", "de", "ja-JP", "zh-rCN", "zh-rTW")
         val invalidTestCases = listOf("invalid", "xx", "xx")
 
         for (testCase in validTestCases) {
@@ -28,6 +28,8 @@ class LanguageCodeTest {
             "en" to "en",
             "ko-KR" to "ko-KR",
             "en-CA" to "en-CA",
+            "zh-rCN" to "zh-rCN",
+            "zh-rTW" to "zh-rTW",
             "values-fr" to "fr",
             "de" to "de",
             "ja-JP" to "ja-JP",

@@ -10,7 +10,10 @@ class LanguageCode {
                 .map { it.toLanguageTag() }
                 .toSet()
 
-            return languageCode in availableLanguageCodes
+            val containsRegionQualifier = languageCode.contains("-r")
+            val normalizedLanguageCode = if (containsRegionQualifier) languageCode.replace("-r", "-") else languageCode
+
+            return normalizedLanguageCode in availableLanguageCodes
         }
 
         fun getActualCode(languageCode: String): String? {
