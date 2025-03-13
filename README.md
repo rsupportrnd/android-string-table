@@ -21,39 +21,6 @@
 
 ## 💡플러그인 적용 방법
 ***
-### Groovy DSL
-### Build.gradle(:project)
-````groovy
-buildscript {  
-      repositories {  
-            google()  
-            jcenter()  
-            maven { url 'https://jitpack.io' }  
-        }  
-        dependencies {
-            classpath 'com.github.rsupportrnd:android-string-table:1.0.5.13'
-      }  
-    }
-````
-### Build.gradle(:app)
-````groovy
-apply plugin: 'android-string-table'
-    
-androidStringTable {  
-    googleDriveCredentialPath "${project.rootDir}/strings/credentials.json"
-
-    targetSheetUrl 'https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0' // full url of sheet included tab gid
-
-    outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
-    rowPositionColumnHeader 1
-    defaultLanguageForValues "en" // values 로 지정됨
-    doNotConvertNewLine false
-
-    androidResourcePath "src/main/res"
-    outputXmlFileName 'strings_generated'
-}
-````
-***
 ### Kotlin DSL (Version catalog)
 
 ### Build.gradle.kts(:project)
@@ -71,7 +38,7 @@ buildscript {
 ### libs.versions.toml
 ````toml
 [versions]
-androidStringTable = "1.0.5.13"
+androidStringTable = "1.0.6.15"
 
 [libraries]
 rsupportrnd-android-string-table = { group = "com.github.rsupportrnd", name = "android-string-table", version.ref = "androidStringTable" }
@@ -90,11 +57,13 @@ androidStringTable {
   googleDriveCredentialPath.value("${project.rootDir}/strings/credentials.json")
   targetSheetUrl.value("https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0") // full url of sheet included tab gid
   outputXlsxFilePath.value("${project.rootDir}/strings/archive.xlsx")
-  rowPositionColumnHeader?.value(1)
+  androidResourcePath.value("$projectDir/src/main/res")
+  
+  // 아래부터 생략 가능
+  rowPositionColumnHeader.value(1)
   defaultLanguageForValues.value("en") // values 로 지정됨
-  doNotConvertNewLine?.value(false)
-  androidResourcePath.value("src/main/res")
-  outputXmlFileName?.value("strings_generated")
+  doNotConvertNewLine.value(false)
+  outputXmlFileName.value("strings_generated")
 }
 ````
 
@@ -109,7 +78,39 @@ dependencyResolutionManagement {
   }
 }
 ````
+***
+### Groovy DSL
+### Build.gradle(:project)
+````groovy
+buildscript {  
+      repositories {  
+            google()  
+            jcenter()  
+            maven { url 'https://jitpack.io' }  
+        }  
+        dependencies {
+            classpath 'com.github.rsupportrnd:android-string-table:1.0.6.15'
+      }  
+    }
+````
+### Build.gradle(:app)
+````groovy
+apply plugin: 'android-string-table'
+    
+androidStringTable {  
+    googleDriveCredentialPath "${project.rootDir}/strings/credentials.json"
 
+    targetSheetUrl 'https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=0' // full url of sheet included tab gid
+    outputXlsxFilePath "${project.rootDir}/strings/archive.xlsx"
+    androidResourcePath "src/main/res"
+  
+    // 아래부터 생략 가능
+    rowPositionColumnHeader 1
+    defaultLanguageForValues "en" // values 로 지정됨 
+    doNotConvertNewLine false
+    outputXmlFileName "strings_generated.xml"
+}
+````
 
 ## 💡 Credential 파일 다운로드 방법
 [Guide to get google credential](guide-google-credential.md)

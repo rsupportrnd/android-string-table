@@ -40,8 +40,9 @@ class StringTableTest {
                 androidResourcePath,
                 sheetURLParser.sheetName,
                 1,
-                null,
-                defaultLanguageForValues = "en"
+                "strings_generated.xml",
+                defaultLanguageForValues = "en",
+                doNotConvertNewLine = false,
             )
         }
         Assert.assertTrue(File("$androidResourcePath/values/strings_generated.xml").exists())
@@ -59,7 +60,8 @@ class StringTableTest {
                 androidResourcePath,
                 sheetURLParser.sheetName,
                 2,
-                null,
+                "strings_generated.xml",
+                doNotConvertNewLine = false,
                 defaultLanguageForValues = "en"
             )
         }
@@ -78,9 +80,6 @@ class StringTableTest {
                 outputXlsxFilePath,
                 androidResourcePath,
                 sheetURLParser.sheetName,
-                1,
-                null,
-                defaultLanguageForValues = "en"
             )
         }
     }

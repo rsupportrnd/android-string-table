@@ -16,9 +16,6 @@ class TestStringTableGeneratorXml {
             fileSource,
             resRoot,
             "",
-            1,
-            null,
-            defaultLanguageForValues = "en"
         )
         Assert.assertTrue(File("./src/test/java/stringtable/sample/res/values/strings_generated.xml").exists())
     }
@@ -33,7 +30,6 @@ class TestStringTableGeneratorXml {
             resRoot,
             "",
             5,
-            null,
             defaultLanguageForValues = "en"
         )
         Assert.assertTrue(File("./src/test/java/stringtable/sample/res-5-1/values/strings_generated.xml").exists())
@@ -65,7 +61,6 @@ class TestStringTableGeneratorXml {
             resRoot,
             "언어리소스_삼성글로벌 전체",
             1,
-            null,
             defaultLanguageForValues = "en",
         )
     }

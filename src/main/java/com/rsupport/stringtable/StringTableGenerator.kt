@@ -11,11 +11,11 @@ object StringTableGenerator {
     fun generate(
         source: String,
         resPath: String,
-        targetSheetName: String?,
-        rowPositionColumnHeader: Int?,
-        xmlFileName: String?,
-        doNotConvertNewLine: Boolean? = null,
-        defaultLanguageForValues: String,
+        targetSheetName: String,
+        rowPositionColumnHeader: Int = 1,
+        xmlFileName: String = "strings_generated.xml",
+        doNotConvertNewLine: Boolean = false,
+        defaultLanguageForValues: String = "en",
     ) {
         println("Generate string tables.")
         println("\tsource: $source")
@@ -30,7 +30,7 @@ object StringTableGenerator {
             rowPositionColumnHeader = rowPositionColumnHeader,
             defaultLanguageForValues = defaultLanguageForValues,
             outputXmlFileName = xmlFileName,
-            doNotConvertNewLine = doNotConvertNewLine ?: false,
+            doNotConvertNewLine = doNotConvertNewLine,
         )
         println("Completed.")
         inputStream.close()

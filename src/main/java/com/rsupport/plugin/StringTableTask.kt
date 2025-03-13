@@ -15,9 +15,9 @@ open class StringTableTask : DefaultTask() {
     @Internal var outputXlsxFilePath = ""
     @Internal var androidResourcePath = ""
     @Internal var defaultLanguageForValues = ""
-    @Internal var rowPositionColumnHeader : Int? = null
-    @Internal var outputXmlFileName : String? = null
-    @Internal var doNotConvertNewLine : Boolean? = null
+    @Internal var rowPositionColumnHeader : Int = 1
+    @Internal var outputXmlFileName : String = "strings_generated.xml"
+    @Internal var doNotConvertNewLine : Boolean = false
     @TaskAction
     @kotlin.jvm.Throws(Exception::class)
     fun updateStringResource() {

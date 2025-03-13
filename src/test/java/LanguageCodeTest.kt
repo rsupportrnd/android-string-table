@@ -2,12 +2,13 @@ import com.rsupport.stringtable.LanguageCode
 import org.junit.Test
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
+import java.util.*
 
 class LanguageCodeTest {
 
     @Test
     fun testLanguageCode() {
-        val validTestCases = listOf("en", "ko", "en", "ko-KR", "en-CA", "fr", "de", "ja-JP", "zh-rCN", "zh-rTW")
+        val validTestCases = listOf("en", "ko", "en", "ko-KR", "en-CA", "fr", "de", "ja-JP", "zh-rCN", "zh-rTW", "en-RW",)
         val invalidTestCases = listOf("invalid", "xx", "xx")
 
         for (testCase in validTestCases) {
@@ -30,6 +31,7 @@ class LanguageCodeTest {
             "en-CA" to "en-CA",
             "zh-rCN" to "zh-rCN",
             "zh-rTW" to "zh-rTW",
+            "en-RW" to "en-RW",
             "values-fr" to "fr",
             "de" to "de",
             "ja-JP" to "ja-JP",
