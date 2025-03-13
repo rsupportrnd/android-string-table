@@ -20,6 +20,7 @@ class SheetNavigator(var sheet: Sheet) {
             when (cell.cellType) {
                 CellType.NUMERIC -> return "" + cell.numericCellValue
                 CellType.STRING -> return cell.stringCellValue.replace("_x000a_", "\n")
+                else -> {}
             }
             return ""
         }
