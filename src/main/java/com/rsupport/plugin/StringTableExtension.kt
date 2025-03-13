@@ -2,7 +2,6 @@ package com.rsupport.plugin
 
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
-import javax.annotation.Nullable
 
 open class StringTableExtension(project: Project) {
 
@@ -11,9 +10,9 @@ open class StringTableExtension(project: Project) {
     var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
     var defaultLanguageForValues: Property<String> = project.objects.property(String::class.java)
-    var rowPositionColumnHeader: Property<Int>? = project.objects.property(Int::class.java)
-    var outputXmlFileName: Property<String>? = project.objects.property(String::class.java)
-    var doNotConvertNewLine: Property<Boolean>? = project.objects.property(Boolean::class.java)
+    var rowPositionColumnHeader: Property<Int> = project.objects.property(Int::class.java)
+    var outputXmlFileName: Property<String> = project.objects.property(String::class.java)
+    var doNotConvertNewLine: Property<Boolean> = project.objects.property(Boolean::class.java)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
@@ -35,16 +34,16 @@ open class StringTableExtension(project: Project) {
         this.defaultLanguageForValues.set(defaultLanguageForValues)
     }
 
-    fun setRowPositionColumnHeader(rowPositionColumnHeader: Int?) {
-        this.rowPositionColumnHeader?.set(rowPositionColumnHeader)
+    fun setRowPositionColumnHeader(rowPositionColumnHeader: Int) {
+        this.rowPositionColumnHeader.set(rowPositionColumnHeader)
     }
 
-    fun setOutputXmlFileName(outputXmlFileName: String?) {
-        this.outputXmlFileName?.set(outputXmlFileName)
+    fun setOutputXmlFileName(outputXmlFileName: String) {
+        this.outputXmlFileName.set(outputXmlFileName)
     }
 
-    fun setDoNotConvertNewLine(doNotConvertNewLine: Boolean?) {
-        this.doNotConvertNewLine?.set(doNotConvertNewLine)
+    fun setDoNotConvertNewLine(doNotConvertNewLine: Boolean) {
+        this.doNotConvertNewLine.set(doNotConvertNewLine)
     }
 
     fun getGoogleDriveCredentialPath(): String = googleDriveCredentialPath.get()
@@ -55,11 +54,11 @@ open class StringTableExtension(project: Project) {
 
     fun getAndroidResourcePath(): String = androidResourcePath.get()
 
-    fun getRowPositionColumnHeader(): Int? = rowPositionColumnHeader?.get()
+    fun getRowPositionColumnHeader(): Int = rowPositionColumnHeader.get()
 
     fun getDefaultLanguageForValues(): String = defaultLanguageForValues.get()
 
-    fun getOutputXmlFileName(): String? = outputXmlFileName?.get()
+    fun getOutputXmlFileName(): String = outputXmlFileName.get()
 
-    fun getDoNotConvertNewLine(): Boolean? = doNotConvertNewLine?.get()
+    fun getDoNotConvertNewLine(): Boolean = doNotConvertNewLine.get()
 }

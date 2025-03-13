@@ -18,9 +18,9 @@ object Sheet2Strings {
     fun convert(
         sheet: Sheet,
         pathRes: File,
-        rowPositionColumnHeader: Int?,
+        rowPositionColumnHeader: Int,
         defaultLanguageForValues: String,
-        outputXmlFileName: String?,
+        outputXmlFileName: String,
         doNotConvertNewLine: Boolean
     ) {
         val nav = SheetNavigator(sheet)
@@ -28,11 +28,8 @@ object Sheet2Strings {
 
         var column = columnStringId
 
-        val xmlFileName = if (outputXmlFileName.isNullOrEmpty()) {
-            "strings_generated.xml"
-        } else {
-            "$outputXmlFileName.xml"
-        }
+        val xmlFileName = "$outputXmlFileName.xml"
+            .replace(".xml.xml", ".xml")
 
         val languageMap: Map<String, Int> = extractColumns(
             nav = nav,
@@ -100,13 +97,9 @@ object Sheet2Strings {
     }
 
 
-    private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int?): Pair<Int, Int> {
+    private fun findIdCell(nav: SheetNavigator, rowPositionColumnHeader: Int): Pair<Int, Int> {
         var columnIndex = 0
-        val rowIndex = if (rowPositionColumnHeader == null) {
-            0
-        } else {
-            rowPositionColumnHeader - 1
-        }
+        val rowIndex = rowPositionColumnHeader - 1
 
         if (rowIndex < 0) throw IllegalStateException("Row index number starts with 1.")
 
