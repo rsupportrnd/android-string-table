@@ -9,10 +9,10 @@ open class StringTableExtension(project: Project) {
     var outputXlsxFilePath: Property<String> = project.objects.property(String::class.java)
     var targetSheetUrl: Property<String> = project.objects.property(String::class.java)
     var androidResourcePath: Property<String> = project.objects.property(String::class.java)
-    var defaultLanguageForValues: Property<String> = project.objects.property(String::class.java)
-    var rowPositionColumnHeader: Property<Int> = project.objects.property(Int::class.java)
-    var outputXmlFileName: Property<String> = project.objects.property(String::class.java)
-    var doNotConvertNewLine: Property<Boolean> = project.objects.property(Boolean::class.java)
+    var defaultLanguageForValues: Property<String> = project.objects.property(String::class.java).convention("en")
+    var rowPositionColumnHeader: Property<Int> = project.objects.property(Int::class.java).convention(1)
+    var outputXmlFileName: Property<String> = project.objects.property(String::class.java).convention("strings_generated.xml")
+    var doNotConvertNewLine: Property<Boolean> = project.objects.property(Boolean::class.java).convention(false)
 
     fun setGoogleDriveCredentialPath(googleDriveCredentialPath: String?) {
         this.googleDriveCredentialPath.set(googleDriveCredentialPath)
