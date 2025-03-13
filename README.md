@@ -133,9 +133,9 @@ dependencyResolutionManagement {
 
 ![screenshot11](screenshots/screenshot_11.png)
 1. 인덱스 행을 표시하기 위해 "id" 혹은 "identification"을 포함한 문자열을 입력한다.
-2. 인덱스 행의 셀 내부 문자열에 "values"를 포함하지 않은 열은 파싱되지 않고 넘어간다.
+2. 인덱스 행의 셀 내부 문자열에 "values"를 포함하지 않거나 언어코드가 아닌 열은 파싱되지 않고 넘어간다.
 3. 안드로이드 스튜디오에서 국가와 언어 별로 string.xml 파일이 담긴 values 폴더를 명명하는 법칙과 동일하게 "values-국가, 언어 코드"로 해당 열의 국가와 언어를 표기한다.
-4. 국가와 언어 코드가 표기되지 않은 단순 "values" 열은 기본 문자열 파일로 변환된다.
+4. 국가와 언어 코드가 표기되지 않은 단순 "values" 열은 기본 문자열 파일로 변환된다. (default 코드를 지정하면 values 로 치환된다.)
 
 ## 💡 스프레드 시트 URL
 ***
