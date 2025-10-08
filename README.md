@@ -38,7 +38,7 @@ buildscript {
 ### libs.versions.toml
 ````toml
 [versions]
-androidStringTable = "1.0.6.15"
+androidStringTable = "1.1.0"
 
 [libraries]
 rsupportrnd-android-string-table = { group = "com.github.rsupportrnd", name = "android-string-table", version.ref = "androidStringTable" }
@@ -89,7 +89,7 @@ buildscript {
             maven { url 'https://jitpack.io' }  
         }  
         dependencies {
-            classpath 'com.github.rsupportrnd:android-string-table:1.0.6.15'
+            classpath 'com.github.rsupportrnd:android-string-table:1.1.0'
       }  
     }
 ````
