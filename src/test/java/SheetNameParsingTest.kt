@@ -1,7 +1,10 @@
 import com.rsupport.google.GoogleCredentials
 import com.rsupport.google.sheet.SheetUrlParser
 import org.junit.Assert
+import org.junit.Assume
+import org.junit.Before
 import org.junit.Test
+import java.io.File
 import java.io.IOException
 import java.security.GeneralSecurityException
 
@@ -10,6 +13,14 @@ class SheetNameParsingTest {
     private val credentialFilePath = "credentials.json"
     private val sheetUrl =
         "https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=1886234656"
+
+    @Before
+    fun checkCredentials() {
+        Assume.assumeTrue(
+            "Skipping test: credentials.json not found. This test requires Google API credentials.",
+            File(credentialFilePath).exists()
+        )
+    }
 
     @Test
     fun getSheetNameFromSheetUrl() {
