@@ -3,6 +3,8 @@ import com.rsupport.google.GoogleCredentials
 import com.rsupport.google.sheet.SheetUrlParser
 import com.rsupport.stringtable.StringTableGenerator
 import org.junit.Assert
+import org.junit.Assume
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.nio.file.Files
@@ -12,6 +14,14 @@ import java.util.*
 class StringTableTest {
 
     private val credentialFilePath = "credentials.json"
+
+    @Before
+    fun checkCredentials() {
+        Assume.assumeTrue(
+            "Skipping test: credentials.json not found. This test requires Google API credentials.",
+            File(credentialFilePath).exists()
+        )
+    }
     private val sheetUrl =
         "https://docs.google.com/spreadsheets/d/1W6WG_b40FmvyVbstodPgwA6USc0PRANoemCMN66_peM/edit#gid=1886234656"
     private val outputXlsxFilePath = "./output/strings_sample.xlsx"
