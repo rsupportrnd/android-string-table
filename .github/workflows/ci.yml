@@ -30,11 +30,8 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Compile
-        run: ./gradlew compileKotlin compileTestKotlin --stacktrace
-
-      - name: Test
-        run: ./gradlew test --stacktrace
+      - name: Check (compile + test + 추후 lint)
+        run: ./gradlew check --stacktrace
 
       - name: Upload test report
         if: failure()
