@@ -60,6 +60,104 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Verify plugin tasks registered
+        working-directory: example
+        run: |
+          ./gradlew :app:tasks --group androidStringTable | tee tasks.txt
+          grep -qw downloadSpreadsheet tasks.txt
+          grep -qw generateStringsXmls tasks.txt
+          grep -qw updateResource tasks.txt
+
+      - name: Lint example app
+        working-directory: example
+        run: ./gradlew :app:lintDebug --stacktrace
+
       - name: Build example app (composite build of plugin)
         working-directory: example
         run: ./gradlew :app:assembleDebug --stacktrace
+
+      - name: Upload example APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-app-debug
+          path: example/app/build/outputs/apk/debug/*.apk
+          retention-days: 7
+
+      - name: Upload lint report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-lint-report
+          path: example/app/build/reports/lint-results-*.html
+          retention-days: 7
+
+  e2e:
+    name: Plugin E2E (Google Drive)
+    runs-on: ubuntu-latest
+    needs: example
+    # forks can't access secrets; skip for cross-repo PRs
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine credentials presence
+        id: creds
+        env:
+          HAS_CREDS: ${{ secrets.GDRIVE_CREDENTIALS_JSON != '' && secrets.GDRIVE_TOKENS_TAR_B64 != '' }}
+        run: echo "has=$HAS_CREDS" >> "$GITHUB_OUTPUT"
+
+      - name: Skip notice
+        if: steps.creds.outputs.has != 'true'
+        run: echo "::notice::GDRIVE_CREDENTIALS_JSON / GDRIVE_TOKENS_TAR_B64 secret 미설정 — E2E 스킵"
+
+      - name: Set up JDK 21
+        if: steps.creds.outputs.has == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Android SDK
+        if: steps.creds.outputs.has == 'true'
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        if: steps.creds.outputs.has == 'true'
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Restore credentials
+        if: steps.creds.outputs.has == 'true'
+        working-directory: example
+        env:
+          GDRIVE_CREDENTIALS_JSON: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
+          GDRIVE_TOKENS_TAR_B64: ${{ secrets.GDRIVE_TOKENS_TAR_B64 }}
+        run: |
+          mkdir -p app/i18n
+          printf '%s' "$GDRIVE_CREDENTIALS_JSON" > app/i18n/credentials.json
+          echo "$GDRIVE_TOKENS_TAR_B64" | base64 -d | tar xz
+          test -d drive_all_tokens
+
+      - name: Run plugin E2E (:app:updateResource)
+        if: steps.creds.outputs.has == 'true'
+        working-directory: example
+        run: ./gradlew :app:updateResource --stacktrace
+
+      - name: Verify generated XML
+        if: steps.creds.outputs.has == 'true'
+        working-directory: example/app/src/main/res
+        run: |
+          test -f values/strings_generated.xml
+          test -s values/strings_generated.xml
+          xmllint --noout values/strings_generated.xml
+          variants=$(ls -d values-* 2>/dev/null | wc -l | tr -d ' ')
+          echo "locale variants found: $variants"
+          test "$variants" -ge 1
+
+      - name: Cleanup credentials
+        if: always() && steps.creds.outputs.has == 'true'
+        working-directory: example
+        run: |
+          rm -f app/i18n/credentials.json
+          rm -rf drive_all_tokens
