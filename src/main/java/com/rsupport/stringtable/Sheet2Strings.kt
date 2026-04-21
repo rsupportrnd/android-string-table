@@ -26,8 +26,6 @@ object Sheet2Strings {
         val nav = SheetNavigator(sheet)
         val (columnStringId, rowStringId) = findIdCell(nav, rowPositionColumnHeader)
 
-        var column = columnStringId
-
         val xmlFileName = "$outputXmlFileName.xml"
             .replace(".xml.xml", ".xml")
 
@@ -105,7 +103,7 @@ object Sheet2Strings {
 
         while (true) {
             try {
-                if (isIdColumn(nav.getCell(rowIndex, columnIndex).toLowerCase())) {
+                if (isIdColumn(nav.getCell(rowIndex, columnIndex).lowercase())) {
                     return Pair(columnIndex, rowIndex)
                 } else {
                     columnIndex++
@@ -229,14 +227,9 @@ object Sheet2Strings {
             val file = File(filename)
             if (file.parentFile.isDirectory == false) file.parentFile.mkdirs() else if (file.exists()) file.delete()
 
-            // 4. 파일에 출력
-            val writer = OutputStreamWriter(
-                FileOutputStream(File(filename)),
-                "UTF-8"
-            )
-            //FileWriter writer = new FileWriter(filename);
-            XMLOutputter(Format.getPrettyFormat().setIndent("    ").setEncoding("UTF-8")).output(doc, writer)
-            writer.close()
+            OutputStreamWriter(FileOutputStream(file), "UTF-8").use { writer ->
+                XMLOutputter(Format.getPrettyFormat().setIndent("    ").setEncoding("UTF-8")).output(doc, writer)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
         }
