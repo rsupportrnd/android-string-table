@@ -34,10 +34,10 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build for analysis
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
         env:
-          GRADLE_OPTS: "-Xmx4g -XX:MaxMetaspaceSize=1g"
-        run: ./gradlew compileKotlin --no-daemon
+          _JAVA_OPTIONS: "-Xmx5g"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
