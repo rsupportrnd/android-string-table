@@ -22,18 +22,19 @@ object StringTableGenerator {
         println("\tres: $resPath")
         val sourceFile = File(source)
         val pathRes = File(resPath)
-        val inputStream = FileInputStream(sourceFile)
-        val workbook = XSSFWorkbook(inputStream)
-        Sheet2Strings.convert(
-            sheet = getTargetSheet(targetSheetName, workbook),
-            pathRes = pathRes,
-            rowPositionColumnHeader = rowPositionColumnHeader,
-            defaultLanguageForValues = defaultLanguageForValues,
-            outputXmlFileName = xmlFileName,
-            doNotConvertNewLine = doNotConvertNewLine,
-        )
+        FileInputStream(sourceFile).use { inputStream ->
+            XSSFWorkbook(inputStream).use { workbook ->
+                Sheet2Strings.convert(
+                    sheet = getTargetSheet(targetSheetName, workbook),
+                    pathRes = pathRes,
+                    rowPositionColumnHeader = rowPositionColumnHeader,
+                    defaultLanguageForValues = defaultLanguageForValues,
+                    outputXmlFileName = xmlFileName,
+                    doNotConvertNewLine = doNotConvertNewLine,
+                )
+            }
+        }
         println("Completed.")
-        inputStream.close()
     }
 
     private fun getTargetSheet(targetSheetName: String?, workbook: XSSFWorkbook): XSSFSheet {
