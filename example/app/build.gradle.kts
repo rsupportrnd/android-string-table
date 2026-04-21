@@ -34,6 +34,18 @@ android {
     kotlinOptions {
         jvmTarget = "21"
     }
+    lint {
+        // example app is a plugin demo, not a production app; suppress checks that
+        // don't reflect plugin quality or are managed elsewhere
+        disable += setOf(
+            "MissingTranslation",     // example xlsx intentionally has partial locale coverage
+            "OldTargetApi",           // targetSdk bumps tracked separately
+            "GradleDependency",       // Dependabot handles AndroidX version currency
+            "ObsoleteSdkInt",         // not actionable in example app
+            "UnusedResources",        // example only consumes a subset of generated strings
+            "MonochromeLauncherIcon", // out of scope for plugin demo
+        )
+    }
 }
 
 dependencies {
