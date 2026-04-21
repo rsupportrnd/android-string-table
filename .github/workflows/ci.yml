@@ -142,7 +142,10 @@ jobs:
       - name: Run plugin E2E (:app:updateResource)
         if: steps.creds.outputs.has == 'true'
         working-directory: example
-        run: ./gradlew :app:updateResource --stacktrace
+        # --no-daemon: plugin stores OAuth tokens relative to JVM CWD; daemon CWD
+        # is ~/.gradle/daemon/<version>/ so tokens restored to example/drive_all_tokens/
+        # only match when Gradle runs in-process with the shell CWD.
+        run: ./gradlew :app:updateResource --no-daemon --stacktrace
 
       - name: Verify generated XML
         if: steps.creds.outputs.has == 'true'
