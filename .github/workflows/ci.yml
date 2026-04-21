@@ -129,23 +129,19 @@ jobs:
 
       - name: Restore credentials
         if: steps.creds.outputs.has == 'true'
-        working-directory: example
+        working-directory: example/app/i18n
         env:
           GDRIVE_CREDENTIALS_JSON: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
           GDRIVE_TOKENS_TAR_B64: ${{ secrets.GDRIVE_TOKENS_TAR_B64 }}
         run: |
-          mkdir -p app/i18n
-          printf '%s' "$GDRIVE_CREDENTIALS_JSON" > app/i18n/credentials.json
+          printf '%s' "$GDRIVE_CREDENTIALS_JSON" > credentials.json
           echo "$GDRIVE_TOKENS_TAR_B64" | base64 -d | tar xz
           test -d drive_all_tokens
 
       - name: Run plugin E2E (:app:updateResource)
         if: steps.creds.outputs.has == 'true'
         working-directory: example
-        # --no-daemon: plugin stores OAuth tokens relative to JVM CWD; daemon CWD
-        # is ~/.gradle/daemon/<version>/ so tokens restored to example/drive_all_tokens/
-        # only match when Gradle runs in-process with the shell CWD.
-        run: ./gradlew :app:updateResource --no-daemon --stacktrace
+        run: ./gradlew :app:updateResource --stacktrace
 
       - name: Verify generated XML
         if: steps.creds.outputs.has == 'true'
@@ -160,7 +156,7 @@ jobs:
 
       - name: Cleanup credentials
         if: always() && steps.creds.outputs.has == 'true'
-        working-directory: example
+        working-directory: example/app/i18n
         run: |
-          rm -f app/i18n/credentials.json
+          rm -f credentials.json
           rm -rf drive_all_tokens
