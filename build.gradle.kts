@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.0.21"
 }
 
 group = "com.rsupport"
-version = "1.1.0.14"
+version = "1.2.0.15"
 
 repositories {
     mavenCentral()
@@ -46,6 +46,6 @@ gradlePlugin {
 
 tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_17)
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }

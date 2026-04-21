@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk = 33
-    buildToolsVersion = "30.0.3"
+    namespace = "example.app"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "example.app"
-        minSdk = 16
-        targetSdk = 33
+        minSdk = 21
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -29,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
