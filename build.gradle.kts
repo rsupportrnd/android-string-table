@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `java-gradle-plugin`
     kotlin("jvm") version "2.0.21"
@@ -13,13 +10,18 @@ repositories {
     mavenCentral()
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
     testImplementation("junit:junit:4.12")
     testImplementation("org.hamcrest:hamcrest-library:1.3")
     testImplementation("org.hamcrest:hamcrest-core:1.3")
     api("org.apache.poi:poi:5.4.1")
-    api("commons-codec:commons-codec:1.5")
     api("org.apache.poi:poi-ooxml:5.4.1")
+    api("commons-io:commons-io:2.18.0")
+    api("commons-codec:commons-codec:1.18.0")
     api("org.apache.xmlbeans:xmlbeans:2.3.0")
     api("stax:stax-api:1.0.1")
     api("dom4j:dom4j:1.6.1")
@@ -35,17 +37,20 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
+configurations.all {
+    resolutionStrategy {
+        force(
+            "commons-io:commons-io:2.18.0",
+            "commons-codec:commons-codec:1.18.0",
+        )
+    }
+}
+
 gradlePlugin {
     plugins {
         create("stringTablePlugin") {
             id = "android-string-table"
             implementationClass = "com.rsupport.plugin.StringTablePlugin"
         }
-    }
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
     }
 }
