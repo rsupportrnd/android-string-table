@@ -149,7 +149,7 @@ jobs:
         run: |
           test -f values/strings_generated.xml
           test -s values/strings_generated.xml
-          xmllint --noout values/strings_generated.xml
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('values/strings_generated.xml')"
           variants=$(ls -d values-* 2>/dev/null | wc -l | tr -d ' ')
           echo "locale variants found: $variants"
           test "$variants" -ge 1
