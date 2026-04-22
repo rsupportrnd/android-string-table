@@ -2,18 +2,18 @@
 
 ## merge.py
 
-선택된 폴더에서 선택된 동일 이름 xml파일들을 하나로 합칩니다.
+Merges same-named XML files found under the given folder into a single output file.
 
-### res 폴더 내 모든 strings.xml을 합치는 경우
+### Merge every `strings.xml` under a `res/` directory
 
 `python merge.py input [res path]` or `python merge.py input [res path] target "strings.xml" output "merged_strings.xlsx"`
 
-### res 폴더 내 모든 strings.xml strings_generated.xml을 합치는 경우
+### Merge every `strings.xml` and `strings_generated.xml` under a `res/` directory
 
-#### 중복 id 시, strings_generated.xml을 우선
+#### On duplicate ids, prefer `strings_generated.xml`
 
 `python merge.py input [res path] target "strings.xml" target "strings_generated.xml" output "merged_strings.xlsx"`
 
-#### 중복 id 시 strings.xml을 우선
+#### On duplicate ids, prefer `strings.xml`
 
 `python merge.py input [res path] target "strings_generated.xml" target "strings.xml" output "merged_strings.xlsx"`
