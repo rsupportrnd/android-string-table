@@ -1,18 +1,17 @@
-import com.rsupport.plugin.StringTableExtension
-
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    id("org.jetbrains.kotlin.android")
+    id("android-string-table")
 }
 
 android {
-    compileSdk = 33
-    buildToolsVersion = "30.0.3"
+    namespace = "example.app"
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "example.app"
-        minSdk = 16
-        targetSdk = 33
+        minSdk = 21
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -29,28 +28,37 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
+    }
+    lint {
+        // example app is a plugin demo, not a production app; suppress checks that
+        // don't reflect plugin quality or are managed elsewhere
+        disable += setOf(
+            "MissingTranslation",     // example xlsx intentionally has partial locale coverage
+            "OldTargetApi",           // targetSdk bumps tracked separately
+            "GradleDependency",       // Dependabot handles AndroidX version currency
+            "ObsoleteSdkInt",         // not actionable in example app
+            "UnusedResources",        // example only consumes a subset of generated strings
+            "MonochromeLauncherIcon", // out of scope for plugin demo
+        )
     }
 }
 
 dependencies {
-    val kotlinVersion = rootProject.extra["kotlin_version"] as String
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 
-apply(plugin = "android-string-table")
-configure<StringTableExtension> {
+androidStringTable {
     googleDriveCredentialPath.set("${project.rootDir}/app/i18n/credentials.json")
     targetSheetUrl.set("https://docs.google.com/spreadsheets/d/12hmQ7U0npYM4hK4ck3qN9bMUDRu-ZcPueluxz5X4w30/edit#gid=1661361434")
     outputXlsxFilePath.set("${project.rootDir}/app/i18n/languages.xlsx")

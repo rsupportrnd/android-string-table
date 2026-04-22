@@ -17,15 +17,20 @@ import com.google.api.services.drive.DriveScopes
 
 object GoogleCredentials {
     private val JSON_FACTORY: JsonFactory = JacksonFactory.getDefaultInstance()
-    private const val TOKENS_DIRECTORY_PATH = "drive_all_tokens"
+    private const val TOKENS_DIRECTORY_NAME = "drive_all_tokens"
     private val SCOPES = listOf(DriveScopes.DRIVE, SheetsScopes.DRIVE_READONLY)
     private val HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
 
     fun createCredentials(credentialFilePath: String): Credential {
         if(credentialFilePath.isEmpty()) throw IllegalStateException("Credential File Path is Empty.")
-        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, InputStreamReader(FileInputStream(credentialFilePath)))
+        val credentialFile = File(credentialFilePath)
+        // Store tokens next to credentials.json so the path is stable across Gradle
+        // daemon restarts and runner environments (relative paths resolve against the
+        // daemon JVM CWD, which varies by Gradle version).
+        val tokensDir = File(credentialFile.parentFile ?: File("."), TOKENS_DIRECTORY_NAME)
+        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, InputStreamReader(FileInputStream(credentialFile)))
         val flow = GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-            .setDataStoreFactory(FileDataStoreFactory(File(TOKENS_DIRECTORY_PATH)))
+            .setDataStoreFactory(FileDataStoreFactory(tokensDir))
             .setAccessType("offline")
             .build()
         val receiver = LocalServerReceiver.Builder().setPort(8888).build()
