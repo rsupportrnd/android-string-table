@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.rsupport"
-version = "1.2.0.15"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
