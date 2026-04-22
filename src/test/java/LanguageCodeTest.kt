@@ -2,6 +2,7 @@ import com.rsupport.stringtable.LanguageCode
 import org.junit.Test
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertEquals
 import java.util.*
 
 class LanguageCodeTest {
@@ -47,6 +48,25 @@ class LanguageCodeTest {
                 "Expected '$testCase' to be '$expected', but was '$actual'",
                 actual == expected
             )
+        }
+    }
+
+    @Test
+    fun testToAndroidQualifier() {
+        val cases = mapOf(
+            "zh-CN" to "zh-rCN",
+            "zh-TW" to "zh-rTW",
+            "en-US" to "en-rUS",
+            "ko-KR" to "ko-rKR",
+            // already in Android form — pass through
+            "zh-rCN" to "zh-rCN",
+            "zh-rTW" to "zh-rTW",
+            // language only — no change
+            "ko" to "ko",
+            "en" to "en",
+        )
+        for ((input, expected) in cases) {
+            assertEquals("toAndroidQualifier($input)", expected, LanguageCode.toAndroidQualifier(input))
         }
     }
 }

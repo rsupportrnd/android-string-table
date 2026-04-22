@@ -78,17 +78,16 @@ object Sheet2Strings {
         defaultLanguage: String,
     ): String? {
         if (columnHeader.startsWith("values")) {
-            if (defaultLanguage == LanguageCode.getActualCode(columnHeader)) {
-                return "values"
-            }
-            return columnHeader
+            val code = LanguageCode.getActualCode(columnHeader) ?: return "values"
+            if (defaultLanguage == code) return "values"
+            return "values-${LanguageCode.toAndroidQualifier(code)}"
         }
 
         if (LanguageCode.isValid(columnHeader)) {
             if (defaultLanguage == columnHeader) {
                 return "values"
             }
-            return "values-$columnHeader"
+            return "values-${LanguageCode.toAndroidQualifier(columnHeader)}"
         }
 
         return null
